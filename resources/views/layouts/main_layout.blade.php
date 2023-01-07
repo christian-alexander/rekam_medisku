@@ -97,8 +97,8 @@
           @if (auth()->user()->hasRole('admin'))            
             @include('partials.sidebar.admin_sidebar');
           @endif
-          @if (auth()->user()->hasRole('dokter') || auth()->user()->hasRole('pengobat_tradisional'))            
-            @include('partials.sidebar.dokter_sidebar');
+          @if (auth()->user()->hasRole('pelayan_kesehatan'))            
+            @include('partials.sidebar.pelayan_kesehatan_sidebar');
           @endif
           @if (auth()->user()->hasRole('pasien'))            
             @include('partials.sidebar.pasien_sidebar');

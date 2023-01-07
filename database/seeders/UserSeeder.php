@@ -19,31 +19,35 @@ class UserSeeder extends Seeder
             'username' => 'admin',
             'password' => '$2y$10$CNF5HPBI.g0gBo3oQwPwau1qmcv1TNBofIO7gRnfUn5qvQ2PdKdeO',
             'nama' => 'Admin Web',
+            'tipe_pelayan_kesehatan' => 0,
         ]);
 
         $dokter = User::create([
             'username' => 'dokter',
             'password' => '$2y$10$CNF5HPBI.g0gBo3oQwPwau1qmcv1TNBofIO7gRnfUn5qvQ2PdKdeO',
             'nama' => 'Dokter',
+            'tipe_pelayan_kesehatan' => 1,
         ]);
 
         $pengobat_tradisional = User::create([
             'username' => 'pengobat_tradisional',
             'password' => '$2y$10$CNF5HPBI.g0gBo3oQwPwau1qmcv1TNBofIO7gRnfUn5qvQ2PdKdeO',
             'nama' => 'Pengobat Tradisional',
+            'tipe_pelayan_kesehatan' => 2,
         ]);
 
         $pasien = User::create([
             'username' => 'pasien',
             'password' => '$2y$10$CNF5HPBI.g0gBo3oQwPwau1qmcv1TNBofIO7gRnfUn5qvQ2PdKdeO',
             'nama' => 'Pasien',
+            'tipe_pelayan_kesehatan' => 0,
         ]);
 
         
 
         $admin->assignRole('admin');
-        $dokter->assignRole('dokter');
-        $pengobat_tradisional->assignRole('pengobat_tradisional');
+        $dokter->assignRole('pelayan_kesehatan');
+        $pengobat_tradisional->assignRole('pelayan_kesehatan');
         $pasien->assignRole('pasien');
 
     }

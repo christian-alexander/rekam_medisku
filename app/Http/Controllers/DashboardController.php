@@ -10,8 +10,8 @@ class DashboardController extends Controller
         if(auth()->user()->hasRole('admin')){
             return view('dashboard.admin_dashboard');
         }
-        if(auth()->user()->hasRole('dokter') || auth()->user()->hasRole('pengobat_tradisional')){
-            return view('dashboard.dokter_dashboard');
+        if(auth()->user()->hasRole('pelayan_kesehatan')){
+            return view('dashboard.pelayan_kesehatan_dashboard');
         }
         if(auth()->user()->hasRole('pasien')){
             return view('dashboard.pasien_dashboard');
