@@ -18,26 +18,33 @@ class UserSeeder extends Seeder
         $admin = User::create([
             'username' => 'admin',
             'password' => '$2y$10$CNF5HPBI.g0gBo3oQwPwau1qmcv1TNBofIO7gRnfUn5qvQ2PdKdeO',
-            'nama' => 'Admin Sekolah',
+            'nama' => 'Admin Web',
         ]);
 
-        $guru = User::create([
-            'username' => 'guru',
+        $dokter = User::create([
+            'username' => 'dokter',
             'password' => '$2y$10$CNF5HPBI.g0gBo3oQwPwau1qmcv1TNBofIO7gRnfUn5qvQ2PdKdeO',
-            'nama' => 'Bapak / Ibu Guru',
+            'nama' => 'Dokter',
         ]);
 
-        $siswa = User::create([
-            'username' => 'siswa',
+        $pengobat_tradisional = User::create([
+            'username' => 'pengobat_tradisional',
             'password' => '$2y$10$CNF5HPBI.g0gBo3oQwPwau1qmcv1TNBofIO7gRnfUn5qvQ2PdKdeO',
-            'nama' => 'Siswa',
+            'nama' => 'Pengobat Tradisional',
+        ]);
+
+        $pasien = User::create([
+            'username' => 'pasien',
+            'password' => '$2y$10$CNF5HPBI.g0gBo3oQwPwau1qmcv1TNBofIO7gRnfUn5qvQ2PdKdeO',
+            'nama' => 'Pasien',
         ]);
 
         
 
         $admin->assignRole('admin');
-        $guru->assignRole('guru');
-        $siswa->assignRole('siswa');
+        $dokter->assignRole('dokter');
+        $pengobat_tradisional->assignRole('pengobat_tradisional');
+        $pasien->assignRole('pasien');
 
     }
 }

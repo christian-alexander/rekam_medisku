@@ -97,11 +97,11 @@
           @if (auth()->user()->hasRole('admin'))            
             @include('partials.sidebar.admin_sidebar');
           @endif
-          @if (auth()->user()->hasRole('guru'))            
-            @include('partials.sidebar.guru_sidebar');
+          @if (auth()->user()->hasRole('dokter') || auth()->user()->hasRole('pengobat_tradisional'))            
+            @include('partials.sidebar.dokter_sidebar');
           @endif
-          @if (auth()->user()->hasRole('siswa'))            
-            @include('partials.sidebar.siswa_sidebar');
+          @if (auth()->user()->hasRole('pasien'))            
+            @include('partials.sidebar.pasien_sidebar');
           @endif
           <!-- / Menu -->
 
