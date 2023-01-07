@@ -5,11 +5,10 @@
 <div class='container mt-5'>
   <div class='card'>
     <div class='card-body'>
-      <h4 style='text-align:center;'>{{ ($status_aktif == 1)? 'Daftar Akun Aktif' : 'Daftar Akun Nonaktif' }}</h4>
-      <button onclick="tambah()" class='btn btn-success' style='margin-bottom:20px;'><i class="fa-solid fa-plus"></i> Tambah Akun</button>
-      <a href="/akun?{{ ($status_aktif == 1)? 'status_aktif=0' : '' }}" class='btn btn-primary' style='margin-bottom:20px;'><i class="fa-solid fa-eye"></i> {{ ($status_aktif == 1)? 'Lihat Akun Nonaktif' : 'Lihat Akun Aktif' }}</a>
+      <h4 style='text-align:center;'>Daftar Akun</h4>
+      <button onclick="tambah()" class='btn btn-success' style='margin-bottom:20px;'>Tambah Akun</button>
       <div style='overflow:auto;'>
-        <table class='table table-striped' id='yajra'>
+        <table class='table table-striped datatable'>
           <thead>
             <tr>
               <th style='width:20px;'>No</th>
@@ -17,11 +16,46 @@
               <th style='text-align:center;'>Username</th>
               <th style='text-align:center;'>Nama</th>
               <th style='text-align:center;'>Edit</th>
-              <th style='text-align:center;'>{{ ($status_aktif == 1)? 'Nonaktifkan' : 'Aktifkan' }}</th>
+              <th style='text-align:center;'>Hapus</th>
             </tr>
           </thead>
           <tbody>
+            @foreach ($akuns as $akun)
+              <tr>
+                <td style="text-align: right;">{{ $loop->iteration }}</td>
+                
+                <td style='text-align:center;'>
+                  @if ($akun->hasRole('admin'))
+                    Admin
+                  @elseif($akun->hasRole('pelayan_kesehatan'))
+                    @if ($akun->tipe_pelayan_kesehatan == 1)
+                      Dokter
+                    @else
+                      Pengobat Tradisional
+                    @endif
+                  @else 
+                    Pasien
+                  @endif
+                </td>
 
+                <td style='text-align:center;'>{{ $akun->username }}</td>
+                
+                <td style='text-align:center;'>{{ $akun->nama }}</td>
+                
+                <td style='text-align:center;'>
+                  <button id='btn_edit' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='edit({{ $akun->id }})'>
+                    <i class='fa fa-edit' style='color:#3c8dbc;'></i>
+                  </button>
+                </td>
+                
+                <td style='text-align:center;'>
+                  <button id='btn_hapus' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='hapus({{ $akun->id }})'>
+                    <i class='fa fa-trash' style='color:#3c8dbc;'></i>
+                  </button>
+                </td>
+
+              </tr>
+            @endforeach
           </tbody>
         </table>
       </div>
@@ -44,12 +78,10 @@
           <div class="form-group">
             <label>PERAN *</label>
             <select name="peran" class='form-control'>
-              <option value="">-- PILIH PERAN --</option>
-              <option value="admin">Admin</option>
-              <option value="guru">Guru</option>
-              <option value="siswa">Siswa</option>
+              <option value="pelayan_kesehatan">Dokter / Pengobat Tradisional</option>
+              <option value="pasien">Pasien</option>
             </select>
-            <span class='help-block'>HATI HATI!! PILIHAN PERAN TIDAK BISA DIEDIT!!</span>
+            <span class='help-block'>Peran tidak bisa diedit</span>
           </div>
 
           <div class="form-group">
@@ -60,7 +92,7 @@
               </span>
               <input type="text" class="form-control" name="username" required="" onkeyup='$(this).val($(this).val().toLowerCase())'>
             </div>
-            <span class='help-block'>Username tidak boleh mengandung spasi.</span>
+            <span class='help-block'>Username tidak boleh mengandung spasi</span>
           </div>
 
           <div class="form-group">
@@ -105,7 +137,7 @@
           </div>
 
           <div class="form-group" style='text-align:center;'>
-            <button type='submit' class="btn btn-success"><i class="fa-solid fa-plus"></i> Tambah</button>
+            <button type='submit' class="btn btn-success">Tambah</button>
           </div>
 
         </form>
@@ -131,9 +163,8 @@
             <label>PERAN *</label>
             <select id='peran_edit' class='form-control' disabled>
               <option value="">-- PILIH PERAN --</option>
-              <option value="admin">Admin</option>
-              <option value="guru">Guru</option>
-              <option value="siswa">Siswa</option>
+              <option value="pelayan_kesehatan">Dokter / Pengobat Tradisional</option>
+              <option value="pasien">Pasien</option>
             </select>
           </div>
 
@@ -145,7 +176,7 @@
               </span>
               <input type="text" class="form-control" name="username" id='username_edit' required="" onkeyup='$(this).val($(this).val().toLowerCase())'>
             </div>
-            <span class='help-block'>Username tidak boleh mengandung spasi.</span>
+            <span class='help-block'>Username tidak boleh mengandung spasi</span>
           </div>
 
           <div class="form-group">
@@ -192,7 +223,7 @@
           </div>
 
           <div class="form-group" style='text-align:center;'>
-            <button type='submit' class="btn btn-primary"><i class="fa-solid fa-edit"></i> Edit</button>
+            <button type='submit' class="btn btn-primary">Edit</button>
           </div>
 
         </form>
@@ -201,23 +232,24 @@
   </div>
 </div>
 
-{{-- modal status aktif --}}
-<div class="modal" tabindex="-1" id='modal_status_aktif'>
+{{-- modal hapus --}}
+<div class="modal" tabindex="-1" id='modal_hapus'>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">{{ ($status_aktif == 1)? 'Nonaktifkan' : 'Aktifkan' }} Akun</h5>
+        <h5 class="modal-title">Hapus Akun</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Apakah anda yakin ingin {{ ($status_aktif == 1)? 'Menonaktifkan' : 'Mengaktifkan' }} akun ini?
+        Apakah anda yakin ingin hapus akun ini?
       </div>
       <div class="modal-footer">
-        <form action="/akun/id_dari_js" method='POST' id='form_status_aktif'>
+        <form action="/akun/id_dari_js" method='POST' id='form_hapus'>
           @csrf
+          @method('DELETE')
 
           <div class="form-group" style='text-align:center;'>
-            <button type='submit' class="btn btn-primary"><i class="fa-solid fa-check"></i> {{ ($status_aktif == 1)? 'Nonaktifkan' : 'Aktifkan' }} </button>
+            <button type='submit' class="btn btn-danger">Hapus</button>
           </div>
 
         </form>
@@ -264,134 +296,11 @@
 
   }
 
-  function konfirm_change_status_aktif(id, is_form_aktifkan = false){
-    if( ! is_form_aktifkan){
-      var action = 'akun/change_status_aktif/nonaktifkan/' + id;  
-    }else{
-      var action = 'akun/change_status_aktif/aktifkan/' + id;  
-    }
-
-    $('#form_status_aktif').attr('action',action);
-    $('#modal_status_aktif').modal('show');
+  function hapus(id){
+    $('#form_hapus').attr('action','akun/' + id);
+    $('#modal_hapus').modal('show');
   }
 </script>
 
-
-{{-- utk yajra --}}
-<script>
-  var column = [
-      {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-      {data: 'peran', name: 'peran'},
-      {data: 'username', name: 'username'},
-      {data: 'nama', name: 'nama'},
-      {data: 'edit', name: 'edit'},
-      {data: 'status_aktif', name: 'status_aktif'},
-    ];
-</script>
-
-<script>
-  $(document).ready(function(){
-    $('#yajra').dataTable({
-      processing: true,
-      serverSide: true,
-      ajax: '/akun/yajra',
-      columns: column
-    });
-  });
-</script>
-
-{{-- script aksi aksi --}}
-<script>
-  $('form').on('submit', function(e){
-    if(this.id != 'form_ubah_password'){
-      if(this.id != 'mungkin perlu pengecualian'){
-
-
-        e.preventDefault();
-        var form = this;
-        const old_button_text = $(form).find(':submit').html();
-        if($(form).attr('method') != "GET" && $(form).attr('method') != "get"){
-          var action = $(form).attr('action');
-        }else{
-          var teks = $(form).attr('action') + "?";
-          $(this).find(':input').not(':button').each(function(){
-            teks = teks + $(this).attr('name') + "=" + $(this).val() + "&";
-          });
-          var action = teks;
-        }
-
-        $.ajax({
-            url:action,
-            method:$(form).attr('method'),
-            data:new FormData(form),
-            processData:false,
-            dataType:'json',
-            contentType:false,
-            
-            beforeSend:function(){
-              $(form).find(':submit').html('Memproses...');
-              $(form).find(':submit').attr('disabled',true);
-            },
-            
-            success:function(data){
-              $(form).find(':submit').html(old_button_text);
-              $(form).find(':submit').attr('disabled',false);
-              
-              if(data.hasOwnProperty('errors')){
-                var errors = '';
-                $.each(data.errors, function(key,value){
-                  errors = errors + "- " + value + "<br>";
-                });
-                iziToast.error({
-                  title: errors,
-                  position: 'topCenter'
-                });
-              
-              }else if(data.hasOwnProperty('success')){
-                var tabel = $('#yajra').dataTable();
-                tabel.fnDraw(false);
-                $('.modal').modal('hide');
-                $(form).find(':input').not(':button,:hidden').val('');
-                iziToast.success({
-                  title: data.success,
-                  position: 'bottomRight'
-                });
-              
-              }else if(data.hasOwnProperty('danger')){
-                $('.modal').modal('hide');
-                $(form).find(':input').not(':button,:hidden').val('');
-                iziToast.error({
-                  title: data.danger,
-                  position: 'bottomRight'
-                });
-              
-              }else{
-                alert('unknown error :(');
-              }
-            },
-            
-            error: function (xhr, ajaxOptions, thrownError) {
-              $('.modal').modal('hide');
-              $(form).find(':submit').attr('disabled',false);
-              $(form).find(':submit').html(old_button_text);
-              const respon = JSON.parse(xhr.responseText);
-              
-              if(respon.message == "not_allowed"){
-                Swal.fire({
-                  icon: 'error',
-                  title: 'Anda tidak memiliki akses',
-                });
-              
-              }else{
-                alert("error code : " + xhr.status + "\n" + "HTTP error : "  + thrownError + "\n" + "Response message : " + respon.message);
-              }
-            }
-        });
-
-
-      }
-    }
-  });
-</script>
 
 @endsection

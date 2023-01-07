@@ -66,14 +66,14 @@
 
   <script>
     $('#username').keyup(function(){
-      var usernameRegex = /^[a-zA-Z0-9]+$/;
+      var usernameRegex = /^\S*$/;
       if(usernameRegex.test($('#username').val())){
-        $('#alert_js').html('Username harus a-z, 0-9');
+        $('#alert_js').html('Username tanpa spasi');
         $('#alert_js').css('display','none');
         $('#btn_register').prop('disabled',false);
         is_valid = true;
       }else{
-        $('#alert_js').html('Username harus a-z, 0-9');
+        $('#alert_js').html('Username tanpa spasi');
         $('#alert_js').css('display','block');
         $('#btn_register').prop('disabled',true);
       }
