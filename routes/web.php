@@ -1,0 +1,41 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\AkunController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ChangePasswordController;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/create_symlink', function () {
+    Artisan::call('storage:link');
+});
+
+
+// dashboard
+Route::get('/', [DashboardController::class,'index'])->middleware('auth');
+
+// login
+Route::get('/login', [LoginController::class,'index'])->name('login');
+Route::post('/login', [LoginController::class,'authenticate']);
+Route::get('/logout', [LoginController::class,'logout']);
+
+// change password
+Route::post('/change_password',[ChangePasswordController::class,'change_password'])->middleware('auth');
+
+// user account setting
+Route::get('/akun/get_data/{id}',[AkunController::class,'get_data'])->middleware('auth');
+Route::get('/akun/yajra',[AkunController::class,'yajra'])->middleware('auth');
+Route::post('/akun/change_status_aktif/{aksi}/{id}',[AkunController::class,'change_status_aktif']);
+Route::resource('/akun',AkunController::class)->middleware('auth');
