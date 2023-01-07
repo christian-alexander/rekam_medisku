@@ -9,7 +9,7 @@
         <div class="card-body">
           <h5 class="card-title text-primary">Selamat Datang! 🎉</h5>
           <p class="mb-4">
-            Selamat Datang di Sistem Pengukuran Literasi Universitas Widya Kartika.
+            Selamat Datang di Aplikasi Pencatatan Riwayat Medis Rekam Medisku.
             <br>
             <br>
           </p>
