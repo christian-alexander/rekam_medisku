@@ -9,56 +9,25 @@
     <!-- Dashboard -->
     <li class="menu-item active">
       <a href="/" class="menu-link">
-        <i class="fa-solid fa-house fa-lg"></i>
+        {{-- <i class="fa-solid fa-house fa-lg"></i> --}}
         <div data-i18n="Analytics">Dashboard</div>
       </a>
     </li>
 
-    <!-- Materi -->
+    <!-- Rekam Medis Pribadi -->
     <li class="menu-item">
       <a href="#" class="menu-link">
-        <i class="fa-solid fa-book-open fa-lg"></i>
-        <div data-i18n="Analytics">Materi</div>
+        <div data-i18n="Analytics">Rekam Medis Pribadi</div>
+      </a>
+    </li>
+
+    <!-- Rekam Medis Pelayan Kesehatan -->
+    <li class="menu-item">
+      <a href="#" class="menu-link">
+        <div data-i18n="Analytics">Rekam Medis Pelayan Kesehatan</div>
       </a>
     </li>
     
-    <!-- simulasi -->
-    <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="fa-solid fa-list-ul fa-lg"></i>
-        <div data-i18n="Layouts">Simulasi</div>
-      </a>
-
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="#" class="menu-link">
-            <div data-i18n="Without menu">Simulasi</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="#" class="menu-link">
-            <div data-i18n="Without navbar">Histori Simulasi</div>
-          </a>
-        </li>
-      </ul>
-    </li>
-
-    <!-- Nilai -->
-    <li class="menu-item">
-      <a href="#" class="menu-link">
-        <i class="fa-solid fa-chart-line fa-lg"></i>
-        <div data-i18n="Analytics">Nilai</div>
-      </a>
-    </li>
-
-    <!-- Bantuan -->
-    <li class="menu-item">
-      <a href="#" class="menu-link">
-        <i class="fa-regular fa-circle-question fa-lg"></i>
-        <div data-i18n="Analytics">Bantuan</div>
-      </a>
-    </li>
-
   </ul>
 </aside>
 <!-- / Menu -->
