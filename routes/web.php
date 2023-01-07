@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ChangePasswordController;
 
@@ -30,6 +31,9 @@ Route::get('/', [DashboardController::class,'index'])->middleware('auth');
 Route::get('/login', [LoginController::class,'index'])->name('login');
 Route::post('/login', [LoginController::class,'authenticate']);
 Route::get('/logout', [LoginController::class,'logout']);
+// register
+Route::get('/register', [RegisterController::class,'index']);
+Route::post('/register', [RegisterController::class,'store']);
 
 // change password
 Route::post('/change_password',[ChangePasswordController::class,'change_password'])->middleware('auth');
