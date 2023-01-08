@@ -9,6 +9,7 @@ use App\Http\Controllers\PasienController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\ChangePasswordController;
 
 /*
@@ -44,6 +45,9 @@ Route::post('/change_password',[ChangePasswordController::class,'change_password
 // profil
 Route::get('/profil',[ProfilController::class,'index'])->middleware('auth');
 
+// rekam medis pasien
+Route::get('/rekam_medis/daftar_rekam_medis/{tipe_rekam_medis}',[RekamMedisController::class,'daftar_rekam_medis'])->middleware('auth');
+Route::resource('/rekam_medis',RekamMedisController::class)->middleware('auth');
 
 // ADMIN ONLY
 // user account setting

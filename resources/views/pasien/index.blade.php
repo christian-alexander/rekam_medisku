@@ -15,8 +15,8 @@
                 <th style='width:20px;'>No</th>
                 <th style='text-align:center;'>Foto</th>
                 <th style='text-align:center;'>Nama</th>
-                <th style='text-align:center;'>Riwayat Medis Tenaga Kesehatan</th>
-                <th style='text-align:center;'>Riwayat Medis Personal</th>
+                <th style='text-align:center;'>Rekam Medis Tenaga Kesehatan</th>
+                <th style='text-align:center;'>Rekam Medis Personal</th>
               </tr>
             </thead>
             <tbody>
@@ -26,7 +26,7 @@
                 
                 <td style='display:flex;'>
                   <div style='margin:0 auto;'>
-                    <img src="{{ asset('assets/img/avatars/1.png') }}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
+                    <img src="{{ asset('assets/img/avatars/1.png') }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
                   </div>
                 </td>
     
@@ -35,13 +35,13 @@
                 </td>
     
                 <td style="text-align: center;">
-                  <a href="#">
+                  <a href="/rekam_medis/daftar_rekam_medis/tenaga_kesehatan">
                     <i class='fa fa-file' style='color:#3c8dbc;'></i>
                   </a>
                 </td>
     
                 <td style="text-align: center;">
-                  <a href="#">
+                  <a href="/rekam_medis/daftar_rekam_medis/personal">
                     <i class='fa fa-file' style='color:#3c8dbc;'></i>
                   </a>
                 </td>
@@ -54,7 +54,7 @@
                 
                 <td style='display:flex;'>
                   <div style='margin:0 auto;'>
-                    <img src="{{ asset('assets/img/avatars/1.png') }}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
+                    <img src="{{ asset('assets/img/avatars/1.png') }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
                   </div>
                 </td>
     
@@ -63,13 +63,13 @@
                 </td>
     
                 <td style="text-align: center;">
-                  <a href="#">
+                  <a href="/rekam_medis/daftar_rekam_medis/tenaga_kesehatan">
                     <i class='fa fa-file' style='color:#3c8dbc;'></i>
                   </a>
                 </td>
     
                 <td style="text-align: center;">
-                  <a href="#">
+                  <a href="/rekam_medis/daftar_rekam_medis/personal">
                     <i class='fa fa-file' style='color:#3c8dbc;'></i>
                   </a>
                 </td>

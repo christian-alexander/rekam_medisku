@@ -26,7 +26,7 @@
                 
                 <td style='display:flex;'>
                   <div style='margin:0 auto;'>
-                    <img src="{{ asset('assets/img/avatars/1.png') }}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
+                    <img src="{{ asset('assets/img/avatars/1.png') }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
                   </div>
                 </td>
     
@@ -54,7 +54,7 @@
                 
                 <td style='display:flex;'>
                   <div style='margin:0 auto;'>
-                    <img src="{{ asset('assets/img/avatars/1.png') }}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
+                    <img src="{{ asset('assets/img/avatars/1.png') }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
                   </div>
                 </td>
     
