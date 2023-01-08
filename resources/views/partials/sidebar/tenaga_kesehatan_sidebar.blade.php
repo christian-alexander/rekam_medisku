@@ -16,7 +16,7 @@
 
     <!-- Permintaan Pasien -->
     <li class="menu-item {{ ( strpos(url()->current(),'permintaan_menghubungkan') != FALSE )? 'active' : '' }}">
-      <a href="/permintaan_menghubungkan" class="menu-link">
+      <a href="/hubungan/permintaan_menghubungkan" class="menu-link">
         <div data-i18n="Analytics">Permintaan Menghubungkan</div>
       </a>
     </li>

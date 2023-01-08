@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\FaskesController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\HubunganController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RekamMedisController;
@@ -58,6 +59,9 @@ Route::resource('/faskes',FaskesController::class)->middleware('auth');
 
 
 // TENAGA KESEHATAN ONLY
-Route::get('/permintaan_menghubungkan',[PasienController::class, 'permintaan'])->middleware('auth');
+Route::get('/hubungan/permintaan_menghubungkan',[HubunganController::class, 'permintaan'])->middleware('auth');
 Route::get('/pasien',[PasienController::class, 'index'])->middleware('auth');
+
+// PASIEN ONLY
+Route::get('/hubungan/pengajuan_menghubungkan',[HubunganController::class, 'pengajuan'])->middleware('auth');
 
