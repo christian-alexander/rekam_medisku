@@ -55,4 +55,5 @@ Route::resource('/faskes',FaskesController::class)->middleware('auth');
 
 // TENAGA KESEHATAN ONLY
 Route::get('/permintaan_menghubungkan',[PasienController::class, 'permintaan'])->middleware('auth');
+Route::get('/pasien',[PasienController::class, 'index'])->middleware('auth');
 
