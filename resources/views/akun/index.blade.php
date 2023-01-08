@@ -76,16 +76,18 @@
           @csrf
 
           <div class="form-group">
-            <label>PERAN *</label>
-            <select name="peran" class='form-control'>
-              <option value="tenaga_kesehatan">Dokter / Pengobat Tradisional</option>
-              <option value="pasien">Pasien</option>
+            <label>Tipe Akun *</label>
+            <select name="tipe_akun" class='form-control select2' style="width: 100%;">
+              <option value="">-- PILIH TIPE AKUN --</option>
+              <option value="1">Dokter</option>
+              <option value="2">Pengobat Tradisional</option>
+              <option value="0">Pasien</option>
             </select>
-            <span class='help-block'>Peran tidak bisa diedit</span>
+            <span class='help-block'>Tipe akun tidak bisa diedit</span>
           </div>
 
           <div class="form-group">
-            <label>USERNAME *</label>
+            <label>Username *</label>
             <div class="input-group">
               <span class="input-group-text" id="basic-addon1">                
                 <i class="fa fa-arrow-right"></i>
@@ -96,7 +98,7 @@
           </div>
 
           <div class="form-group">
-            <label>NAMA *</label>
+            <label>Nama *</label>
             <div class="input-group">
               <span class="input-group-text" id="basic-addon1">                
                 <i class="fa fa-arrow-right"></i>
@@ -106,7 +108,7 @@
           </div>
 
           <div class="form-group">
-            <label>PASSWORD *</label>
+            <label>Password *</label>
             <div class="input-group">
               <span class="input-group-text" id="basic-addon1">                
                 <i class="fa fa-arrow-right"></i>
@@ -116,7 +118,7 @@
           </div>
 
           <div class="form-group">
-            <label>KONFIRMASI PASSWORD *</label>
+            <label>Konfirmasi Password *</label>
             <div class="input-group">
               <span class="input-group-text" id="basic-addon1">                
                 <i class="fa fa-arrow-right"></i>
@@ -160,11 +162,12 @@
           @csrf
 
           <div class="form-group">
-            <label>PERAN *</label>
-            <select id='peran_edit' class='form-control' disabled>
-              <option value="">-- PILIH PERAN --</option>
-              <option value="tenaga_kesehatan">Dokter / Pengobat Tradisional</option>
-              <option value="pasien">Pasien</option>
+            <label>Tipe Akun *</label>
+            <select id='tipe_akun_edit' class='form-control' disabled>
+              <option value="">-- PILIH TIPE AKUN --</option>
+              <option value="1">Dokter</option>
+              <option value="2">Pengobat Tradisional</option>
+              <option value="0">Pasien</option>
             </select>
           </div>
 

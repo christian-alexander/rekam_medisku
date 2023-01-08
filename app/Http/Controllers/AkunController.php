@@ -44,17 +44,22 @@ class AkunController extends Controller
         $this->cek_roles('admin');
 
         $validated_data = $request->validate([
-            'peran' => 'required|max:255',
             'username' => 'required|unique:users,username|max:32|regex:/^\S*$/',
             'nama' => 'required|max:64',
             'password' => 'required|min:6',
             'konfirmasi_password' => 'required|same:password'
         ]);
 
+        $validated_data['tipe_tenaga_kesehatan'] = $request->tipe_akun;
+
         $created_user = User::create($validated_data);
         
         // beri role
-        $created_user->assignRole($request->peran);
+        if($request->tipe_akun == 0){
+            $created_user->assignRole('pasien');
+        }else if($request->tipe_akun == 1 || $request->tipe_akun == 2){
+            $created_user->assignRole('tenaga_kesehatan');
+        }
 
         return redirect()->back()->with('success', 'Berhasil Ditambah');
     }
@@ -121,7 +126,7 @@ class AkunController extends Controller
     {
         $this->cek_roles('admin');
 
-        User::where('id',$id)->update(['visibility',0]);
+        User::where('id',$id)->update(['visibility' => 0]);
 
         return redirect()->back()->with('success','Berhasil Hapus Akun');
     }
