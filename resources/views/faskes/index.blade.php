@@ -5,9 +5,10 @@
 <div class="container mt-3">
     
   <div class="card mb-4">
+    <h5 class="card-header">Daftar Faskes</h5>
+    <hr class="my-0">
     <div class="card-body">
       
-      <h4 style='text-align:center;'>Daftar Faskes</h4> 
       <button onclick="tambah()" class='btn btn-success' style='margin-bottom:20px;'>Tambah</button>
       <div style='overflow:auto;'>
         <table class='table table-striped datatable'>

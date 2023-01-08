@@ -4,8 +4,9 @@
 
 <div class='container mt-5'>
   <div class='card'>
+    <h5 class="card-header">Daftar Akun</h5>
+    <hr class="my-0">
     <div class='card-body'>
-      <h4 style='text-align:center;'>Daftar Akun</h4>
       <button onclick="tambah()" class='btn btn-success' style='margin-bottom:20px;'>Tambah Akun</button>
       <div style='overflow:auto;'>
         <table class='table table-striped datatable'>
