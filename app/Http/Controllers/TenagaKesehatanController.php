@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class PasienController extends Controller
+class TenagaKesehatanController extends Controller
 {
     public function index(){
-        return view('pasien_saya.index');
+        return view('tenaga_kesehatan_saya.index');
     }
 }

@@ -4,7 +4,7 @@
 
   <div class="container mt-3">
     <div class="card mb-4">
-      <h5 class="card-header">Permintaan Menghubungkan</h5>
+      <h5 class="card-header">Tenaga Kesehatan Saya</h5>
       <hr class="my-0">
       <div class="card-body">
         
@@ -15,8 +15,8 @@
                 <th style='width:20px;'>No</th>
                 <th style='text-align:center;'>Foto</th>
                 <th style='text-align:center;'>Nama</th>
-                <th style='text-align:center;'>Terima</th>
-                <th style='text-align:center;'>Tolak</th>
+                <th style='text-align:center;'>Fasilitas Kesehatan</th>
+                <th style='text-align:center;'>Batalkan Penghubungan</th>
               </tr>
             </thead>
             <tbody>
@@ -31,15 +31,17 @@
                     </div>
                   </div>
                 </td>
-
+    
                 <td style="text-align: center;">
-                  Calon Pasien 1
+                  Calon Dokter 1
                 </td>
     
                 <td style="text-align: center;">
-                  <button id='btn_terima' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='terima(1)'>
-                    <i class='fa fa-check' style='color:#3c8dbc;'></i>
-                  </button>
+                  RS. Utama
+                  <br>
+                  Surabaya, Jawa Timur
+                  <hr>
+                  Kardiologi
                 </td>
     
                 <td style="text-align: center;">
@@ -61,15 +63,18 @@
                     </div>
                   </div>
                 </td>
-
-                <td style="text-align: center;">
-                  Calon Pasien 2
-                </td>
     
                 <td style="text-align: center;">
-                  <button id='btn_terima' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='terima(1)'>
-                    <i class='fa fa-check' style='color:#3c8dbc;'></i>
-                  </button>
+                  Calon Dokter 2
+                </td>
+    
+
+                <td style="text-align: center;">
+                  RS. Utama
+                  <br>
+                  Surabaya, Jawa Timur
+                  <hr>
+                  Kardiologi
                 </td>
     
                 <td style="text-align: center;">

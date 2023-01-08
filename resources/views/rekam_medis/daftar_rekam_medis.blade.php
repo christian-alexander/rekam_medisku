@@ -30,8 +30,10 @@
           <div class="col-lg-8 col-md-6 mt-3" style='border-left: 1px solid #d9dee3;'>
             <h5>Filter Diterapkan</h5>
             <hr>
-            Tipe : Dokter / Pengobat Tradisional / Semua Jenis
-            <br>
+            @if ($tipe_rekam_medis == "tenaga_kesehatan")
+              Tipe : Dokter / Pengobat Tradisional / Semua Jenis
+              <br>
+            @endif
             Periode : 1 Jan 2023 - 31 Jan 2023
 
           </div>
@@ -63,7 +65,9 @@
               <tr>
                 <th style='width:20px;'>No</th>
                 <th style='text-align:center;'>Tanggal</th>
-                <th style='text-align:center;'>Tenaga Kesehatan</th>
+                @if ($tipe_rekam_medis == "tenaga_kesehatan")
+                  <th style='text-align:center;'>Tenaga Kesehatan</th>
+                @endif
                 <th style='text-align:center;'>Judul</th>
                 <th style='text-align:center;'>Diagnosis</th>
                 @if ($tipe_rekam_medis == "tenaga_kesehatan")
@@ -88,11 +92,13 @@
                   10 Januari 2023
                 </td>
 
-                <td style="text-align:center;">
-                  Dr. Sehat Subur Selalu
-                  <hr>
-                  Dokter
-                </td>
+                @if ($tipe_rekam_medis == "tenaga_kesehatan")
+                  <td style="text-align:center;">
+                    Dr. Sehat Subur Selalu
+                    <hr>
+                    Dokter
+                  </td>
+                @endif
     
                 <td style="text-align: center;">
                   Pemeriksaan Jantung Koroner
@@ -141,11 +147,13 @@
                   9 Januari 2023
                 </td>
 
-                <td style="text-align:center;">
-                  Ageng Tirta
-                  <hr>
-                  Pengobat Tradisional
-                </td>
+                @if ($tipe_rekam_medis == "tenaga_kesehatan")
+                  <td style="text-align:center;">
+                    Ageng Tirta
+                    <hr>
+                    Pengobat Tradisional
+                  </td>
+                @endif
     
                 <td style="text-align: center;">
                   Pijat Lutut

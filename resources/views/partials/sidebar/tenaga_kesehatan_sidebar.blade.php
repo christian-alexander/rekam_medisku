@@ -22,8 +22,8 @@
     </li>
 
     <!-- Pasien -->
-    <li class="menu-item {{ ( strpos(url()->current(),'pasien') != FALSE )? 'active' : '' }}">
-      <a href="/pasien" class="menu-link">
+    <li class="menu-item {{ ( strpos(url()->current(),'pasien_saya') != FALSE )? 'active' : '' }}">
+      <a href="/pasien_saya" class="menu-link">
         <div data-i18n="Analytics">Pasien</div>
       </a>
     </li>

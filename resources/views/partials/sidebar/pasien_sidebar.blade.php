@@ -34,9 +34,16 @@
         <div data-i18n="Analytics">Cari Tenaga Kesehatan</div>
       </a>
     </li>
+
+    <!-- Tenaga Kesehatan Saya -->
+    <li class="menu-item {{ ( strpos(url()->current(),'tenaga_kesehatan_saya') != FALSE )? 'active' : '' }}">
+      <a href="/tenaga_kesehatan_saya" class="menu-link">
+        <div data-i18n="Analytics">Tenaga Kesehatan Saya</div>
+      </a>
+    </li>
     
     <!-- Profil -->
-    <li class="menu-item">
+    <li class="menu-item {{ ( strpos(url()->current(),'profil') != FALSE )? 'active' : '' }}">
       <a href="/profil" class="menu-link">
         <div data-i18n="Analytics">Profil</div>
       </a>
