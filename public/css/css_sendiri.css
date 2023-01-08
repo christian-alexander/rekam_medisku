@@ -9,3 +9,7 @@
 .help-block{
     color:rgb(250, 141, 159);
 }
+
+.select2-container{
+    z-index:100000;
+}

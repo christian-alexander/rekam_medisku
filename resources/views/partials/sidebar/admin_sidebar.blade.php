@@ -22,6 +22,13 @@
       </a>
     </li>
 
+    <!-- Faskes -->
+    <li class="menu-item {{ ( strpos(url()->current(),'faskes') != FALSE )? 'active' : '' }}">
+      <a href="/faskes" class="menu-link">
+        <div data-i18n="Analytics">Faskes</div>
+      </a>
+    </li>
+
   </ul>
 </aside>
 <!-- / Menu -->

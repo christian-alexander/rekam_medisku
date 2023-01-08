@@ -39,69 +39,22 @@
               <label for="nama" class="form-label">Nama</label>
               <input class="form-control" type="text" id="nama" name="nama" value='{{ auth()->user()->nama }}' autofocus="">
             <div class="fv-plugins-message-container invalid-feedback"></div></div>
-           
-            <div class="mb-3 col-md-6">
-              <label class="form-label" for="provinsi">Provinsi</label>
-              <div class="position-relative">
-                <select id="provinsi" class="select2 form-select select2-hidden-accessible" tabindex="-1" aria-hidden="true" style='width:100%;'>
-                  {{-- diisi dari js --}}
-                </select>
-              </div>
-            </div>
-           
-            <div class="mb-3 col-md-6">
-              <label class="form-label" for="kota">Kota</label>
-              <div class="position-relative">
-                <select id="kota" class="select2 form-select select2-hidden-accessible" tabindex="-1" aria-hidden="true" style='width:100%;'>
-                  {{-- diisi dari js --}}
-                </select>
-              </div>
-            </div>
-          
+
           </div>
           <div class="mt-2">
             <button type="submit" class="btn btn-primary me-2">Save changes</button>
-            <button type="reset" class="btn btn-label-secondary">Cancel</button>
           </div>
         </form>
       </div>
       <!-- /Account -->
+
+    
     </div>
 
+    {{-- if dokter --}}
+    @if (auth()->user()->hasRole('pelayan_kesehatan'))
+      @include('profil.faskes_profil')
+    @endif
   </div>
-
-
-  <script>
-    $(document).ready(function(){
-
-      fetch('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json')
-      .then(response => response.json())
-      .then(provinces => {
-        let options = "<option value=''>-- PILIH PROVINSI --</option>";
-        provinces.forEach(function(item){
-          options += "<option value='"+item.id+"'>"+item.name+"</option>";
-        });
-
-        $('#provinsi').html(options);
-      });
-
-    });
-
-
-    $('#provinsi').change(function(){
-
-      fetch('https://www.emsifa.com/api-wilayah-indonesia/api/regencies/'+$(this).val()+'.json')
-      .then(response => response.json())
-      .then(regencies => {
-        let options = "<option value=''>-- PILIH KOTA --</option>";
-        regencies.forEach(function(item){
-          options += "<option value='"+item.id+"'>"+item.name+"</option>";
-        });
-
-        $('#kota').html(options);
-      });
-
-    });
-  </script>
 
 @endsection

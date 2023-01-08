@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\FaskesController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
@@ -39,9 +40,14 @@ Route::post('/register', [RegisterController::class,'store']);
 // change password
 Route::post('/change_password',[ChangePasswordController::class,'change_password'])->middleware('auth');
 
+
+// ADMIN ONLY
 // user account setting
 Route::get('/akun/get_data/{id}',[AkunController::class,'get_data'])->middleware('auth');
 Route::resource('/akun',AkunController::class)->middleware('auth');
+// instalasi
+Route::resource('/faskes',FaskesController::class)->middleware('auth');
 
 // profil
 Route::get('/profil',[ProfilController::class,'index'])->middleware('auth');
+
