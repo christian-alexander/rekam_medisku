@@ -7,22 +7,22 @@
 
   <ul class="menu-inner py-1">
     <!-- Dashboard -->
-    <li class="menu-item active">
-      <a href="#" class="menu-link">
+    <li class="menu-item {{ (url('/') == url()->current())? 'active' : '' }}">
+      <a href="/" class="menu-link">
         {{-- <i class="fa-solid fa-house fa-lg"></i> --}}
         <div data-i18n="Analytics">Dashboard</div>
       </a>
     </li>
 
     <!-- Pasien -->
-    <li class="menu-item">
+    <li class="menu-item {{ ( strpos(url()->current(),'pasien') != FALSE )? 'active' : '' }}">
       <a href="#" class="menu-link">
         <div data-i18n="Analytics">Pasien</div>
       </a>
     </li>
 
     <!-- Profil -->
-    <li class="menu-item">
+    <li class="menu-item {{ ( strpos(url()->current(),'profil') != FALSE )? 'active' : '' }}">
       <a href="/profil" class="menu-link">
         <div data-i18n="Analytics">Profil</div>
       </a>
