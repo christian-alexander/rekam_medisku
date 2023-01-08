@@ -100,8 +100,8 @@
           @if (auth()->user()->hasRole('admin'))            
             @include('partials.sidebar.admin_sidebar')
           @endif
-          @if (auth()->user()->hasRole('pelayan_kesehatan'))            
-            @include('partials.sidebar.pelayan_kesehatan_sidebar')
+          @if (auth()->user()->hasRole('tenaga_kesehatan'))            
+            @include('partials.sidebar.tenaga_kesehatan_sidebar')
           @endif
           @if (auth()->user()->hasRole('pasien'))            
             @include('partials.sidebar.pasien_sidebar')

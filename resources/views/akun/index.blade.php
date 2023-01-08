@@ -27,8 +27,8 @@
                 <td style='text-align:center;'>
                   @if ($akun->hasRole('admin'))
                     Admin
-                  @elseif($akun->hasRole('pelayan_kesehatan'))
-                    @if ($akun->tipe_pelayan_kesehatan == 1)
+                  @elseif($akun->hasRole('tenaga_kesehatan'))
+                    @if ($akun->tipe_tenaga_kesehatan == 1)
                       Dokter
                     @else
                       Pengobat Tradisional
@@ -78,7 +78,7 @@
           <div class="form-group">
             <label>PERAN *</label>
             <select name="peran" class='form-control'>
-              <option value="pelayan_kesehatan">Dokter / Pengobat Tradisional</option>
+              <option value="tenaga_kesehatan">Dokter / Pengobat Tradisional</option>
               <option value="pasien">Pasien</option>
             </select>
             <span class='help-block'>Peran tidak bisa diedit</span>
@@ -163,7 +163,7 @@
             <label>PERAN *</label>
             <select id='peran_edit' class='form-control' disabled>
               <option value="">-- PILIH PERAN --</option>
-              <option value="pelayan_kesehatan">Dokter / Pengobat Tradisional</option>
+              <option value="tenaga_kesehatan">Dokter / Pengobat Tradisional</option>
               <option value="pasien">Pasien</option>
             </select>
           </div>

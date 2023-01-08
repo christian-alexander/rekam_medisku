@@ -21,10 +21,10 @@
       </a>
     </li>
 
-    <!-- Rekam Medis Pelayan Kesehatan -->
+    <!-- Rekam Medis Tenaga Kesehatan -->
     <li class="menu-item">
       <a href="#" class="menu-link">
-        <div data-i18n="Analytics">Rekam Medis Pelayan Kesehatan</div>
+        <div data-i18n="Analytics">Rekam Medis Tenaga Kesehatan</div>
       </a>
     </li>
     

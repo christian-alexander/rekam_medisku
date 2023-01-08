@@ -18,7 +18,7 @@ class AkunController extends Controller
     {
         $this->cek_roles('admin');
 
-        $data['akuns'] = User::where('visibility',1)->where('id','!=',1)->orderByDesc('tipe_pelayan_kesehatan')->get();
+        $data['akuns'] = User::where('visibility',1)->where('id','!=',1)->orderByDesc('tipe_tenaga_kesehatan')->get();
 
         return view('akun.index',$data);
     }

@@ -52,7 +52,7 @@
     </div>
 
     {{-- if dokter --}}
-    @if (auth()->user()->hasRole('pelayan_kesehatan'))
+    @if (auth()->user()->hasRole('tenaga_kesehatan'))
       @include('profil.faskes_profil')
     @endif
   </div>
