@@ -21,13 +21,6 @@
         <div data-i18n="Analytics">Akun</div>
       </a>
     </li>
-    
-    <!-- Hubungan -->
-    <li class="menu-item">
-      <a href="#" class="menu-link">
-        <div data-i18n="Analytics">Hubungan</div>
-      </a>
-    </li>
 
   </ul>
 </aside>

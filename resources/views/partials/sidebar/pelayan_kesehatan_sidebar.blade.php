@@ -17,8 +17,14 @@
     <!-- Pasien -->
     <li class="menu-item">
       <a href="#" class="menu-link">
-        {{-- <i class="fa-solid fa-chalkboard-user fa-lg"></i> --}}
         <div data-i18n="Analytics">Pasien</div>
+      </a>
+    </li>
+
+    <!-- Profil -->
+    <li class="menu-item">
+      <a href="/profil" class="menu-link">
+        <div data-i18n="Analytics">Profil</div>
       </a>
     </li>
 

@@ -52,6 +52,9 @@
 
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
 
+    {{-- select2 --}}
+    <link href="/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
+
     {{-- css sendiri --}}
     <link rel="stylesheet" href="{{ asset('/css/css_sendiri.css') }}">
 
@@ -178,6 +181,8 @@
     {{-- datatable --}}
     <script src="{{ asset('assets\datatable-1.12.1\jquery.dataTables.min.js') }}"></script>
 
+    {{-- select2 --}}
+    <script src="/plugins/select2/select2.full.min.js"></script>
 
     {{-- datatable initiate --}}
     <script>
@@ -185,6 +190,26 @@
         $('.datatable').dataTable();
       });
     </script>
+
+    <script>
+      $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2(); 
+        
+        $(".js-example-basic-multiple-limit").select2({
+          maximumSelectionLength: 99
+        });
+
+        $("select").on("select2:select", function(evt) {
+          var element = evt.params.data.element;
+          var $element = $(element);
+          $element.detach();
+          $(this).append($element);
+          $(this).trigger("change");
+        });
+      })
+    </script>
+
 
     {{-- alert if success or danger --}}
     @if (session()->has('success'))
@@ -238,7 +263,7 @@
      $('form').on('submit', function(event) {
        if( ! $(this).hasClass('dont_disabled')){
          $(this).find(":submit").prop('disabled', true);
-         $(this).find(":submit").html('Memproses...');
+        //  $(this).find(":submit").html('Memproses...');
        }
        });
    </script>

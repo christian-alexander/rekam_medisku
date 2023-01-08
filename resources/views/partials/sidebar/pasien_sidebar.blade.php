@@ -28,6 +28,13 @@
       </a>
     </li>
     
+    <!-- Profil -->
+    <li class="menu-item">
+      <a href="/profil" class="menu-link">
+        <div data-i18n="Analytics">Profil</div>
+      </a>
+    </li>
+
   </ul>
 </aside>
 <!-- / Menu -->

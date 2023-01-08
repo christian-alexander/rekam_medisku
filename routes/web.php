@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ChangePasswordController;
@@ -40,6 +41,7 @@ Route::post('/change_password',[ChangePasswordController::class,'change_password
 
 // user account setting
 Route::get('/akun/get_data/{id}',[AkunController::class,'get_data'])->middleware('auth');
-Route::get('/akun/yajra',[AkunController::class,'yajra'])->middleware('auth');
-Route::post('/akun/change_status_aktif/{aksi}/{id}',[AkunController::class,'change_status_aktif']);
 Route::resource('/akun',AkunController::class)->middleware('auth');
+
+// profil
+Route::get('/profil',[ProfilController::class,'index'])->middleware('auth');
