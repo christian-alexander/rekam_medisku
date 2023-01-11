@@ -3,13 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Faskes;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\FaskesHasTenagaKesehatan;
 
 class ProfilController extends Controller
 {
     public function index(){
-        return view("profil.index");
+        if(auth()->user()->hasRole('tenaga_kesehatan')){
+            if(auth()->user()->tipe_tenaga_kesehatan == 1){
+                $data['faskeses'] = Faskes::where('visibility',1)->where('tipe_faskes',1)->get();
+            }else if(auth()->user()->tipe_tenaga_kesehatan == 2){
+                $data['faskeses'] = Faskes::where('visibility',1)->where('tipe_faskes',2)->get();            
+            }
+
+            $data['faskes_has_tenaga_kesehatans'] = FaskesHasTenagaKesehatan::all();
+
+            return view("profil.index",$data);
+        }else{   
+            return view("profil.index");
+        }
     }
 
     public function reset_foto_profil(){

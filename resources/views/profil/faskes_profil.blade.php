@@ -17,56 +17,34 @@
           </tr>
         </thead>
         <tbody>
+          @foreach ($faskes_has_tenaga_kesehatans as $faskes_has_tenaga_kesehatan)
 
-          <tr>
-            <td style='text-align:right'>1</td>
-            
-            <td style='text-align:center'>
-              Jl. Kesehatan No. 1
-              <br>
-              Surabaya, Jawa Timur
-            </td>
+            <tr>
+              <td style='text-align:right'>{{ $loop->iteration }}</td>
+              
+              <td style='text-align:center'>
+                {{ $faskes_has_tenaga_kesehatan->faskes->alamat }}
+                <br>
+                {{ $faskes_has_tenaga_kesehatan->faskes->kota }}, {{ $faskes_has_tenaga_kesehatan->faskes->provinsi }}                
+              </td>
 
-            <td style="text-align: center;">
-              RS. Bersahaja
-            </td>
+              <td style="text-align: center;">
+                {{ $faskes_has_tenaga_kesehatan->faskes->nama }}
+              </td>
 
-            <td style="text-align: center;">
-              Kardiologi
-            </td>
+              <td style="text-align: center;">
+                {{ $faskes_has_tenaga_kesehatan->spesialisasi }}
+              </td>
 
-            <td style="text-align: center;">
-              <button id='btn_hapus' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='hapus(1)'>
-                <i class='fa fa-trash' style='color:#3c8dbc;'></i>
-              </button>
-            </td>
+              <td style="text-align: center;">
+                <button id='btn_hapus' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='hapus({{ $faskes_has_tenaga_kesehatan->id }})'>
+                  <i class='fa fa-trash' style='color:#3c8dbc;'></i>
+                </button>
+              </td>
 
-          </tr>
-
-          <tr>
-            <td style='text-align:right'>1</td>
-            
-            <td style='text-align:center'>
-              Jl. Kesehatan No. 89
-              <br>
-              Surabaya, Jawa Timur
-            </td>
-
-            <td style="text-align: center;">
-              RS. Husada Tirta
-            </td>
-
-            <td style="text-align: center;">
-              Penyakit Dalam
-            </td>
-
-            <td style="text-align: center;">
-              <button id='btn_hapus' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='hapus(1)'>
-                <i class='fa fa-trash' style='color:#3c8dbc;'></i>
-              </button>
-            </td>
-
-          </tr>
+            </tr>
+  
+          @endforeach
 
         </tbody>
       </table>
@@ -78,7 +56,7 @@
 
 
 {{-- modal tambah --}}
-<div class="modal" tabindex="-1" id='modal_tambah'>
+<div class="modal" id='modal_tambah'>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -86,17 +64,17 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="#" method='POST' id='form_tambah'>
+        <form action="/faskes_has_tenaga_kesehatan/tambah" method='POST' id='form_tambah'>
           @csrf
 
           <div class="mb-3">
             <label class="form-label">Faskes</label>
             <div class="position-relative">
-              <select id="faskes" class='form-control select2' aria-hidden="true" style='width:100%;'>
+              <select name="faskes_id" class='form-control' aria-hidden="true" style='width:100%;'>
                 <option value="">-- PILIH FASKES --</option>
-                <option value="">RS Bersahaja || Faskes Modern</option>
-                <option value="">Klinik Husada || Faskes Modern</option>
-                <option value="">Sangkal Putung Jos || Faskes Tradisional</option>
+                @foreach ($faskeses as $faskes)
+                  <option value="{{ $faskes->id }}">{{ $faskes->nama }}</option>
+                @endforeach
               </select>
             </div>
           </div>
@@ -119,7 +97,7 @@
 </div>
 
 {{-- modal hapus --}}
-<div class="modal" tabindex="-1" id='modal_hapus'>
+<div class="modal" id='modal_hapus'>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -130,9 +108,8 @@
         Apakah anda yakin ingin hapus faskes ini?
       </div>
       <div class="modal-footer">
-        <form action="#" method='POST' id='form_hapus'>
+        <form action="diisi_dari_js" method='POST' id='form_hapus'>
           @csrf
-          @method('DELETE')
 
           <div class="form-group" style='text-align:center;'>
             <button type='submit' class="btn btn-danger">Hapus</button>
@@ -150,7 +127,7 @@
   }
 
   function hapus(id){
-    $('#form_hapus').attr('action','faskes/' + id);
+    $('#form_hapus').attr('action','faskes_has_tenaga_kesehatan/hapus/' + id);
     $('#modal_hapus').modal('show');
   }
 </script>

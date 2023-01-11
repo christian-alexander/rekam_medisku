@@ -13,6 +13,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\TenagaKesehatanController;
+use App\Http\Controllers\FaskesHasTenagaKesehatanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +65,10 @@ Route::resource('/faskes',FaskesController::class)->middleware('auth');
 
 
 // TENAGA KESEHATAN ONLY
+// faskes has tenaga kesehatan, di profil
+Route::post('/faskes_has_tenaga_kesehatan/tambah',[FaskesHasTenagaKesehatanController::class,'tambah'])->middleware('auth');
+Route::post('/faskes_has_tenaga_kesehatan/hapus/{id}',[FaskesHasTenagaKesehatanController::class,'hapus'])->middleware('auth');
+
 Route::get('/hubungan/permintaan_menghubungkan',[HubunganController::class, 'permintaan'])->middleware('auth');
 Route::get('/pasien_saya',[PasienController::class, 'index'])->middleware('auth');
 
