@@ -16,7 +16,7 @@
             <tr>
               <th style='width:20px;'>No</th>
               <th style='text-align:center;'>Lokasi</th>
-              <th style='text-align:center;'>Nama Instalasi</th>
+              <th style='text-align:center;'>Nama Faskes</th>
               <th style='text-align:center;'>Tipe</th>
               <th style='text-align:center;'>Edit</th>
               <th style='text-align:center;'>Hapus</th>
@@ -143,7 +143,7 @@
 
           <div class='mb-3'>
             <label class='form-label' for="nama">Nama</label>
-            <input type="text" class='form-control' name="nama" id="nama" placeholder="Rumah Sakit Bersahaja" readonly>
+            <input type="text" class='form-control' name="nama" id="nama" placeholder="Rumah Sakit Bersahaja" required>
           </div>
 
           <div class='mb-3'>
