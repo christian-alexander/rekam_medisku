@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('alamat');
             $table->string('provinsi');
             $table->string('kota');
+            $table->integer('visibility')->default(1);
             $table->timestamps();
         });
     }

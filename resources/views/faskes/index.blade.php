@@ -24,98 +24,41 @@
           </thead>
           <tbody>
 
-            <tr>
-              <td style="text-align:right;">1</td>
+            @foreach ($faskeses as $faskes)
+              <tr>
+                
 
-              <td style="text-align:center;">
-                Jl. Kesehatan No. 1
-                <br>
-                Surabaya, Jawa Timur
-              </td>
+                <td style="text-align:right;">{{ $loop->iteration }}</td>
 
-              <td style='text-align:center;'>
-                Rumah Sakit Eka Husada
-              </td>
+                <td style="text-align:center;">
+                  {{ $faskes->alamat }}
+                  <hr class='mt-1 mb-1'>
+                  {{ $faskes->kota }}, {{ $faskes->provinsi }}
+                </td>
 
-              <td style='text-align:center;'>
-                Faskes Modern
-              </td>
+                <td style='text-align:center;'>
+                  {{ $faskes->nama }}
+                </td>
 
-              <td style='text-align:center;'>
-                <button id='btn_edit' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='edit(1)'>
-                  <i class='fa fa-edit' style='color:#3c8dbc;'></i>
-                </button>
-              </td>
-              
-              <td style='text-align:center;'>
-                <button id='btn_hapus' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='hapus(1)'>
-                  <i class='fa fa-trash' style='color:#3c8dbc;'></i>
-                </button>
-              </td>
+                <td style='text-align:center;'>
+                  {{ ($faskes->tipe_faskes == 1)? 'Faskes Modern' : 'Faskes Tradisional' }}
+                </td>
 
-            </tr>
+                <td style='text-align:center;'>
+                  <button id='btn_edit' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='edit(1)'>
+                    <i class='fa fa-edit' style='color:#3c8dbc;'></i>
+                  </button>
+                </td>
+                
+                <td style='text-align:center;'>
+                  <button id='btn_hapus' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='hapus(1)'>
+                    <i class='fa fa-trash' style='color:#3c8dbc;'></i>
+                  </button>
+                </td>
 
-            <tr>
-              <td style="text-align:right;">2</td>
+              </tr>
+            @endforeach
 
-              <td style="text-align:center;">
-                Jl. Kesehatan No. 12
-                <br>
-                Surabaya, Jawa Timur
-              </td>
-
-              <td style='text-align:center;'>
-                Klinik Utama Husada
-              </td>
-
-              <td style='text-align:center;'>
-                Faskes Modern
-              </td>
-
-              <td style='text-align:center;'>
-                <button id='btn_edit' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='edit(1)'>
-                  <i class='fa fa-edit' style='color:#3c8dbc;'></i>
-                </button>
-              </td>
-              
-              <td style='text-align:center;'>
-                <button id='btn_hapus' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='hapus(1)'>
-                  <i class='fa fa-trash' style='color:#3c8dbc;'></i>
-                </button>
-              </td>
-
-            </tr>
-
-            <tr>
-              <td style="text-align:right;">3</td>
-
-              <td style="text-align:center;">
-                Jl. Kesehatan No. 98
-                <br>
-                Surabaya, Jawa Timur
-              </td>
-
-              <td style='text-align:center;'>
-                Sangkal Putung Joss
-              </td>
-
-              <td style='text-align:center;'>
-                Faskes Tradisional
-              </td>
-
-              <td style='text-align:center;'>
-                <button id='btn_edit' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='edit(1)'>
-                  <i class='fa fa-edit' style='color:#3c8dbc;'></i>
-                </button>
-              </td>
-              
-              <td style='text-align:center;'>
-                <button id='btn_hapus' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='hapus(1)'>
-                  <i class='fa fa-trash' style='color:#3c8dbc;'></i>
-                </button>
-              </td>
-
-            </tr>
 
           </tbody>
         </table>
@@ -130,7 +73,7 @@
 
     
 {{-- modal tambah --}}
-<div class="modal" tabindex="-1" id='modal_tambah'>
+<div class="modal" id='modal_tambah'>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -138,7 +81,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="#" method='POST' id='form_edit'>
+        <form action="/faskes" method='POST' id='form_tambah'>
           @csrf
 
           <div class='mb-3'>
@@ -148,7 +91,7 @@
 
           <div class='mb-3'>
             <label class='form-label' for="tipe_faskes">Tipe Faskes</label>
-            <select class='form-control select2' name="tipe_faskes" id="tipe_faskes" style="width: 100%;" required>
+            <select class='form-control' name="tipe_faskes" id="tipe_faskes" style="width: 100%;" required>
               <option value="1">Faskes Modern</option>
               <option value="2">Faskes Tradisional</option>
             </select>
@@ -161,9 +104,9 @@
 
           <div class="mb-3">
             <label class="form-label" for="provinsi">Provinsi</label>
-            <input type="hidden" name="provinsi" id="provinsi_asli">
+            <input type="hidden" name="provinsi" id="provinsi_asli_tambah">
             <div class="position-relative">
-              <select id="provinsi" class='form-control select2' aria-hidden="true" style='width:100%;' required>
+              <select id="provinsi_tambah" class='form-control' aria-hidden="true" style='width:100%;' required onchange="get_kota($(this).val())">
                 {{-- diisi dari js --}}
               </select>
             </div>
@@ -171,9 +114,9 @@
           
           <div class="mb-3">
             <label class="form-label" for="kota">Kota</label>
-            <input type="hidden" name="kota" id="kota_asli">
+            <input type="hidden" name="kota" id="kota_asli_tambah">
             <div class="position-relative">
-              <select id="kota" class='form-control select2' tabindex="-1" aria-hidden="true" style='width:100%;' required>
+              <select id="kota_tambah" class='form-control' aria-hidden="true" style='width:100%;' required onchange="save_kota($(this).val())">
                 {{-- diisi dari js --}}
               </select>
             </div>
@@ -188,10 +131,70 @@
     </div>
   </div>
 </div>
+    
+{{-- modal edit --}}
+<div class="modal" id='modal_edit'>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Faskes</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="diisi_dari_js" method='POST' id='form_edit'>
+          @csrf
+          @method('PUT')
 
+          <div class='mb-3'>
+            <label class='form-label' for="nama">Nama</label>
+            <input type="text" class='form-control' name="nama" id="nama_edit" placeholder="Rumah Sakit Bersahaja" required>
+          </div>
+
+          <div class='mb-3'>
+            <label class='form-label' for="tipe_faskes">Tipe Faskes</label>
+            <select class='form-control' name="tipe_faskes" id="tipe_faskes_edit" style="width: 100%;" required>
+              <option value="1">Faskes Modern</option>
+              <option value="2">Faskes Tradisional</option>
+            </select>
+          </div>
+
+          <div class='mb-3'>
+            <label class='form-label' for="alamat">Alamat</label>
+            <input type="text" class='form-control' name="alamat" id="alamat_edit" placeholder="Jl. Kesehatan No.1 (tanpa kota dan provinsi)" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="provinsi">Provinsi</label>
+            <input type="hidden" name="provinsi" id="provinsi_asli_edit">
+            <div class="position-relative">
+              <select id="provinsi_edit" class='form-control' aria-hidden="true" style='width:100%;' required onchange="get_kota($(this).val())">
+                {{-- diisi dari js --}}
+              </select>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label" for="kota">Kota</label>
+            <input type="hidden" name="kota" id="kota_asli_edit">
+            <div class="position-relative">
+              <select id="kota_edit" class='form-control' aria-hidden="true" style='width:100%;' required onchange="save_kota($(this).val())">
+                {{-- diisi dari js --}}
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" style='text-align:center;'>
+            <button type='submit' class="btn btn-primary">Edit</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 {{-- modal hapus --}}
-<div class="modal" tabindex="-1" id='modal_hapus'>
+<div class="modal" id='modal_hapus'>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -202,7 +205,7 @@
         Apakah anda yakin ingin hapus faskes ini?
       </div>
       <div class="modal-footer">
-        <form action="#" method='POST' id='form_hapus'>
+        <form action="diisi_dari_js" method='POST' id='form_hapus'>
           @csrf
           @method('DELETE')
 
@@ -217,9 +220,26 @@
 </div>
 
 
+{{-- fungsi2 aksi --}}
 <script>
   function tambah(){
     $('#modal_tambah').modal('show');
+  }
+
+  function edit(id){
+    $.ajax({
+      url: "/faskes/get_data/"+id,
+    })
+    .done(function( data ) {
+      const faskes = JSON.parse(data);
+      $('#form_edit').attr('action','/faskes/'+id);
+      $('#nama_edit').val(faskes.nama);
+      $('#tipe_faskes_edit').val(faskes.tipe_faskes);
+      $('#alamat_edit').val(faskes.alamat);
+      
+      $('#modal_edit').modal('show');
+    });
+
   }
 
   function hapus(id){
@@ -228,6 +248,8 @@
   }
 </script>
 
+
+{{-- utk prov dan kota --}}
 <script>
   $(document).ready(function(){
 
@@ -239,20 +261,22 @@
         options += "<option value='"+item.id+"'>"+item.name+"</option>";
       });
 
-      $('#provinsi').html(options);
+      $('#provinsi_tambah').html(options);
+      $('#provinsi_edit').html(options);
     });
 
   });
 
 
-  $('#provinsi').change(function(){
-    fetch('https://www.emsifa.com/api-wilayah-indonesia/api/province/'+$(this).val()+'.json')
+  function get_kota(provinsi_id){
+    fetch('https://www.emsifa.com/api-wilayah-indonesia/api/province/'+provinsi_id+'.json')
     .then(response => response.json())
-    .then(regency => {
-      $('#provinsi_asli').val(regency.name);      
+    .then(province => {
+      $('#provinsi_asli_tambah').val(province.name);      
+      $('#provinsi_asli_edit').val(province.name);      
     });
 
-    fetch('https://www.emsifa.com/api-wilayah-indonesia/api/regencies/'+$(this).val()+'.json')
+    fetch('https://www.emsifa.com/api-wilayah-indonesia/api/regencies/'+provinsi_id+'.json')
     .then(response => response.json())
     .then(regencies => {
       let options = "<option value=''>-- PILIH KOTA --</option>";
@@ -260,18 +284,20 @@
         options += "<option value='"+item.id+"'>"+item.name+"</option>";
       });
 
-      $('#kota').html(options);
+      $('#kota_tambah').html(options);
+      $('#kota_edit').html(options);
     });
 
-  });
+  };
 
-  $('#kota').change(function(){
-    fetch('https://www.emsifa.com/api-wilayah-indonesia/api/regency/'+$(this).val()+'.json')
+  function save_kota(kota_id){
+    fetch('https://www.emsifa.com/api-wilayah-indonesia/api/regency/'+kota_id+'.json')
     .then(response => response.json())
     .then(regency => {
-      $('#kota_asli').val(regency.name);      
+      $('#kota_asli_tambah').val(regency.name);      
+      $('#kota_asli_edit').val(regency.name);      
     });
-  });
+  };
 </script>
 
 @endsection

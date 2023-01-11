@@ -55,7 +55,8 @@ Route::resource('/rekam_medis',RekamMedisController::class)->middleware('auth');
 // user account setting
 Route::get('/akun/get_data/{id}',[AkunController::class,'get_data'])->middleware('auth');
 Route::resource('/akun',AkunController::class)->middleware('auth');
-// instalasi
+// faskes
+Route::get('/faskes/get_data/{faskes_id}',[FaskesController::class,'get_data'])->middleware('auth');
 Route::resource('/faskes',FaskesController::class)->middleware('auth');
 
 

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faskes;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class FaskesController extends Controller
 {
@@ -13,7 +15,11 @@ class FaskesController extends Controller
      */
     public function index()
     {
-        return view('faskes.index');
+        $this->cek_roles('admin');
+
+        $data['faskeses'] = Faskes::where('visibility',1)->get();
+
+        return view('faskes.index',$data);
     }
 
     /**
@@ -34,7 +40,19 @@ class FaskesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->cek_roles('admin');
+
+        $validated_data = $request->validate([
+            'nama' => 'required|max:255',
+            'tipe_faskes' => 'required|numeric',
+            'alamat' => 'required|max:255,',
+            'provinsi' => 'required|max:255,',
+            'kota' => 'required|max:255,'
+        ]);
+
+        Faskes::create($validated_data);
+
+        return redirect()->back()->with('success','Berhasil Ditambah');
     }
 
     /**
@@ -68,7 +86,19 @@ class FaskesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->cek_roles('admin');
+
+        $validated_data = $request->validate([
+            'nama' => 'required|max:255',
+            'tipe_faskes' => 'required|numeric',
+            'alamat' => 'required|max:255,',
+            'provinsi' => 'required|max:255,',
+            'kota' => 'required|max:255,'
+        ]);
+
+        Faskes::where('id',$id)->update($validated_data);
+
+        return redirect()->back()->with('success','Berhasil Diedit');
     }
 
     /**
@@ -79,6 +109,14 @@ class FaskesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->cek_roles('admin');
+        
+        Faskes::where('id',$id)->update(['visibility' => 0]);
+
+        return redirect()->back()->with('success','Berhasil Dihapus');
+    }
+
+    public function get_data($faskes_id){
+        return Faskes::find($faskes_id)->toJSON();
     }
 }
