@@ -46,6 +46,9 @@ Route::post('/change_password',[ChangePasswordController::class,'change_password
 
 // profil
 Route::get('/profil',[ProfilController::class,'index'])->middleware('auth');
+Route::get('/profil/reset_foto_profil',[ProfilController::class,'reset_foto_profil'])->middleware('auth');
+Route::post('/profil/update_foto_profil',[ProfilController::class,'update_foto_profil'])->middleware('auth');
+Route::post('/profil/update_profil',[ProfilController::class,'update_profil'])->middleware('auth');
 
 // rekam medis pasien
 Route::get('/rekam_medis/daftar_rekam_medis/{tipe_rekam_medis}',[RekamMedisController::class,'daftar_rekam_medis'])->middleware('auth');

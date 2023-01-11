@@ -44,7 +44,7 @@ class AkunController extends Controller
         $this->cek_roles('admin');
 
         $validated_data = $request->validate([
-            'username' => 'required|unique:users,username|max:32|regex:/^\S*$/',
+            'username' => 'required|unique:users,username|max:64|regex:/^\S*$/',
             'nama' => 'required|max:64',
             'password' => 'required|min:6',
             'konfirmasi_password' => 'required|same:password'

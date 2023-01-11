@@ -7,45 +7,53 @@
     <div class="card mb-4">
       <h5 class="card-header">Profil</h5>
       <!-- Account -->
+
       <div class="card-body">
         <div class="d-flex align-items-start align-items-sm-center gap-4">
-          <img src="{{ asset('assets/img/avatars/1.png') }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
+          <img src="{{ (auth()->user()->foto_profil == 'assets/img/avatars/user.png')? asset(auth()->user()->foto_profil) : asset('storage/'.auth()->user()->foto_profil) }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
           <div class="button-wrapper">
-            <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-              <span class="d-none d-sm-block">Upload Foto</span>
-              <i class="bx bx-upload d-block d-sm-none"></i>
-              <input type="file" id="upload" class="account-file-input" hidden="" accept="image/png, image/jpeg">
-            </label>
-            <button type="button" class="btn btn-label-secondary account-image-reset mb-4">
-              <i class="bx bx-reset d-block d-sm-none"></i>
-              <span class="d-none d-sm-block">Reset</span>
-            </button>
+            <form action="/profil/update_foto_profil" id="form_upload_foto_profil" method="post" enctype="multipart/form-data">
+              @csrf
+              <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                <span class="d-none d-sm-block">Upload Foto</span>
+                <i class="bx bx-upload d-block d-sm-none"></i>
+                <input type="file" id='upload' name="foto_profil" class="account-file-input" hidden="" accept="image/png, image/jpeg" onchange="$('#form_upload_foto_profil').submit();">
+              </label>
+              <a href="/profil/reset_foto_profil" class="btn btn-label-secondary account-image-reset mb-4">
+                <i class="bx bx-reset d-block d-sm-none"></i>
+                <span class="d-none d-sm-block">Reset</span>
+              </a>
+            </form>
 
             <p class="text-muted mb-0">Tipe gambar JPG, GIF or PNG.</p>
           </div>
         </div>
       </div>
-      <hr class="my-0">
-      <div class="card-body">
-        <form id="formAccountSettings" method="POST" onsubmit="return false" class="fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
+
+      <form action="/profil/update_profil" method="post" enctype="multipart/form-data">
+        @csrf
+
+        <hr class="my-0">
+        <div class="card-body">
           <div class="row">
             <div class="mb-3 col-md-6 fv-plugins-icon-container">
-              <label for="username" class="form-label">Username</label>
-              <input class="form-control" type="text" id="username" name="username" value='{{ auth()->user()->username }}' autofocus="">
+              <label class="form-label">Username</label>
+              <input class="form-control" type="text" name="username" value='{{ auth()->user()->username }}' autofocus="">
               <span class='help-block'>Username tidak boleh mengandung spasi</span>
             <div class="fv-plugins-message-container invalid-feedback"></div></div>
-           
+          
             <div class="mb-3 col-md-6 fv-plugins-icon-container">
-              <label for="nama" class="form-label">Nama</label>
-              <input class="form-control" type="text" id="nama" name="nama" value='{{ auth()->user()->nama }}' autofocus="">
+              <label class="form-label">Nama</label>
+              <input class="form-control" type="text" name="nama" value='{{ auth()->user()->nama }}' autofocus="">
             <div class="fv-plugins-message-container invalid-feedback"></div></div>
 
           </div>
           <div class="mt-2">
             <button type="submit" class="btn btn-primary me-2">Save changes</button>
           </div>
-        </form>
-      </div>
+        </div>
+
+      </form>
       <!-- /Account -->
 
     
