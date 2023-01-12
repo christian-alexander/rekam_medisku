@@ -55,6 +55,14 @@ class User extends Authenticatable
     }
 
     public function hubungan_pasien_list(){
-        return $this->hasMany(Hubungan::class,'tenaga_kesehatan_id');
+        return $this->hasMany(Hubungan::class,'pasien_id');
+    }
+
+    public function rekam_medis_tenaga_kesehatan_list(){
+        return $this->hasMany(RekamMedis::class,'tenaga_kesehatan_id');
+    }
+
+    public function rekam_medis_pasien_list(){
+        return $this->hasMany(RekamMedis::class,'pasien_id');
     }
 }
