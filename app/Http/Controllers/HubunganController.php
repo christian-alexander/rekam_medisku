@@ -70,4 +70,20 @@ class HubunganController extends Controller
         $data['pasiens_saya'] = User::whereIn('id',$pasien_ids)->get();
         return view('hubungan.pasien_saya',$data);
     }
+
+    public function tenaga_kesehatan_saya(){
+        $this->cek_roles('pasien');
+
+        $tenaga_kesehatan_ids = Hubungan::where('pasien_id',auth()->user()->id)->where('status_hubungan',1)->pluck('tenaga_kesehatan_id');
+        $data['tenaga_kesehatans_saya'] = User::whereIn('id',$tenaga_kesehatan_ids)->get();
+        return view('hubungan.tenaga_kesehatan_saya',$data);
+    }
+
+    public function putuskan_hubungan($tenaga_kesehatan_id){
+        $this->cek_roles('pasien');
+
+        Hubungan::where('tenaga_kesehatan_id',$tenaga_kesehatan_id)->where('pasien_id',auth()->user()->id)->delete();
+
+        return redirect()->back()->with('success','Berhasil memutuskan hubungan');
+    }
 }

@@ -11,7 +11,6 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\ChangePasswordController;
-use App\Http\Controllers\TenagaKesehatanController;
 use App\Http\Controllers\FaskesHasTenagaKesehatanController;
 
 /*
@@ -80,6 +79,7 @@ Route::get('/hubungan/pengajuan_menghubungkan',[HubunganController::class, 'peng
 Route::get('/hubungan/get_tenaga_kesehatan/{tenaga_kesehatan_id}',[HubunganController::class, 'get_tenaga_kesehatan'])->middleware('auth');
 Route::get('/hubungan/get_faskes_has_tenaga_kesehatan/{tenaga_kesehatan_id}',[HubunganController::class, 'get_faskes_has_tenaga_kesehatan'])->middleware('auth');
 Route::post('/hubungan/submit_ajukan/{tenaga_kesehatan_id}',[HubunganController::class, 'submit_ajukan'])->middleware('auth');
+Route::get('/hubungan/tenaga_kesehatan_saya',[HubunganController::class, 'tenaga_kesehatan_saya'])->middleware('auth');
+Route::post('/hubungan/putuskan_hubungan/{tenaga_kesehatan_id}',[HubunganController::class, 'putuskan_hubungan'])->middleware('auth');
 
-Route::get('/tenaga_kesehatan_saya',[TenagaKesehatanController::class, 'index'])->middleware('auth');
 

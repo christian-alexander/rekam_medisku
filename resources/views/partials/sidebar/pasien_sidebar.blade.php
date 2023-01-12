@@ -37,7 +37,7 @@
 
     <!-- Tenaga Kesehatan Saya -->
     <li class="menu-item {{ ( strpos(url()->current(),'tenaga_kesehatan_saya') != FALSE )? 'active' : '' }}">
-      <a href="/tenaga_kesehatan_saya" class="menu-link">
+      <a href="/hubungan/tenaga_kesehatan_saya" class="menu-link">
         <div data-i18n="Analytics">Tenaga Kesehatan Saya</div>
       </a>
     </li>
