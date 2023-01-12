@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\FaskesController;
-use App\Http\Controllers\PasienController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\HubunganController;
 use App\Http\Controllers\RegisterController;
@@ -73,8 +72,7 @@ Route::post('/faskes_has_tenaga_kesehatan/hapus/{id}',[FaskesHasTenagaKesehatanC
 Route::get('/hubungan/permintaan_menghubungkan',[HubunganController::class, 'permintaan'])->middleware('auth');
 Route::post('/hubungan/terima/{hubungan_id}',[HubunganController::class, 'terima'])->middleware('auth');
 Route::post('/hubungan/tolak/{hubungan_id}',[HubunganController::class, 'tolak'])->middleware('auth');
-
-Route::get('/pasien_saya',[PasienController::class, 'index'])->middleware('auth');
+Route::get('/hubungan/pasien_saya',[HubunganController::class, 'pasien_saya'])->middleware('auth');
 
 // PASIEN ONLY
 // hubungan

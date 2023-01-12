@@ -23,7 +23,7 @@
 
     <!-- Pasien -->
     <li class="menu-item {{ ( strpos(url()->current(),'pasien_saya') != FALSE )? 'active' : '' }}">
-      <a href="/pasien_saya" class="menu-link">
+      <a href="/hubungan/pasien_saya" class="menu-link">
         <div data-i18n="Analytics">Pasien</div>
       </a>
     </li>

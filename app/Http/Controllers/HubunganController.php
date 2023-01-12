@@ -62,4 +62,12 @@ class HubunganController extends Controller
 
         return redirect()->back()->with('success',"Berhasil menolak");
     }
+
+    public function pasien_saya(){
+        $this->cek_roles('tenaga_kesehatan');
+
+        $pasien_ids = Hubungan::where('tenaga_kesehatan_id',auth()->user()->id)->where('status_hubungan',1)->pluck('pasien_id');
+        $data['pasiens_saya'] = User::whereIn('id',$pasien_ids)->get();
+        return view('hubungan.pasien_saya',$data);
+    }
 }
