@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Hubungan;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\FaskesHasTenagaKesehatan;
@@ -47,5 +48,13 @@ class User extends Authenticatable
 
     public function faskes_has_tenaga_kesehatan_list(){
         return $this->hasMany(FaskesHasTenagaKesehatan::class,'tenaga_kesehatan_id');
+    }
+
+    public function hubungan_tenaga_kesehatan_list(){
+        return $this->hasMany(Hubungan::class,'tenaga_kesehatan_id');
+    }
+
+    public function hubungan_pasien_list(){
+        return $this->hasMany(Hubungan::class,'tenaga_kesehatan_id');
     }
 }
