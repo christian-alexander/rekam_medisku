@@ -73,6 +73,11 @@ Route::get('/hubungan/permintaan_menghubungkan',[HubunganController::class, 'per
 Route::get('/pasien_saya',[PasienController::class, 'index'])->middleware('auth');
 
 // PASIEN ONLY
+// hubungan
 Route::get('/hubungan/pengajuan_menghubungkan',[HubunganController::class, 'pengajuan'])->middleware('auth');
+Route::get('/hubungan/get_tenaga_kesehatan/{tenaga_kesehatan_id}',[HubunganController::class, 'get_tenaga_kesehatan'])->middleware('auth');
+Route::get('/hubungan/get_faskes_has_tenaga_kesehatan/{tenaga_kesehatan_id}',[HubunganController::class, 'get_faskes_has_tenaga_kesehatan'])->middleware('auth');
+Route::post('/hubungan/submit_ajukan/{tenaga_kesehatan_id}',[HubunganController::class, 'submit_ajukan'])->middleware('auth');
+
 Route::get('/tenaga_kesehatan_saya',[TenagaKesehatanController::class, 'index'])->middleware('auth');
 

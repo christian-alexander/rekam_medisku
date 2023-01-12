@@ -20,68 +20,40 @@
               </tr>
             </thead>
             <tbody>
-    
-              <tr>
-                <td style='text-align:right'>1</td>
+              @foreach ($calon_tenaga_kesehatans as $calon_tenaga_kesehatan)
                 
-                <td>
-                  <div style='display:flex;'>
-                    <div style='margin:0 auto;'>
-                      <img src="{{ asset('assets/img/avatars/1.png') }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
+                <tr>
+                  <td style='text-align:right'>{{ $loop->iteration }}</td>
+                  
+                  <td>
+                    <div style='display:flex;'>
+                      <div style='margin:0 auto;'>
+                        <img src="{{ ($calon_tenaga_kesehatan->foto_profil == 'assets/img/avatars/user.png')? asset($calon_tenaga_kesehatan->foto_profil) : asset('storage/'.$calon_tenaga_kesehatan->foto_profil) }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
+                      </div>
                     </div>
-                  </div>
-                </td>
-    
-                <td style="text-align: center;">
-                  Calon Dokter 1
-                </td>
-    
-                <td style="text-align: center;">
-                  <button id='btn_show_faskes' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='show_faskes(1)'>
-                    <i class='fa fa-file' style='color:#3c8dbc;'></i>
-                  </button>
-                </td>
-    
-                <td style="text-align: center;">
-                  <button id='btn_tolak' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='tolak(1)'>
-                    <i class='fa fa-check' style='color:#3c8dbc;'></i>
-                  </button>
-                </td>
-    
-              </tr>
-    
-    
-              <tr>
-                <td style='text-align:right'>2</td>
-                
-                <td>
-                  <div style='display:flex;'>
-                    <div style='margin:0 auto;'>
-                      <img src="{{ asset('assets/img/avatars/1.png') }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
-                    </div>
-                  </div>
-                </td>
-    
-                <td style="text-align: center;">
-                  Calon Dokter 2
-                </td>
-    
+                  </td>
+      
+                  <td style="text-align: center;">
+                    {{ $calon_tenaga_kesehatan->nama }}
+                  </td>
+      
+                  <td style="text-align: center;">
+                    <button id='btn_show_faskes' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='show_faskes({{ $calon_tenaga_kesehatan->id }})'>
+                      <i class='fa fa-file' style='color:#3c8dbc;'></i>
+                    </button>
+                  </td>
+      
+                  <td style="text-align: center;">
+                    <button id='btn_ajukan' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='ajukan({{ $calon_tenaga_kesehatan->id }})'>
+                      <i class='fa fa-check' style='color:#3c8dbc;'></i>
+                    </button>
+                  </td>
+      
+                </tr>
 
-                <td style="text-align: center;">
-                  <button id='btn_show_faskes' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='show_faskes(1)'>
-                    <i class='fa fa-file' style='color:#3c8dbc;'></i>
-                  </button>
-                </td>
-    
-                <td style="text-align: center;">
-                  <button id='btn_tolak' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='tolak(1)'>
-                    <i class='fa fa-check' style='color:#3c8dbc;'></i>
-                  </button>
-                </td>
-    
-              </tr>
-    
-    
+              @endforeach
+
+
             </tbody>
           </table>
         </div>
@@ -92,7 +64,7 @@
   </div>
 
   {{-- modal show_faskes --}}
-  <div class="modal" tabindex="-1" id='modal_show_faskes'>
+  <div class="modal" id='modal_show_faskes'>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -101,10 +73,10 @@
         </div>
         <div class="modal-body">
           <div class="d-flex align-items-start align-items-sm-center gap-4">
-            <img src="{{ asset('assets/img/avatars/1.png') }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
+            <img src="diisi dari js" alt="user-avatar" class="d-block rounded" height="100" width="100" id='foto_profil_show_faskes'>
             <div class="button-wrapper">
-              <h5>NamaDokter</h5>
-              <p class="text-muted mb-0">username_dokter</p>  
+              <h5 id='nama_show_faskes'>diisi dari js</h5>
+              <p class="text-muted mb-0" id='username_show_faskes'>diisi dari js</p>  
             </div>
           </div>
           <table class='table table-striped mt-3'>
@@ -115,29 +87,8 @@
                 <th>Spesialisasi</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>RS. UTAMA</td>
-                <td>
-                  Jl. Kesehatan No.1
-                  <hr>
-                  Surabaya, Jawa Timur
-                </td>
-                <td>
-                  Kardiologi
-                </td>
-              </tr>
-              <tr>
-                <td>RS. UTAMA</td>
-                <td>
-                  Jl. Kesehatan No.1
-                  <hr>
-                  Surabaya, Jawa Timur
-                </td>
-                <td>
-                  Penyakit Dalam
-                </td>
-              </tr>
+            <tbody id='tbody_faskes'>
+              {{-- diisi dari js --}}
             </tbody>
           </table>
         </div>
@@ -145,9 +96,89 @@
     </div>
   </div>
 
+  {{-- modal ajukan --}}
+  <div class="modal" id='modal_ajukan'>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Konfirmasi</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Apakah anda yakin ingin mengajukan?
+          
+        </div>
+
+        <div class="modal-footer">
+          <form action="diisi_dari_js" method='POST' id='form_ajukan'>
+            @csrf
+  
+            <div class="form-group" style='text-align:center;'>
+              <button type='submit' class="btn btn-success">Ajukan</button>
+            </div>
+  
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <script>
     function show_faskes(id){
-      $('#modal_show_faskes').modal('show');
+      $.ajax({
+        url: "/hubungan/get_faskes_has_tenaga_kesehatan/"+id
+      })
+      .done(function( data ){
+        const faskes_has_tenaga_kesehatans = JSON.parse(data);
+
+        let tbody = "";
+        faskes_has_tenaga_kesehatans.forEach(function( faskes_has_tenaga_kesehatan ){
+          tbody += 
+          "<tr>"+
+            "<td>"+faskes_has_tenaga_kesehatan.faskes.nama+"</td>"+
+            "<td>"+
+              faskes_has_tenaga_kesehatan.faskes.alamat+
+              "<hr>"+
+              faskes_has_tenaga_kesehatan.faskes.kota+", "+faskes_has_tenaga_kesehatan.faskes.provinsi+
+            "</td>"+
+            "<td>"+faskes_has_tenaga_kesehatan.spesialisasi+"</td>"+
+          "</tr>"
+          ;
+
+        });
+
+        $('#tbody_faskes').html(tbody);
+
+      });
+
+      $.ajax({
+        url: "/hubungan/get_tenaga_kesehatan/"+id
+      })
+      .done(function( data ){
+        const tenaga_kesehatan = JSON.parse(data);
+        
+
+        $('#nama_show_faskes').html(tenaga_kesehatan.nama);
+        $('#username_show_faskes').html(tenaga_kesehatan.username);
+
+        // foto profil
+        if(tenaga_kesehatan.foto_profil == "assets/img/avatars/user.png"){
+          $('#foto_profil_show_faskes').attr("src","/assets/img/avatars/user.png");
+        }else{
+          $('#foto_profil_show_faskes').attr("src","/storage/"+tenaga_kesehatan.foto_profil);
+        }
+
+        $('#modal_show_faskes').modal('show');
+
+      });
+
+
+    }
+
+    function ajukan(id){
+      $('#form_ajukan').attr('action','/hubungan/submit_ajukan/'+id);
+      $('#modal_ajukan').modal('show');
     }
   </script>
 

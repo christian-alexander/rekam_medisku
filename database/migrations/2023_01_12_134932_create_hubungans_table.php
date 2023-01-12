@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('tenaga_kesehatan_id'); // fk dengan user
             $table->foreignId('pasien_id'); // fk dengan user
-            $table->integer('status_hubungan'); // 0 = pending, 1 = diterima, kalau ditolak delete langsung
+            $table->integer('status_hubungan')->default(0); // 0 = pending, 1 = diterima, kalau ditolak delete langsung
             $table->timestamps();
         });
     }
