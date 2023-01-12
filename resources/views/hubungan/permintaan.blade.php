@@ -20,66 +20,38 @@
               </tr>
             </thead>
             <tbody>
-    
-              <tr>
-                <td style='text-align:right'>1</td>
-                
-                <td>
-                  <div style='display:flex;'>
-                    <div style='margin:0 auto;'>
-                      <img src="{{ asset('assets/img/avatars/1.png') }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
+              @foreach ($hubungan_calon_pasiens as $hubungan_calon_pasien)
+                  
+                <tr>
+                  <td style='text-align:right'>{{ $loop->iteration }}</td>
+                  
+                  <td>
+                    <div style='display:flex;'>
+                      <div style='margin:0 auto;'>
+                        <img src="{{ ($hubungan_calon_pasien->pasien->foto_profil == 'assets/img/avatars/user.png')? asset($hubungan_calon_pasien->pasien->foto_profil) : asset('storage/'.$hubungan_calon_pasien->pasien->foto_profil) }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
+                      </div>
                     </div>
-                  </div>
-                </td>
+                  </td>
 
-                <td style="text-align: center;">
-                  Calon Pasien 1
-                </td>
+                  <td style="text-align: center;">
+                    {{ $hubungan_calon_pasien->pasien->nama }}
+                  </td>
+      
+                  <td style="text-align: center;">
+                    <button id='btn_terima' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='terima(1)'>
+                      <i class='fa fa-check' style='color:#3c8dbc;'></i>
+                    </button>
+                  </td>
+      
+                  <td style="text-align: center;">
+                    <button id='btn_tolak' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='tolak(1)'>
+                      <i class='fa fa-times' style='color:#3c8dbc;'></i>
+                    </button>
+                  </td>
+      
+                </tr>
     
-                <td style="text-align: center;">
-                  <button id='btn_terima' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='terima(1)'>
-                    <i class='fa fa-check' style='color:#3c8dbc;'></i>
-                  </button>
-                </td>
-    
-                <td style="text-align: center;">
-                  <button id='btn_tolak' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='tolak(1)'>
-                    <i class='fa fa-times' style='color:#3c8dbc;'></i>
-                  </button>
-                </td>
-    
-              </tr>
-    
-    
-              <tr>
-                <td style='text-align:right'>2</td>
-                
-                <td>
-                  <div style='display:flex;'>
-                    <div style='margin:0 auto;'>
-                      <img src="{{ asset('assets/img/avatars/1.png') }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
-                    </div>
-                  </div>
-                </td>
-
-                <td style="text-align: center;">
-                  Calon Pasien 2
-                </td>
-    
-                <td style="text-align: center;">
-                  <button id='btn_terima' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='terima(1)'>
-                    <i class='fa fa-check' style='color:#3c8dbc;'></i>
-                  </button>
-                </td>
-    
-                <td style="text-align: center;">
-                  <button id='btn_tolak' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='tolak(1)'>
-                    <i class='fa fa-times' style='color:#3c8dbc;'></i>
-                  </button>
-                </td>
-    
-              </tr>
-    
+              @endforeach
     
             </tbody>
           </table>
@@ -89,5 +61,71 @@
     
     </div>
   </div>
+
+  {{-- modal terima --}}
+  <div class="modal" id='modal_terima'>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Konfirmasi</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Apakah anda yakin ingin menerima?
+          
+        </div>
+
+        <div class="modal-footer">
+          <form action="diisi_dari_js" method='POST' id='form_terima'>
+            @csrf
+  
+            <div class="form-group" style='text-align:center;'>
+              <button type='submit' class="btn btn-success">Terima</button>
+            </div>
+  
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{-- modal tolak --}}
+  <div class="modal" id='modal_tolak'>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Konfirmasi</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Apakah anda yakin ingin menolak?
+          
+        </div>
+
+        <div class="modal-footer">
+          <form action="diisi_dari_js" method='POST' id='form_tolak'>
+            @csrf
+  
+            <div class="form-group" style='text-align:center;'>
+              <button type='submit' class="btn btn-danger">Tolak</button>
+            </div>
+  
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function terima(id){
+      $('#form_terima').attr('action','/hubungan/terima/'+id);
+      $('#modal_terima').modal('show');
+    }
+
+    function tolak(id){
+      $('#form_tolak').attr('action','/hubungan/tolak/'+id);
+      $('#modal_tolak').modal('show');
+    }
+  </script>
 
 @endsection

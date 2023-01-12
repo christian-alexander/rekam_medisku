@@ -69,7 +69,11 @@ Route::resource('/faskes',FaskesController::class)->middleware('auth');
 Route::post('/faskes_has_tenaga_kesehatan/tambah',[FaskesHasTenagaKesehatanController::class,'tambah'])->middleware('auth');
 Route::post('/faskes_has_tenaga_kesehatan/hapus/{id}',[FaskesHasTenagaKesehatanController::class,'hapus'])->middleware('auth');
 
+// hubungan
 Route::get('/hubungan/permintaan_menghubungkan',[HubunganController::class, 'permintaan'])->middleware('auth');
+Route::post('/hubungan/terima/{hubungan_id}',[HubunganController::class, 'terima'])->middleware('auth');
+Route::post('/hubungan/tolak/{hubungan_id}',[HubunganController::class, 'tolak'])->middleware('auth');
+
 Route::get('/pasien_saya',[PasienController::class, 'index'])->middleware('auth');
 
 // PASIEN ONLY
