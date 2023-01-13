@@ -51,6 +51,7 @@ Route::post('/profil/update_profil',[ProfilController::class,'update_profil'])->
 
 // rekam medis pasien
 Route::get('/rekam_medis/daftar_rekam_medis/{tipe_rekam_medis}/{pasien_id}',[RekamMedisController::class,'daftar_rekam_medis'])->middleware('auth');
+Route::get('/rekam_medis/get_data/{id}',[RekamMedisController::class,'get_data'])->middleware('auth');
 Route::resource('/rekam_medis',RekamMedisController::class)->middleware('auth');
 
 // ADMIN ONLY

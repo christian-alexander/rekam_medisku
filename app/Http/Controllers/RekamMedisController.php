@@ -38,7 +38,23 @@ class RekamMedisController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated_data = $request->validate([
+            'pasien_id' => 'exists:users,id',
+            'tanggal' => 'required|date',
+            'judul' => 'required|max:255',
+            'diagnosis' => 'required'
+        ]);
+
+        if(auth()->user()->hasRole('tenaga_kesehatan')){
+            $validated_data['tenaga_kesehatan_id'] = auth()->user()->id;
+            $validated_data['tipe_rekam_medis'] = 1;
+        }else{
+            $validated_data['tipe_rekam_medis'] = 0;
+        }
+
+        RekamMedis::create($validated_data);
+
+        return redirect()->back()->with('success','Berhasil ditambah');
     }
 
     /**
@@ -72,7 +88,15 @@ class RekamMedisController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated_data = $request->validate([
+            'tanggal' => 'required|date',
+            'judul' => 'required|max:255',
+            'diagnosis' => 'required'
+        ]);
+
+        RekamMedis::where('id',$id)->update($validated_data);
+
+        return redirect()->back()->with('success','Berhasil diedit');
     }
 
     /**
@@ -83,9 +107,14 @@ class RekamMedisController extends Controller
      */
     public function destroy($id)
     {
-        //
+        RekamMedis::where('id',$id)->update(['visibility' => 0]);
+
+        return redirect()->back()->with('success','Berhasil Dihapus');
     }
 
+    public function get_data($id){
+        return RekamMedis::find($id)->toJSON();
+    }
 
     public function daftar_rekam_medis(Request $request, $tipe_rekam_medis,$pasien_id){
         $data['tipe_rekam_medis'] = $tipe_rekam_medis;
@@ -195,4 +224,5 @@ class RekamMedisController extends Controller
 
         return $filters;
     }
+
 }

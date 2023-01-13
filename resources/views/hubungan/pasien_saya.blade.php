@@ -36,13 +36,13 @@
                   </td>
       
                   <td style="text-align: center;">
-                    <a href="/rekam_medis/daftar_rekam_medis/tenaga_kesehatan">
+                    <a href="/rekam_medis/daftar_rekam_medis/tenaga_kesehatan/{{ $pasien_saya->id }}">
                       <i class='fa fa-file' style='color:#3c8dbc;'></i>
                     </a>
                   </td>
       
                   <td style="text-align: center;">
-                    <a href="/rekam_medis/daftar_rekam_medis/personal">
+                    <a href="/rekam_medis/daftar_rekam_medis/personal/{{ $pasien_saya->id }}">
                       <i class='fa fa-file' style='color:#3c8dbc;'></i>
                     </a>
                   </td>

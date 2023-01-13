@@ -37,7 +37,7 @@
             <h5>Filter Diterapkan</h5>
             <hr>
             @if ($tipe_rekam_medis == "tenaga_kesehatan")
-              Tipe : {{ ($filters['tipe_tenaga_kesehatan'] == 'all')? 'Semua Jenis' : (($filters['tipe_tenaga_kesehatan'] == 1)? 'Dokter' : 'Pengobat Tradisional') }}
+              Tipe : {{ ($filters['tipe_tenaga_kesehatan'] == 'all')? 'Semua Tipe' : (($filters['tipe_tenaga_kesehatan'] == 1)? 'Dokter' : 'Pengobat Tradisional') }}
               <br>
             @endif
             Periode : {{ Carbon::parse($filters['awal_tanggal'])->format('d M Y') }} - {{ Carbon::parse($filters['akhir_tanggal'])->format('d M Y') }}
@@ -66,7 +66,7 @@
 
 
         <div style='overflow:auto;'>
-          <table class='table table-striped datatable'>
+          <table class='table table-striped datatable' id='yajra'>
             <thead>
               <tr>
                 <th style='width:20px;'>No</th>
@@ -176,7 +176,7 @@
               <label class="form-label">Tipe Tenaga Kesehatan</label>
               <div class="position-relative">
                 <select name="tipe_tenaga_kesehatan" class='form-control' aria-hidden="true" style='width:100%;'>
-                  <option value="">-- SEMUA TIPE --</option>
+                  <option value="all" selected>-- SEMUA TIPE --</option>
                   <option value="1">Dokter</option>
                   <option value="2">Pengobat Tradisional</option>
                 </select>
@@ -188,14 +188,14 @@
           <div class="mb-3">
             <label class="form-label">Awal Tanggal</label>
             <div class="position-relative">
-              <input type="date" class="form-control" name="awal_tanggal">
+              <input type="date" class="form-control" name="awal_tanggal" required>
             </div>
           </div>
 
           <div class="mb-3">
             <label class="form-label">Akhir Tanggal</label>
             <div class="position-relative">
-              <input type="date" class="form-control" name="akhir_tanggal">
+              <input type="date" class="form-control" name="akhir_tanggal" required>
             </div>
           </div>
 
@@ -209,10 +209,152 @@
   </div>
 </div>
 
-  <script>
-    function filter(){
-      $('#modal_filter').modal('show');
-    }
-  </script>
+{{-- modal tambah --}}
+<div class="modal" id='modal_tambah'>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Tambah Data</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/rekam_medis" method='POST' id='form_tambah'>
+          @csrf
+
+          <input type="hidden" name="pasien_id" value="{{ $pasien_id }}">
+
+          <div class="mb-3">
+            <label class="form-label">Tanggal</label>
+            <div class="position-relative">
+              <input type="date" class="form-control" name="tanggal" required>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Judul</label>
+            <div class="position-relative">
+              <input type="text" class="form-control" name="judul" required>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Diagnosis</label>
+            <div class="position-relative">
+              <textarea class="form-control" name="diagnosis" style="height:150px;" required></textarea>
+            </div>
+          </div>
+
+          <div class="form-group" style='text-align:center;'>
+            <button type='submit' class="btn btn-success">Tambah</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{-- modal edit --}}
+<div class="modal" id='modal_edit'>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Data</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="diisi_dari_js" method='POST' id='form_edit'>
+          @csrf
+          @method('PUT')
+
+          <div class="mb-3">
+            <label class="form-label">Tanggal</label>
+            <div class="position-relative">
+              <input type="date" class="form-control" name="tanggal" id="tanggal_edit" required>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Judul</label>
+            <div class="position-relative">
+              <input type="text" class="form-control" name="judul" id='judul_edit' required>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Diagnosis</label>
+            <div class="position-relative">
+              <textarea class="form-control" name="diagnosis" id='diagnosis_edit' style="height:150px;" required></textarea>
+            </div>
+          </div>
+
+          <div class="form-group" style='text-align:center;'>
+            <button type='submit' class="btn btn-primary">Edit</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{{-- modal hapus --}}
+<div class="modal" id='modal_hapus'>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Hapus Data</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Apakah anda yakin ingin hapus rekam medis ini?
+      </div>
+      <div class="modal-footer">
+        <form action="diisi_dari_js" method='POST' id='form_hapus'>
+          @csrf
+          @method('DELETE')
+
+          <div class="form-group" style='text-align:center;'>
+            <button type='submit' class="btn btn-danger">Hapus</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function tambah(){
+    $('#modal_tambah').modal('show');
+  }
+  
+  function filter(){
+    $('#modal_filter').modal('show');
+  }
+
+  function edit(id){
+    $.ajax({
+      url: "/rekam_medis/get_data/"+id
+    })
+    .done(function( data ){
+      const rekam_medis = JSON.parse(data);
+
+      $('#tanggal_edit').val(rekam_medis.tanggal);
+      $('#judul_edit').val(rekam_medis.judul);
+      $('#diagnosis_edit').val(rekam_medis.diagnosis);
+    
+      $('#form_edit').attr('action','/rekam_medis/'+id);
+      $('#modal_edit').modal('show');
+    });
+  }
+
+  function hapus(id){
+    $('#form_hapus').attr('action','/rekam_medis/'+id);
+    $('#modal_hapus').modal('show');
+  }
+</script>
 
 @endsection
