@@ -16,14 +16,14 @@
 
     <!-- Rekam Medis Personal -->
     <li class="menu-item {{ ( strpos(url()->current(),'daftar_rekam_medis/personal') != FALSE )? 'active' : '' }}">
-      <a href="/rekam_medis/daftar_rekam_medis/personal" class="menu-link">
+      <a href="/rekam_medis/daftar_rekam_medis/personal/{{ auth()->user()->id }}" class="menu-link">
         <div data-i18n="Analytics">Rekam Medis Personal</div>
       </a>
     </li>
 
     <!-- Rekam Medis Tenaga Kesehatan -->
     <li class="menu-item {{ ( strpos(url()->current(),'daftar_rekam_medis/tenaga_kesehatan') != FALSE )? 'active' : '' }}">
-      <a href="/rekam_medis/daftar_rekam_medis/tenaga_kesehatan" class="menu-link">
+      <a href="/rekam_medis/daftar_rekam_medis/tenaga_kesehatan/{{ auth()->user()->id }}" class="menu-link">
         <div data-i18n="Analytics">Rekam Medis Tenaga Kesehatan</div>
       </a>
     </li>

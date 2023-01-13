@@ -18,23 +18,29 @@
       <div class="card-body pb-2">
         <div class="row">
           <div class="col-lg-4 col-md-6 d-flex align-items-start align-items-sm-center gap-4">
-            
-            <img src="{{ asset('assets/img/avatars/1.png') }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
-            <div class="button-wrapper">
-              <h5>NamaPasien</h5>
-              <p class="text-muted mb-0">username_pasien</p>
-            </div>
-
+            @if (auth()->user()->hasRole('pasien'))  
+              <img src="{{ (auth()->user()->foto_profil == 'assets/img/avatars/user.png')? asset(auth()->user()->foto_profil) : asset('storage/'.auth()->user()->foto_profil) }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
+              <div class="button-wrapper">
+                <h5>{{ auth()->user()->nama }}</h5>
+                <p class="text-muted mb-0">{{ auth()->user()->username }}</p>                  
+              </div>
+            @else
+              <img src="{{ (auth()->user()->foto_profil == 'assets/img/avatars/user.png')? asset(auth()->user()->foto_profil) : asset('storage/'.auth()->user()->foto_profil) }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
+              <div class="button-wrapper">
+                <h5>{{ auth()->user()->nama }}</h5>
+                <p class="text-muted mb-0">{{ auth()->user()->username }}</p>                  
+              </div>
+            @endif
           </div>
 
           <div class="col-lg-8 col-md-6 mt-3" style='border-left: 1px solid #d9dee3;'>
             <h5>Filter Diterapkan</h5>
             <hr>
             @if ($tipe_rekam_medis == "tenaga_kesehatan")
-              Tipe : Dokter / Pengobat Tradisional / Semua Jenis
+              Tipe : {{ ($filters['tipe_tenaga_kesehatan'] == 'all')? 'Semua Jenis' : (($filters['tipe_tenaga_kesehatan'] == 1)? 'Dokter' : 'Pengobat Tradisional') }}
               <br>
             @endif
-            Periode : 1 Jan 2023 - 31 Jan 2023
+            Periode : {{ Carbon::parse($filters['awal_tanggal'])->format('d M Y') }} - {{ Carbon::parse($filters['akhir_tanggal'])->format('d M Y') }}
 
           </div>
 
@@ -84,116 +90,65 @@
               </tr>
             </thead>
             <tbody>
-    
-              <tr>
-                <td style='text-align:right'>1</td>
-                
-                <td style="text-align:center;">
-                  10 Januari 2023
-                </td>
-
-                @if ($tipe_rekam_medis == "tenaga_kesehatan")
+              @foreach ($rekam_medises as $rekam_medis)
+                  
+                <tr>
+                  <td style='text-align:right'>{{ $loop->iteration }}</td>
+                  
                   <td style="text-align:center;">
-                    Dr. Sehat Subur Selalu
-                    <hr>
-                    Dokter
+                    {{ Carbon::parse($rekam_medis->created_at)->format('d M Y') }}
                   </td>
-                @endif
-    
-                <td style="text-align: center;">
-                  Pemeriksaan Jantung Koroner
-                </td>
-    
-                <td>
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident accusamus eum qui iusto dolorum, nobis, illo placeat, repudiandae quibusdam quaerat quidem. Dolorem praesentium rerum itaque sunt blanditiis repudiandae aperiam dolores. Mollitia quas adipisci repellat et tempore. Atque earum consequuntur voluptate voluptates dignissimos at perspiciatis blanditiis perferendis recusandae, beatae numquam dolor animi nemo. Voluptates, explicabo, exercitationem culpa aspernatur impedit dolore optio non dignissimos porro odit sequi corporis magnam hic ducimus quaerat quos natus dolorem voluptate nulla. Impedit, molestias!
-                </td>
 
-                @if ($tipe_rekam_medis == "tenaga_kesehatan")
-                  @if (auth()->user()->hasRole('tenaga_kesehatan'))
-                    <td style="text-align: center;">
-                      <button id='btn_edit' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='edit(1)'>
-                        <i class='fa fa-edit' style='color:#3c8dbc;'></i>
-                      </button>
-                    </td>
-        
-                    <td style="text-align: center;">
-                      <button id='btn_hapus' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='hapus(1)'>
-                        <i class='fa fa-trash' style='color:#3c8dbc;'></i>
-                      </button>
+                  @if ($tipe_rekam_medis == "tenaga_kesehatan")
+                    <td style="text-align:center;">
+                      {{ $rekam_medis->tenaga_kesehatan->nama }}
+                      <hr>
+                      {{ ($rekam_medis->tenaga_kesehatan->tipe_tenaga_kesehatan == 1)? 'Dokter' : 'Pengobat Tradisional' }}
                     </td>
                   @endif
-                @else
-                  @if (auth()->user()->hasRole('pasien'))
-                    <td style="text-align: center;">
-                      <button id='btn_edit' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='edit(1)'>
-                        <i class='fa fa-edit' style='color:#3c8dbc;'></i>
-                      </button>
-                    </td>
-        
-                    <td style="text-align: center;">
-                      <button id='btn_hapus' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='hapus(1)'>
-                        <i class='fa fa-trash' style='color:#3c8dbc;'></i>
-                      </button>
-                    </td>
-                  @endif
-                @endif
-
-              </tr>
-    
-              <tr>
-                <td style='text-align:right'>1</td>
-                
-                <td style="text-align:center;">
-                  9 Januari 2023
-                </td>
-
-                @if ($tipe_rekam_medis == "tenaga_kesehatan")
-                  <td style="text-align:center;">
-                    Ageng Tirta
-                    <hr>
-                    Pengobat Tradisional
+      
+                  <td style="text-align: center;">
+                    {{ $rekam_medis->judul }}
                   </td>
-                @endif
-    
-                <td style="text-align: center;">
-                  Pijat Lutut
-                </td>
-    
-                <td>
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident accusamus eum qui iusto dolorum, nobis, illo placeat, repudiandae quibusdam quaerat quidem. Dolorem praesentium rerum itaque sunt blanditiis repudiandae aperiam dolores. Mollitia quas adipisci repellat et tempore. Atque earum consequuntur voluptate voluptates dignissimos at perspiciatis blanditiis perferendis recusandae, beatae numquam dolor animi nemo. Voluptates, explicabo, exercitationem culpa aspernatur impedit dolore optio non dignissimos porro odit sequi corporis magnam hic ducimus quaerat quos natus dolorem voluptate nulla. Impedit, molestias!
-                </td>
-                
-                @if ($tipe_rekam_medis == "tenaga_kesehatan")
-                  @if (auth()->user()->hasRole('tenaga_kesehatan'))
-                    <td style="text-align: center;">
-                      <button id='btn_edit' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='edit(1)'>
-                        <i class='fa fa-edit' style='color:#3c8dbc;'></i>
-                      </button>
-                    </td>
-        
-                    <td style="text-align: center;">
-                      <button id='btn_hapus' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='hapus(1)'>
-                        <i class='fa fa-trash' style='color:#3c8dbc;'></i>
-                      </button>
-                    </td>
+      
+                  <td>
+                    {{ $rekam_medis->diagnosis }}
+                  </td>
+
+                  @if ($tipe_rekam_medis == "tenaga_kesehatan")
+                    @if (auth()->user()->hasRole('tenaga_kesehatan'))
+                      <td style="text-align: center;">
+                        <button id='btn_edit' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='edit({{ $rekam_medis->id }})'>
+                          <i class='fa fa-edit' style='color:#3c8dbc;'></i>
+                        </button>
+                      </td>
+          
+                      <td style="text-align: center;">
+                        <button id='btn_hapus' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='hapus({{ $rekam_medis->id }})'>
+                          <i class='fa fa-trash' style='color:#3c8dbc;'></i>
+                        </button>
+                      </td>
+                    @endif
+                  @else
+                    @if (auth()->user()->hasRole('pasien'))
+                      <td style="text-align: center;">
+                        <button id='btn_edit' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='edit({{ $rekam_medis->id }})'>
+                          <i class='fa fa-edit' style='color:#3c8dbc;'></i>
+                        </button>
+                      </td>
+          
+                      <td style="text-align: center;">
+                        <button id='btn_hapus' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='hapus({{ $rekam_medis->id }})'>
+                          <i class='fa fa-trash' style='color:#3c8dbc;'></i>
+                        </button>
+                      </td>
+                    @endif
                   @endif
-                @else
-                  @if (auth()->user()->hasRole('pasien'))
-                    <td style="text-align: center;">
-                      <button id='btn_edit' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='edit(1)'>
-                        <i class='fa fa-edit' style='color:#3c8dbc;'></i>
-                      </button>
-                    </td>
-        
-                    <td style="text-align: center;">
-                      <button id='btn_hapus' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='hapus(1)'>
-                        <i class='fa fa-trash' style='color:#3c8dbc;'></i>
-                      </button>
-                    </td>
-                  @endif
-                @endif
+
+                </tr>
+
+              @endforeach
     
-              </tr>
     
             </tbody>
           </table>
@@ -203,5 +158,61 @@
     
     </div>
   </div>
+
+{{-- modal filter --}}
+<div class="modal" id='modal_filter'>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Filter Data</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/rekam_medis/daftar_rekam_medis/{{ ($tipe_rekam_medis == 'tenaga_kesehatan')? 'tenaga_kesehatan' : 'personal' }}/{{ $pasien_id }}" method='GET' id='form_filter'>
+          <input type="hidden" name="filtered" value="on">
+
+          @if ($tipe_rekam_medis == 'tenaga_kesehatan')
+            <div class="mb-3">
+              <label class="form-label">Tipe Tenaga Kesehatan</label>
+              <div class="position-relative">
+                <select name="faskes_id" class='form-control' aria-hidden="true" style='width:100%;'>
+                  <option value="">-- SEMUA TIPE --</option>
+                  <option value="1">Dokter</option>
+                  <option value="2">Pengobat Tradisional</option>
+                </select>
+              </div>
+            </div>
+          @endif
+  
+
+          <div class="mb-3">
+            <label class="form-label">Awal Tanggal</label>
+            <div class="position-relative">
+              <input type="date" class="form-control" name="awal_tanggal">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Akhir Tanggal</label>
+            <div class="position-relative">
+              <input type="date" class="form-control" name="akhir_tanggal">
+            </div>
+          </div>
+
+          <div class="form-group" style='text-align:center;'>
+            <button type='submit' class="btn btn-primary">Filter</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script>
+    function filter(){
+      $('#modal_filter').modal('show');
+    }
+  </script>
 
 @endsection

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('judul');
             $table->text('diagnosis');
             $table->integer('tipe_rekam_medis')->default(0); //0 = personal, 1 = tenaga kesehatan
-            $table->integer('visibility');
+            $table->integer('visibility')->default(1);
             $table->timestamps();
         });
     }
