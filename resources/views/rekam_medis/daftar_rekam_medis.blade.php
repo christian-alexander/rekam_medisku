@@ -175,7 +175,7 @@
             <div class="mb-3">
               <label class="form-label">Tipe Tenaga Kesehatan</label>
               <div class="position-relative">
-                <select name="faskes_id" class='form-control' aria-hidden="true" style='width:100%;'>
+                <select name="tipe_tenaga_kesehatan" class='form-control' aria-hidden="true" style='width:100%;'>
                   <option value="">-- SEMUA TIPE --</option>
                   <option value="1">Dokter</option>
                   <option value="2">Pengobat Tradisional</option>
