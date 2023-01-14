@@ -65,8 +65,8 @@ Route::resource('/faskes',FaskesController::class)->middleware('auth');
 
 // TENAGA KESEHATAN ONLY
 // faskes has tenaga kesehatan, di profil
-Route::post('/faskes_has_tenaga_kesehatan/tambah',[FaskesHasTenagaKesehatanController::class,'tambah'])->middleware('auth');
-Route::post('/faskes_has_tenaga_kesehatan/hapus/{id}',[FaskesHasTenagaKesehatanController::class,'hapus'])->middleware('auth');
+Route::get('/faskes_has_tenaga_kesehatan/get_data/{id}',[FaskesHasTenagaKesehatanController::class,'get_data'])->middleware('auth');
+Route::resource('/faskes_has_tenaga_kesehatan',FaskesHasTenagaKesehatanController::class)->middleware('auth');
 
 // hubungan
 Route::get('/hubungan/permintaan_menghubungkan',[HubunganController::class, 'permintaan'])->middleware('auth');

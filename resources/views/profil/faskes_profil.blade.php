@@ -13,6 +13,7 @@
             <th style='text-align:center;'>Lokasi</th>
             <th style='text-align:center;'>Nama Faskes</th>
             <th style='text-align:center;'>Spesialisasi</th>
+            <th style='text-align:center;'>Edit</th>
             <th style='text-align:center;'>Hapus</th>
           </tr>
         </thead>
@@ -34,6 +35,12 @@
 
               <td style="text-align: center;">
                 {{ $faskes_has_tenaga_kesehatan->spesialisasi }}
+              </td>
+
+              <td style="text-align: center;">
+                <button id='btn_edit' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='edit({{ $faskes_has_tenaga_kesehatan->id }})'>
+                  <i class='fa fa-pencil' style='color:#3c8dbc;'></i>
+                </button>
               </td>
 
               <td style="text-align: center;">
@@ -64,7 +71,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="/faskes_has_tenaga_kesehatan/tambah" method='POST' id='form_tambah'>
+        <form action="/faskes_has_tenaga_kesehatan" method='POST' id='form_tambah'>
           @csrf
 
           <div class="mb-3">
@@ -96,6 +103,48 @@
   </div>
 </div>
 
+{{-- modal edit --}}
+<div class="modal" id='modal_edit'>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Faskes</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="diisi_dari_js" method='POST' id='form_edit'>
+          @csrf
+          @method("PUT")
+
+          <div class="mb-3">
+            <label class="form-label">Faskes</label>
+            <div class="position-relative">
+              <select name="faskes_id" id="faskes_id_edit" class='form-control' aria-hidden="true" style='width:100%;'>
+                <option value="">-- PILIH FASKES --</option>
+                @foreach ($faskeses as $faskes)
+                  <option value="{{ $faskes->id }}">{{ $faskes->nama }}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Spesialisasi</label>
+            <div class="position-relative">
+              <input type="text" class="form-control" name="spesialisasi" id="spesialisasi_edit" placeholder="Contoh : Dokter Umum / Kardiologi / Pijat Tulang">
+            </div>
+          </div>
+
+          <div class="form-group" style='text-align:center;'>
+            <button type='submit' class="btn btn-primary">Edit</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 {{-- modal hapus --}}
 <div class="modal" id='modal_hapus'>
   <div class="modal-dialog">
@@ -110,6 +159,7 @@
       <div class="modal-footer">
         <form action="diisi_dari_js" method='POST' id='form_hapus'>
           @csrf
+          @method("DELETE")
 
           <div class="form-group" style='text-align:center;'>
             <button type='submit' class="btn btn-danger">Hapus</button>
@@ -127,8 +177,23 @@
   }
 
   function hapus(id){
-    $('#form_hapus').attr('action','faskes_has_tenaga_kesehatan/hapus/' + id);
+    $('#form_hapus').attr('action','faskes_has_tenaga_kesehatan/' + id);
     $('#modal_hapus').modal('show');
+  }
+
+  function edit(id){
+    $.ajax({
+      url: "/faskes_has_tenaga_kesehatan/get_data/" + id
+    })
+    .done(function( data ){
+      const faskes_has_tenaga_kesehatan = JSON.parse( data );
+
+      $('#faskes_id_edit').val(faskes_has_tenaga_kesehatan.faskes_id);
+      $('#spesialisasi_edit').val(faskes_has_tenaga_kesehatan.spesialisasi);
+
+      $('#form_edit').attr('action',"/faskes_has_tenaga_kesehatan/" + id);
+      $('#modal_edit').modal('show');
+    });
   }
 </script>
 
