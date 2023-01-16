@@ -6,6 +6,7 @@ use App\Models\Hubungan;
 use App\Models\RekamMedis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 
 class RekamMedisController extends Controller
@@ -125,7 +126,12 @@ class RekamMedisController extends Controller
         $data['tipe_rekam_medis'] = $request->tipe_rekam_medis;
         $data['rekam_medises'] = RekamMedis::where('visibility',1)->where('pasien_id',$pasien_id)->filter($filters)->get();
 
-        return view('rekam_medis.pdf',$data);
+
+        $pdf = Pdf::loadView('rekam_medis.pdf', $data);
+        
+        $pdf->setPaper('A4', 'portrait');
+
+        return $pdf->stream();
     }
 
     public function daftar_rekam_medis(Request $request, $tipe_rekam_medis,$pasien_id){

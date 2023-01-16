@@ -3,9 +3,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Inventory</title>
+  <title>Rekam Medisku</title>
   <style>
-    @page { margin: 1cm 0.5cm; }
+    @page { margin: 0cm; }
 
     #tabel {
       width: 18cm;
@@ -23,8 +23,9 @@
     }
 
     body{
+      padding:0.5cm;
       background-color: rgb(255, 254, 150);
-      width:19cm;
+      width:20cm;
       height:32cm;
       font-family:Arial, Helvetica, sans-serif;
     }
@@ -35,16 +36,35 @@
     <h4 style='margin-top:0;padding-top:0;'>
       REKAM MEDISKU
     </h4>
+    <table>
+      <tr>
+        <td style='width:3cm;'>Nama Lengkap</td>
+        <td style='width:6cm;'>: Christian Antonio Sadha</td>
+        <td style='width:3cm;'>Jenis Kelamin</td>
+        <td style='width:6cm;'>: Laki Laki</td>
+      </tr>
+      <tr>
+        <td style='width:3cm;'>Tanggal Lahir</td>
+        <td style='width:6cm;'>: 23 April 2001 (22 Tahun)</td>
+        <td style='width:3cm;'>No. HP</td>
+        <td style='width:6cm;'>: 082233574795</td>
+      </tr>
+    </table>
   </div>
-  <table id='tabel'>
+  <table id='tabel' style='margin-top:0.5cm;'>
     <thead>
       <tr>
-        <th style='width:1cm;'>NO.</th>
-        <th style='width:15cm;'>NAMA BARANG</th>
-        <th style='width:3cm;'>STOK</th>
+        <th style='width:3cm;'>Tanggal</th>
+        <th style='width:3cm;'>Anamnesa</th>
+        <th style='width:12cm;'>Diagnosis</th>
       </tr>
     </thead>
     <tbody>
+      <tr>
+        <td>20 Jun 2022</td>
+        <td>Pemeriksaan Lutut</td>
+        <td style="text-align:justify;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, officia maiores? Fugit labore nostrum obcaecati, dolor at corporis et quaerat doloribus voluptatem ab ducimus! Aliquid tenetur suscipit illum libero delectus.</td>
+      </tr>
     </tbody>
   </table>
 </body>
