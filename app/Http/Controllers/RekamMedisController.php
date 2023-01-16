@@ -177,7 +177,7 @@ class RekamMedisController extends Controller
                     $rekam_medises = RekamMedis::filter($filters);
 
 
-                    $data['rekam_medises'] = $rekam_medises->where('visibility',1)->where('tenaga_kesehatan_id',auth()->user()->id)->where('pasien_id',$pasien_id)->where('tipe_rekam_medis',0)->get();
+                    $data['rekam_medises'] = $rekam_medises->where('visibility',1)->where('pasien_id',$pasien_id)->where('tipe_rekam_medis',0)->get();
                     $data['filters'] = $filters;
                     $data['pasien_id'] = $pasien_id;
 

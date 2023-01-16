@@ -112,7 +112,21 @@
                   </td>
       
                   <td>
-                    {{ $rekam_medis->diagnosis }}
+                    <span id='bacasedikit-{{ $rekam_medis->id }}' style="display: block;">
+                      {{ Str::limit($rekam_medis->diagnosis,100) }}
+                      @if (strlen($rekam_medis->diagnosis) > 100)
+                        <button style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='baca_selengkapnya({{ $rekam_medis->id }})'>
+                          Baca Selengkapnya...
+                        </button>
+                      @endif
+                    </span>
+                    
+                    <span id='bacalengkap-{{ $rekam_medis->id }}' style="display: none;">
+                      {{ $rekam_medis->diagnosis }}
+                      <button style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='baca_lebih_sedikit({{ $rekam_medis->id }})'>
+                        Baca Lebih Sedikit...
+                      </button>
+                    </span>
                   </td>
 
                   @if ($tipe_rekam_medis == "tenaga_kesehatan")
@@ -355,6 +369,17 @@
     $('#form_hapus').attr('action','/rekam_medis/'+id);
     $('#modal_hapus').modal('show');
   }
+
+  function baca_selengkapnya(id){
+    $('#bacalengkap-'+id).css('display','block');
+    $('#bacasedikit-'+id).css('display','none');
+  }
+
+  function baca_lebih_sedikit(id){
+    $('#bacalengkap-'+id).css('display','none');
+    $('#bacasedikit-'+id).css('display','block');
+  }
+
 </script>
 
 @endsection
