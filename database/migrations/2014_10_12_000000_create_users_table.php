@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('username');
             $table->string('password');
             $table->string('nama');
+            $table->string('no_hp');
+            $table->integer('jenis_kelamin')->nullable(); //1 = laki laki, 2 = perempuan
+            $table->date('tanggal_lahir')->nullable();
             $table->integer('tipe_tenaga_kesehatan')->default(0); // 0 = non Tenaga Kesehatan, 1 = dokter, 2 = pengobat tradisional
             $table->integer('visibility')->default(1); // 1 = true, 0 = false
             $table->timestamps();
