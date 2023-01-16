@@ -116,6 +116,18 @@ class RekamMedisController extends Controller
         return RekamMedis::find($id)->toJSON();
     }
 
+    public function show_pdf(Request $request){
+        $pasien_id = $request->pasien_id;
+        $filters['tipe_tenaga_kesehatan'] = $request->tipe_tenaga_kesehatan;
+        $filters['awal_tanggal'] = $request->awal_tanggal;
+        $filters['akhir_tanggal'] = $request->akhir_tanggal;
+
+        $data['tipe_rekam_medis'] = $request->tipe_rekam_medis;
+        $data['rekam_medises'] = RekamMedis::where('visibility',1)->where('pasien_id',$pasien_id)->filter($filters)->get();
+
+        return view('rekam_medis.pdf',$data);
+    }
+
     public function daftar_rekam_medis(Request $request, $tipe_rekam_medis,$pasien_id){
         $data['tipe_rekam_medis'] = $tipe_rekam_medis;
 
