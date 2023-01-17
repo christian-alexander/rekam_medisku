@@ -22,13 +22,17 @@
               <img src="{{ (auth()->user()->foto_profil == 'assets/img/avatars/user.png')? asset(auth()->user()->foto_profil) : asset('storage/'.auth()->user()->foto_profil) }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
               <div class="button-wrapper">
                 <h5>{{ auth()->user()->nama }}</h5>
-                <p class="text-muted mb-0">{{ auth()->user()->username }}</p>                  
+                <p class="text-muted mb-0">{{ (auth()->user()->jenis_kelamin == 1)? 'Laki laki' : 'Perempuan' }}</p>                  
+                <p class="text-muted mb-0">{{ Carbon::parse(auth()->user()->tanggal_lahir)->format('d M Y') }} ( {{ str_replace("yang lalu","",Carbon::parse(auth()->user()->tanggal_lahir)->diffForHumans()) }})</p>                  
+                <p class="text-muted mb-0">{{ auth()->user()->no_hp }}</p>                 
               </div>
             @else
-              <img src="{{ (auth()->user()->foto_profil == 'assets/img/avatars/user.png')? asset(auth()->user()->foto_profil) : asset('storage/'.auth()->user()->foto_profil) }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
+              <img src="{{ ($pasien->foto_profil == 'assets/img/avatars/user.png')? asset($pasien->foto_profil) : asset('storage/'.$pasien->foto_profil) }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
               <div class="button-wrapper">
-                <h5>{{ auth()->user()->nama }}</h5>
-                <p class="text-muted mb-0">{{ auth()->user()->username }}</p>                  
+                <h5>{{ $pasien->nama }}</h5>
+                <p class="text-muted mb-0">{{ ($pasien->jenis_kelamin == 1)? 'Laki laki' : 'Perempuan' }}</p>                  
+                <p class="text-muted mb-0">{{ Carbon::parse($pasien->tanggal_lahir)->format('d M Y') }} ( {{ str_replace("yang lalu","",Carbon::parse($pasien->tanggal_lahir)->diffForHumans()) }})</p>                  
+                <p class="text-muted mb-0">{{ $pasien->no_hp }}</p>                  
               </div>
             @endif
           </div>
@@ -74,7 +78,7 @@
                 @if ($tipe_rekam_medis == "tenaga_kesehatan")
                   <th style='text-align:center;'>Tenaga Kesehatan</th>
                 @endif
-                <th style='text-align:center;'>Judul</th>
+                <th style='text-align:center;'>Anamnesa</th>
                 <th style='text-align:center;'>Diagnosis</th>
                 @if ($tipe_rekam_medis == "tenaga_kesehatan")
                   @if (auth()->user()->hasRole('tenaga_kesehatan'))
@@ -108,7 +112,7 @@
                   @endif
       
                   <td style="text-align: center;">
-                    {{ $rekam_medis->judul }}
+                    {{ $rekam_medis->anamnesa }}
                   </td>
       
                   <td>
@@ -245,9 +249,9 @@
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Judul</label>
+            <label class="form-label">Anamnesa / Keluhan</label>
             <div class="position-relative">
-              <input type="text" class="form-control" name="judul" required>
+              <input type="text" class="form-control" name="anamnesa" required>
             </div>
           </div>
 
@@ -289,9 +293,9 @@
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Judul</label>
+            <label class="form-label">Anamnesa / Keluhan</label>
             <div class="position-relative">
-              <input type="text" class="form-control" name="judul" id='judul_edit' required>
+              <input type="text" class="form-control" name="anamnesa" id='anamnesa_edit' required>
             </div>
           </div>
 
@@ -357,7 +361,7 @@
       const rekam_medis = JSON.parse(data);
 
       $('#tanggal_edit').val(rekam_medis.tanggal);
-      $('#judul_edit').val(rekam_medis.judul);
+      $('#anamnesa_edit').val(rekam_medis.anamnesa);
       $('#diagnosis_edit').val(rekam_medis.diagnosis);
     
       $('#form_edit').attr('action','/rekam_medis/'+id);

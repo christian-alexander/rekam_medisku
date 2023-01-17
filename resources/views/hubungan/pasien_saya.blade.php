@@ -33,6 +33,8 @@
       
                   <td style="text-align: center;">
                     {{ $pasien_saya->nama }}
+                    <hr>
+                    {{ $pasien_saya->no_hp }}
                   </td>
       
                   <td style="text-align: center;">

@@ -35,6 +35,8 @@
       
                   <td style="text-align: center;">
                     {{ $tenaga_kesehatan_saya->nama }}
+                    <hr>
+                    {{ $tenaga_kesehatan_saya->no_hp }}
                   </td>
       
                   <td style="text-align: center;">

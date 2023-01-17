@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Hubungan;
 use App\Models\RekamMedis;
 use Illuminate\Http\Request;
@@ -42,7 +43,7 @@ class RekamMedisController extends Controller
         $validated_data = $request->validate([
             'pasien_id' => 'exists:users,id',
             'tanggal' => 'required|date',
-            'judul' => 'required|max:255',
+            'anamnesa' => 'required|max:255',
             'diagnosis' => 'required'
         ]);
 
@@ -91,7 +92,7 @@ class RekamMedisController extends Controller
     {
         $validated_data = $request->validate([
             'tanggal' => 'required|date',
-            'judul' => 'required|max:255',
+            'anamnesa' => 'required|max:255',
             'diagnosis' => 'required'
         ]);
 
@@ -185,6 +186,7 @@ class RekamMedisController extends Controller
 
                     $data['rekam_medises'] = $rekam_medises->where('visibility',1)->where('pasien_id',$pasien_id)->where('tipe_rekam_medis',0)->get();
                     $data['filters'] = $filters;
+                    $data['pasien'] = User::find($pasien_id);
                     $data['pasien_id'] = $pasien_id;
 
                     break;
@@ -200,6 +202,7 @@ class RekamMedisController extends Controller
 
                     $data['rekam_medises'] = $rekam_medises->where('visibility',1)->where('tenaga_kesehatan_id',auth()->user()->id)->where('pasien_id',$pasien_id)->where('tipe_rekam_medis',1)->get();
                     $data['filters'] = $filters;
+                    $data['pasien'] = User::find($pasien_id);
                     $data['pasien_id'] = $pasien_id;
 
                     break;
