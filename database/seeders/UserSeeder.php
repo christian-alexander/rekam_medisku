@@ -44,6 +44,8 @@ class UserSeeder extends Seeder
             'password' => '$2y$10$CNF5HPBI.g0gBo3oQwPwau1qmcv1TNBofIO7gRnfUn5qvQ2PdKdeO',
             'nama' => 'Pasien',
             'no_hp' => '08123456789',
+            'jenis_kelamin' => 1,
+            'tanggal_lahir' => '2001-01-01',
             'tipe_tenaga_kesehatan' => 0,
         ]);
 

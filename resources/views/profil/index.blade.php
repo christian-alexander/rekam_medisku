@@ -38,13 +38,34 @@
           <div class="row">
             <div class="mb-3 col-md-6 fv-plugins-icon-container">
               <label class="form-label">Username</label>
-              <input class="form-control" type="text" name="username" value='{{ auth()->user()->username }}' autofocus="">
+              <input class="form-control" type="text" name="username" value='{{ auth()->user()->username }}' autofocus="" required>
               <span class='help-block'>Username tidak boleh mengandung spasi</span>
             <div class="fv-plugins-message-container invalid-feedback"></div></div>
           
             <div class="mb-3 col-md-6 fv-plugins-icon-container">
               <label class="form-label">Nama</label>
-              <input class="form-control" type="text" name="nama" value='{{ auth()->user()->nama }}' autofocus="">
+              <input class="form-control" type="text" name="nama" value='{{ auth()->user()->nama }}' autofocus="" required>
+            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+
+            @if (auth()->user()->hasRole('pasien'))
+              <div class="mb-3 col-md-6 fv-plugins-icon-container">
+                <label class="form-label">Jenis Kelamin</label>
+                <select name="jenis_kelamin" class="form-control" required>
+                  <option value="1" {{ (auth()->user()->jenis_kelamin == 1)? 'selected' : '' }}>Laki Laki</option>
+                  <option value="2" {{ (auth()->user()->jenis_kelamin == 2)? 'selected' : '' }}>Perempuan</option>
+                </select>
+              <div class="fv-plugins-message-container invalid-feedback"></div></div>
+
+              <div class="mb-3 col-md-6 fv-plugins-icon-container">
+                <label class="form-label">Tanggal Lahir</label>
+                <input class="form-control" type="date" name="tanggal_lahir" value='{{ auth()->user()->tanggal_lahir }}' autofocus="" required>
+              <div class="fv-plugins-message-container invalid-feedback"></div></div>
+              
+            @endif
+          
+            <div class="mb-3 col-md-6 fv-plugins-icon-container">
+              <label class="form-label">No HP</label>
+              <input class="form-control" type="number" name="no_hp" value='{{ auth()->user()->no_hp }}' autofocus="" required>
             <div class="fv-plugins-message-container invalid-feedback"></div></div>
 
           </div>

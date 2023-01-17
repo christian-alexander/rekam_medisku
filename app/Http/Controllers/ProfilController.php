@@ -46,7 +46,10 @@ class ProfilController extends Controller
 
     public function update_profil(Request $request){
         $rules = [
-            'nama' => 'required|max:64'
+            'nama' => 'required|max:64',
+            'no_hp' => 'required|numeric',
+            'jenis_kelamin' => 'nullable|numeric',
+            'tanggal_lahir' => 'nullable|date'
         ];
         
         if($request->username != auth()->user()->username){
@@ -55,7 +58,6 @@ class ProfilController extends Controller
        
         $validated_data = $request->validate($rules);
  
-
         User::where('id',auth()->user()->id)->update($validated_data);
 
         return redirect()->back()->with('success','Berhasil diubah');
