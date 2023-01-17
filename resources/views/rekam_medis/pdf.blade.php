@@ -34,20 +34,27 @@
 <body>
   <div style="width:100%;text-align:left;">
     <h4 style='margin-top:0;padding-top:0;'>
-      REKAM MEDISKU
+      REKAM MEDISKU ( {{ ($tipe_rekam_medis == "personal")? "PERSONAL" : "TENAGA KESEHATAN" }}
+      @if ($tipe_rekam_medis == "tenaga_kesehatan")
+        {{ ($filters['tipe_tenaga_kesehatan'] == 'all')? 'SEMUA TIPE' : (($filters['tipe_tenaga_kesehatan'] == 1)? 'DOKTER' : 'PENGOBAT TRADISIONAL') }})
+      @else 
+        )
+      @endif
+      <br>
+      {{ Carbon::parse($filters['awal_tanggal'])->format('d M Y') }} - {{ Carbon::parse($filters['akhir_tanggal'])->format('d M Y') }}
     </h4>
     <table>
       <tr>
         <td style='width:3cm;'>Nama Lengkap</td>
-        <td style='width:6cm;'>: Christian Antonio Sadha</td>
+        <td style='width:6cm;'>: {{ $pasien->nama }}</td>
         <td style='width:3cm;'>Jenis Kelamin</td>
-        <td style='width:6cm;'>: Laki Laki</td>
+        <td style='width:6cm;'>: {{ ($pasien->jenis_kelamin == 1)? 'Laki laki' : 'Perempuan' }}</td>
       </tr>
       <tr>
         <td style='width:3cm;'>Tanggal Lahir</td>
-        <td style='width:6cm;'>: 23 April 2001 (22 Tahun)</td>
+        <td style='width:6cm;'>: {{ Carbon::parse($pasien->tanggal_lahir)->format('d M Y') }} ( {{ str_replace("yang lalu","",Carbon::parse($pasien->tanggal_lahir)->diffForHumans()) }})</td>
         <td style='width:3cm;'>No. HP</td>
-        <td style='width:6cm;'>: 082233574795</td>
+        <td style='width:6cm;'>: {{ $pasien->no_hp }}</td>
       </tr>
     </table>
   </div>
@@ -55,16 +62,33 @@
     <thead>
       <tr>
         <th style='width:3cm;'>Tanggal</th>
-        <th style='width:3cm;'>Anamnesa</th>
-        <th style='width:12cm;'>Diagnosis</th>
+        @if ($tipe_rekam_medis == 'tenaga_kesehatan')        
+          <th style='width:3cm;'>Tenaga Kesehatan</th>
+          <th style='width:3cm;'>Anamnesa</th>
+          <th style='width:9cm;'>Diagnosis</th>
+        @else
+          <th style='width:3cm;'>Anamnesa</th>
+          <th style='width:12cm;'>Diagnosis</th>
+        @endif
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>20 Jun 2022</td>
-        <td>Pemeriksaan Lutut</td>
-        <td style="text-align:justify;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, officia maiores? Fugit labore nostrum obcaecati, dolor at corporis et quaerat doloribus voluptatem ab ducimus! Aliquid tenetur suscipit illum libero delectus.</td>
-      </tr>
+      @if (count($rekam_medises) == 0)
+        <tr>
+          <td colspan="{{ ($tipe_rekam_medis == "personal")? '3' : '4' }}">Belum ada data</td>
+        </tr>
+      @else
+        @foreach ($rekam_medises as $rekam_medis)          
+          <tr>
+            <td>{{ Carbon::parse($rekam_medis->tanggal)->format('d M Y') }}</td>
+            @if ($tipe_rekam_medis == "tenaga_kesehatan")
+              <td>{{ $rekam_medis->tenaga_kesehatan->nama }}</td>
+            @endif
+            <td>{{ $rekam_medis->anamnesa }}</td>
+            <td style="text-align:justify;">{{ $rekam_medis->diagnosis }}</td>
+          </tr>
+        @endforeach
+      @endif
     </tbody>
   </table>
 </body>

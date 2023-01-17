@@ -12,7 +12,7 @@
           </a>
         @endif
 
-        Rekam Medis {{ ($tipe_rekam_medis == "tenaga_kesehatan")? 'dari Tenaga Kesehatan' : 'Personal' }}
+        Rekam Medis {{ ($tipe_rekam_medis == "tenaga_kesehatan")? 'dari Tenaga Kesehatan' : 'Personal' }} 
       </h5>
       <hr class="my-0">
       <div class="card-body pb-2">
@@ -56,6 +56,16 @@
 
       <div class="card-body pt-0">          
 
+        <form action="/rekam_medis/show_pdf" target="_blank" method="GET" style="display: inline;">
+          <input type="hidden" name="pasien_id" value="{{ $pasien_id }}">
+          <input type="hidden" name="tipe_rekam_medis" value="{{ $tipe_rekam_medis }}">
+          @if ($tipe_rekam_medis == "tenaga_kesehatan")
+            <input type="hidden" name="tipe_tenaga_kesehatan" value="{{ $filters['tipe_tenaga_kesehatan'] }}">
+          @endif
+          <input type="hidden" name="awal_tanggal" value="{{ $filters['awal_tanggal'] }}">
+          <input type="hidden" name="akhir_tanggal" value="{{ $filters['akhir_tanggal'] }}">
+          <button type='submit' class='btn btn-secondary' style='margin-bottom:20px;'>Print</button>
+        </form>
         <button class='btn btn-primary' style='margin-bottom:20px;' onclick="filter()">Filter</button>
 
         @if ($tipe_rekam_medis == "tenaga_kesehatan")

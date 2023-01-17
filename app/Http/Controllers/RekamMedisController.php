@@ -126,7 +126,8 @@ class RekamMedisController extends Controller
 
         $data['tipe_rekam_medis'] = $request->tipe_rekam_medis;
         $data['rekam_medises'] = RekamMedis::where('visibility',1)->where('pasien_id',$pasien_id)->filter($filters)->get();
-
+        $data['pasien'] = User::find($pasien_id);
+        $data['filters'] = $filters;
 
         $pdf = Pdf::loadView('rekam_medis.pdf', $data);
         
