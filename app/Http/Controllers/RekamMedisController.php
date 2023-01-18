@@ -44,7 +44,7 @@ class RekamMedisController extends Controller
             'pasien_id' => 'exists:users,id',
             'tanggal' => 'required|date',
             'anamnesa' => 'required|max:255',
-            'diagnosis' => 'required'
+            'diagnosis' => 'required|max:2250'
         ]);
 
         if(auth()->user()->hasRole('tenaga_kesehatan')){
@@ -93,7 +93,7 @@ class RekamMedisController extends Controller
         $validated_data = $request->validate([
             'tanggal' => 'required|date',
             'anamnesa' => 'required|max:255',
-            'diagnosis' => 'required'
+            'diagnosis' => 'required|max:2250'
         ]);
 
         RekamMedis::where('id',$id)->update($validated_data);

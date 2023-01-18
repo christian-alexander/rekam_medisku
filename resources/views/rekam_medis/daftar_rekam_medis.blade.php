@@ -110,7 +110,7 @@
                   <td style='text-align:right'>{{ $loop->iteration }}</td>
                   
                   <td style="text-align:center;">
-                    {{ Carbon::parse($rekam_medis->tanggal)->format('d M Y') }}
+                    {{ Carbon::parse($rekam_medis->tanggal)->format('Y-m-d') }}
                   </td>
 
                   @if ($tipe_rekam_medis == "tenaga_kesehatan")
