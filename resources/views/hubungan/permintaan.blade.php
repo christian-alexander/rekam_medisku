@@ -38,13 +38,13 @@
                   </td>
       
                   <td style="text-align: center;">
-                    <button id='btn_terima' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='terima(1)'>
+                    <button id='btn_terima' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='terima({{ $hubungan_calon_pasien->id }})'>
                       <i class='fa fa-check' style='color:#3c8dbc;'></i>
                     </button>
                   </td>
       
                   <td style="text-align: center;">
-                    <button id='btn_tolak' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='tolak(1)'>
+                    <button id='btn_tolak' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='tolak({{ $hubungan_calon_pasien->id }})'>
                       <i class='fa fa-times' style='color:#3c8dbc;'></i>
                     </button>
                   </td>

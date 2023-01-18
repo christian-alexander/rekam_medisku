@@ -16,7 +16,7 @@ class HubunganController extends Controller
         $this->cek_roles('pasien');
 
         $tenaga_kesehatan_sudah_terhubung = Hubungan::where('pasien_id',auth()->user()->id)->pluck('tenaga_kesehatan_id');
-        $data['calon_tenaga_kesehatans'] = User::where('visibility',1)->whereNotIn('id',$tenaga_kesehatan_sudah_terhubung)->where('tipe_tenaga_kesehatan','1')->orWhere('tipe_tenaga_kesehatan','2')->get();
+        $data['calon_tenaga_kesehatans'] = User::where('visibility',1)->whereNotIn('id',$tenaga_kesehatan_sudah_terhubung)->where('tipe_tenaga_kesehatan','!=','0')->get();
         return view('hubungan.pengajuan',$data);
     }
 
