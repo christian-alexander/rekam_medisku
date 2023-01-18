@@ -18,7 +18,7 @@ class ProfilController extends Controller
                 $data['faskeses'] = Faskes::where('visibility',1)->where('tipe_faskes',2)->get();            
             }
 
-            $data['faskes_has_tenaga_kesehatans'] = FaskesHasTenagaKesehatan::all();
+            $data['faskes_has_tenaga_kesehatans'] = FaskesHasTenagaKesehatan::where('tenaga_kesehatan_id',auth()->user()->id)->get();
 
             return view("profil.index",$data);
         }else{   
