@@ -90,6 +90,7 @@
                 @endif
                 <th style='text-align:center;'>Anamnesa</th>
                 <th style='text-align:center;'>Diagnosis</th>
+                <th style='text-align:center;'>Terapi</th>
                 @if ($tipe_rekam_medis == "tenaga_kesehatan")
                   @if (auth()->user()->hasRole('tenaga_kesehatan'))
                     <th style='text-align:center;'>Edit</th>
@@ -126,18 +127,36 @@
                   </td>
       
                   <td>
-                    <span id='bacasedikit-{{ $rekam_medis->id }}' style="display: block;">
+                    <span id='diagnosis-bacasedikit-{{ $rekam_medis->id }}' style="display: block;">
                       {{ Str::limit($rekam_medis->diagnosis,100) }}
                       @if (strlen($rekam_medis->diagnosis) > 100)
-                        <button style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='baca_selengkapnya({{ $rekam_medis->id }})'>
+                        <button style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='diagnosis_baca_selengkapnya({{ $rekam_medis->id }})'>
                           Baca Selengkapnya...
                         </button>
                       @endif
                     </span>
                     
-                    <span id='bacalengkap-{{ $rekam_medis->id }}' style="display: none;">
+                    <span id='diagnosis-bacalengkap-{{ $rekam_medis->id }}' style="display: none;">
                       {{ $rekam_medis->diagnosis }}
-                      <button style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='baca_lebih_sedikit({{ $rekam_medis->id }})'>
+                      <button style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='diagnosis_baca_lebih_sedikit({{ $rekam_medis->id }})'>
+                        Baca Lebih Sedikit...
+                      </button>
+                    </span>
+                  </td>
+      
+                  <td>
+                    <span id='terapi-bacasedikit-{{ $rekam_medis->id }}' style="display: block;">
+                      {{ Str::limit($rekam_medis->terapi,100) }}
+                      @if (strlen($rekam_medis->terapi) > 100)
+                        <button style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='terapi_baca_selengkapnya({{ $rekam_medis->id }})'>
+                          Baca Selengkapnya...
+                        </button>
+                      @endif
+                    </span>
+                    
+                    <span id='terapi-bacalengkap-{{ $rekam_medis->id }}' style="display: none;">
+                      {{ $rekam_medis->terapi }}
+                      <button style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='terapi_baca_lebih_sedikit({{ $rekam_medis->id }})'>
                         Baca Lebih Sedikit...
                       </button>
                     </span>
@@ -250,7 +269,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="/rekam_medis" method='POST' id='form_tambah' onsubmit="return cek_panjang_diagnosis('tambah')" class='dont_disabled'>
+        <form action="/rekam_medis" method='POST' id='form_tambah' onsubmit="return cek_panjang_diagnosis_dan_terapi('tambah')" class='dont_disabled'>
           @csrf
 
           <input type="hidden" name="pasien_id" value="{{ $pasien_id }}">
@@ -276,6 +295,13 @@
             </div>
           </div>
 
+          <div class="mb-3">
+            <label class="form-label">Terapi</label>
+            <div class="position-relative">
+              <textarea class="form-control" name="terapi" id="terapi_tambah" style="height:150px;" required></textarea>
+            </div>
+          </div>
+
           <div class="form-group" style='text-align:center;'>
             <button type='submit' class="btn btn-success">Tambah</button>
           </div>
@@ -295,7 +321,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="diisi_dari_js" method='POST' id='form_edit' onsubmit="return cek_panjang_diagnosis('edit')" class='dont_disabled'>
+        <form action="diisi_dari_js" method='POST' id='form_edit' onsubmit="return cek_panjang_diagnosis_dan_terapi('edit')" class='dont_disabled'>
           @csrf
           @method('PUT')
 
@@ -317,6 +343,13 @@
             <label class="form-label">Diagnosis</label>
             <div class="position-relative">
               <textarea class="form-control" name="diagnosis" id='diagnosis_edit' style="height:150px;" required></textarea>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Terapi (Penanganan)</label>
+            <div class="position-relative">
+              <textarea class="form-control" name="terapi" id='terapi_edit' style="height:150px;" required></textarea>
             </div>
           </div>
 
@@ -377,6 +410,7 @@
       $('#tanggal_edit').val(rekam_medis.tanggal);
       $('#anamnesa_edit').val(rekam_medis.anamnesa);
       $('#diagnosis_edit').val(rekam_medis.diagnosis);
+      $('#terapi_edit').val(rekam_medis.terapi);
     
       $('#form_edit').attr('action','/rekam_medis/'+id);
       $('#modal_edit').modal('show');
@@ -388,20 +422,37 @@
     $('#modal_hapus').modal('show');
   }
 
-  function baca_selengkapnya(id){
-    $('#bacalengkap-'+id).css('display','block');
-    $('#bacasedikit-'+id).css('display','none');
+  function diagnosis_baca_selengkapnya(id){
+    $('#diagnosis-bacalengkap-'+id).css('display','block');
+    $('#diagnosis-bacasedikit-'+id).css('display','none');
   }
 
-  function baca_lebih_sedikit(id){
-    $('#bacalengkap-'+id).css('display','none');
-    $('#bacasedikit-'+id).css('display','block');
+  function diagnosis_baca_lebih_sedikit(id){
+    $('#diagnosis-bacalengkap-'+id).css('display','none');
+    $('#diagnosis-bacasedikit-'+id).css('display','block');
   }
 
-  function cek_panjang_diagnosis(tipe){
-    if($('#diagnosis_'+tipe).val().length > 2250){
+  function terapi_baca_selengkapnya(id){
+    $('#terapi-bacalengkap-'+id).css('display','block');
+    $('#terapi-bacasedikit-'+id).css('display','none');
+  }
+
+  function terapi_baca_lebih_sedikit(id){
+    $('#terapi-bacalengkap-'+id).css('display','none');
+    $('#terapi-bacasedikit-'+id).css('display','block');
+  }
+
+  function cek_panjang_diagnosis_dan_terapi(tipe){
+    if($('#diagnosis_'+tipe).val().length > 1000){
       iziToast.error({
-        title: "Diagnosis terlalu panjang (maks 2250 karakter)",
+        title: "Diagnosis terlalu panjang (maks 1000 karakter)",
+        position: 'topCenter'
+      });
+
+      return false;
+    }else if($('#terapi_'+tipe).val().length > 1000){
+      iziToast.error({
+        title: "Terapi terlalu panjang (maks 1000 karakter)",
         position: 'topCenter'
       });
 

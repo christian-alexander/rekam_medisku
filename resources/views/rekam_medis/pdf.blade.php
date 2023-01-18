@@ -65,10 +65,12 @@
         @if ($tipe_rekam_medis == 'tenaga_kesehatan')        
           <th style='width:3cm;'>Tenaga Kesehatan</th>
           <th style='width:3cm;'>Anamnesa</th>
-          <th style='width:9cm;'>Diagnosis</th>
+          <th style='width:4.5cm;'>Diagnosis</th>
+          <th style='width:4.5cm;'>Terapi</th>
         @else
           <th style='width:3cm;'>Anamnesa</th>
-          <th style='width:12cm;'>Diagnosis</th>
+          <th style='width:6cm;'>Diagnosis</th>
+          <th style='width:6cm;'>Terapi</th>
         @endif
       </tr>
     </thead>
@@ -86,6 +88,7 @@
             @endif
             <td>{{ $rekam_medis->anamnesa }}</td>
             <td style="text-align:justify;">{{ $rekam_medis->diagnosis }}</td>
+            <td style="text-align:justify;">{{ $rekam_medis->terapi }}</td>
           </tr>
         @endforeach
       @endif
