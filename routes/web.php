@@ -26,6 +26,12 @@ use App\Http\Controllers\FaskesHasTenagaKesehatanController;
 
 Route::get('/create_symlink', function () {
     Artisan::call('storage:link');
+    echo "done";
+});
+
+Route::get('/migrate', function () {
+    Artisan::call('migrate:fresh --seed');
+    echo "done";
 });
 
 
