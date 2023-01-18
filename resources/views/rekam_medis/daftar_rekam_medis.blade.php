@@ -246,7 +246,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="/rekam_medis" method='POST' id='form_tambah'>
+        <form action="/rekam_medis" method='POST' id='form_tambah' onsubmit="return cek_panjang_diagnosis('tambah')" class='dont_disabled'>
           @csrf
 
           <input type="hidden" name="pasien_id" value="{{ $pasien_id }}">
@@ -268,7 +268,7 @@
           <div class="mb-3">
             <label class="form-label">Diagnosis</label>
             <div class="position-relative">
-              <textarea class="form-control" name="diagnosis" style="height:150px;" required></textarea>
+              <textarea class="form-control" name="diagnosis" id="diagnosis_tambah" style="height:150px;" required></textarea>
             </div>
           </div>
 
@@ -291,7 +291,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="diisi_dari_js" method='POST' id='form_edit'>
+        <form action="diisi_dari_js" method='POST' id='form_edit' onsubmit="return cek_panjang_diagnosis('edit')" class='dont_disabled'>
           @csrf
           @method('PUT')
 
@@ -392,6 +392,19 @@
   function baca_lebih_sedikit(id){
     $('#bacalengkap-'+id).css('display','none');
     $('#bacasedikit-'+id).css('display','block');
+  }
+
+  function cek_panjang_diagnosis(tipe){
+    if($('#diagnosis_'+tipe).val().length > 2250){
+      iziToast.error({
+        title: "Diagnosis terlalu panjang (maks 2250 karakter)",
+        position: 'topCenter'
+      });
+
+      return false;
+    }else{
+      return true;
+    }
   }
 
 </script>
