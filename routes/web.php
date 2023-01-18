@@ -81,6 +81,7 @@ Route::post('/hubungan/terima/{hubungan_id}',[HubunganController::class, 'terima
 Route::post('/hubungan/tolak/{hubungan_id}',[HubunganController::class, 'tolak'])->middleware('auth');
 Route::get('/hubungan/pasien_saya',[HubunganController::class, 'pasien_saya'])->middleware('auth');
 
+
 // PASIEN ONLY
 // hubungan
 Route::get('/hubungan/pengajuan_menghubungkan',[HubunganController::class, 'pengajuan'])->middleware('auth');
@@ -88,6 +89,8 @@ Route::get('/hubungan/get_tenaga_kesehatan/{tenaga_kesehatan_id}',[HubunganContr
 Route::get('/hubungan/get_faskes_has_tenaga_kesehatan/{tenaga_kesehatan_id}',[HubunganController::class, 'get_faskes_has_tenaga_kesehatan'])->middleware('auth');
 Route::post('/hubungan/submit_ajukan/{tenaga_kesehatan_id}',[HubunganController::class, 'submit_ajukan'])->middleware('auth');
 Route::get('/hubungan/tenaga_kesehatan_saya',[HubunganController::class, 'tenaga_kesehatan_saya'])->middleware('auth');
-Route::post('/hubungan/putuskan_hubungan/{tenaga_kesehatan_id}',[HubunganController::class, 'putuskan_hubungan'])->middleware('auth');
+
+// PASIEN DAN TENAGA KESEHATAN
+Route::post('/hubungan/putuskan_hubungan/{tipe}/{pasien_or_tenaga_kesehatan_id}',[HubunganController::class, 'putuskan_hubungan'])->middleware('auth');
 
 

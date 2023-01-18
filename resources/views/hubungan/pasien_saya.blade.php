@@ -17,6 +17,7 @@
                 <th style='text-align:center;'>Nama</th>
                 <th style='text-align:center;'>Rekam Medis Tenaga Kesehatan</th>
                 <th style='text-align:center;'>Rekam Medis Personal</th>
+                <th style='text-align:center;'>Putuskan Hubungan</th>
               </tr>
             </thead>
             <tbody>
@@ -49,6 +50,12 @@
                     </a>
                   </td>
       
+                  <td style="text-align: center;">
+                    <button id='btn_putuskan_hubungan' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='putuskan_hubungan({{ $pasien_saya->id }})'>
+                      <i class='fa fa-times' style='color:#3c8dbc;'></i>
+                    </button>
+                  </td>
+      
                 </tr>
               @endforeach
     
@@ -60,5 +67,41 @@
     
     </div>
   </div>
+
+
+  {{-- modal putuskan hubungan --}}
+  <div class="modal" id='modal_putuskan_hubungan'>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Konfirmasi</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Apakah anda yakin ingin memutuskan hubungan?
+          
+        </div>
+
+        <div class="modal-footer">
+          <form action="diisi_dari_js" method='POST' id='form_putuskan_hubungan'>
+            @csrf
+  
+            <div class="form-group" style='text-align:center;'>
+              <button type='submit' class="btn btn-danger">Putuskan</button>
+            </div>
+  
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    function putuskan_hubungan(id){
+      $('#form_putuskan_hubungan').attr('action','/hubungan/putuskan_hubungan/dari_tenaga_kesehatan/'+id);
+      $('#modal_putuskan_hubungan').modal('show');
+    }
+  </script>
 
 @endsection

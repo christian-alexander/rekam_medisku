@@ -16,7 +16,7 @@
                 <th style='text-align:center;'>Foto</th>
                 <th style='text-align:center;'>Nama</th>
                 <th style='text-align:center;'>Fasilitas Kesehatan</th>
-                <th style='text-align:center;'>Batalkan Penghubungan</th>
+                <th style='text-align:center;'>Putuskan Hubungan</th>
               </tr>
             </thead>
             <tbody>
@@ -179,7 +179,7 @@
     }
 
     function putuskan_hubungan(id){
-      $('#form_putuskan_hubungan').attr('action','/hubungan/putuskan_hubungan/'+id);
+      $('#form_putuskan_hubungan').attr('action','/hubungan/putuskan_hubungan/dari_pasien/'+id);
       $('#modal_putuskan_hubungan').modal('show');
     }
   </script>

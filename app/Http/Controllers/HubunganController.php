@@ -81,11 +81,19 @@ class HubunganController extends Controller
         return view('hubungan.tenaga_kesehatan_saya',$data);
     }
 
-    public function putuskan_hubungan($tenaga_kesehatan_id){
-        $this->cek_roles('pasien');
+    public function putuskan_hubungan($tipe,$pasien_or_tenaga_kesehatan_id){
+        if($tipe == "dari_pasien"){
 
-        Hubungan::where('tenaga_kesehatan_id',$tenaga_kesehatan_id)->where('pasien_id',auth()->user()->id)->delete();
-
-        return redirect()->back()->with('success','Berhasil memutuskan hubungan');
+            $this->cek_roles('pasien');
+            
+            Hubungan::where('tenaga_kesehatan_id',$pasien_or_tenaga_kesehatan_id)->where('pasien_id',auth()->user()->id)->delete();
+            
+        }else{
+            $this->cek_roles('tenaga_kesehatan');
+            
+            Hubungan::where('tenaga_kesehatan_id',auth()->user()->id)->where('pasien_id',$pasien_or_tenaga_kesehatan_id)->delete();
+            
+        }
+            return redirect()->back()->with('success','Berhasil memutuskan hubungan');
     }
 }
