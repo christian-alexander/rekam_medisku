@@ -15,8 +15,10 @@ class HubunganController extends Controller
         // ini halaman cari dokter di akun pasien
         $this->cek_roles('pasien');
 
-        $tenaga_kesehatan_sudah_terhubung = Hubungan::where('pasien_id',auth()->user()->id)->pluck('tenaga_kesehatan_id');
-        $data['calon_tenaga_kesehatans'] = User::where('visibility',1)->whereNotIn('id',$tenaga_kesehatan_sudah_terhubung)->where('tipe_tenaga_kesehatan','!=','0')->get();
+        $tenaga_kesehatan_ada_hubungan = Hubungan::where('pasien_id',auth()->user()->id)->pluck('tenaga_kesehatan_id');
+        $tenaga_kesehatan_tunggu_respon = Hubungan::where('pasien_id',auth()->user()->id)->where("status_hubungan",'0')->pluck('tenaga_kesehatan_id');
+        $data['calon_tenaga_kesehatans'] = User::where('visibility',1)->whereNotIn('id',$tenaga_kesehatan_ada_hubungan)->where('tipe_tenaga_kesehatan','!=','0')->get();
+        $data['calon_tenaga_kesehatans_tunggu_respon'] = User::where('visibility',1)->whereIn('id',$tenaga_kesehatan_tunggu_respon)->where('tipe_tenaga_kesehatan','!=','0')->get();
         return view('hubungan.pengajuan',$data);
     }
 

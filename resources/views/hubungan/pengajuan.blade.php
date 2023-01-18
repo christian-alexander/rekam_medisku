@@ -55,6 +55,39 @@
 
               @endforeach
 
+              @foreach ($calon_tenaga_kesehatans_tunggu_respon as $calon_tenaga_kesehatan)
+                
+                <tr>
+                  <td style='text-align:right'>{{ $loop->iteration }}</td>
+                  
+                  <td>
+                    <div style='display:flex;'>
+                      <div style='margin:0 auto;'>
+                        <img src="{{ ($calon_tenaga_kesehatan->foto_profil == 'assets/img/avatars/user.png')? asset($calon_tenaga_kesehatan->foto_profil) : asset('storage/'.$calon_tenaga_kesehatan->foto_profil) }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
+                      </div>
+                    </div>
+                  </td>
+      
+                  <td style="text-align: center;">
+                    {{ $calon_tenaga_kesehatan->nama }}
+                    <hr>
+                    {{ $calon_tenaga_kesehatan->no_hp }}
+                  </td>
+      
+                  <td style="text-align: center;">
+                    <button id='btn_show_faskes' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='show_faskes({{ $calon_tenaga_kesehatan->id }})'>
+                      <i class='fa fa-file' style='color:#3c8dbc;'></i>
+                    </button>
+                  </td>
+      
+                  <td style="text-align: center;">
+                    Tunggu Respon
+                  </td>
+      
+                </tr>
+
+              @endforeach
+
 
             </tbody>
           </table>
