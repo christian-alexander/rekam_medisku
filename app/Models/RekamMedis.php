@@ -27,9 +27,9 @@ class RekamMedis extends Model
                     $query = $query->whereIn("tenaga_kesehatan_id",$tenaga_kesehatan_tradisional_ids);
                 }
             }else if($key == "awal_tanggal"){
-                $query = $query -> where('created_at','>=',Carbon::parse($value)->format('Y-m-d H:i:s'));
+                $query = $query -> where('tanggal','>=',Carbon::parse($value)->format('Y-m-d H:i:s'));
             }else if($key == "akhir_tanggal"){
-                $query = $query -> where('created_at','<=',Carbon::parse($value)->addDays(1)->format('Y-m-d H:i:s'));
+                $query = $query -> where('tanggal','<=',Carbon::parse($value)->addDays(1)->format('Y-m-d H:i:s'));
             }
         }
 
