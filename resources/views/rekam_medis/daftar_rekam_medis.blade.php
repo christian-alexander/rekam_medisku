@@ -146,15 +146,19 @@
                   @if ($tipe_rekam_medis == "tenaga_kesehatan")
                     @if (auth()->user()->hasRole('tenaga_kesehatan'))
                       <td style="text-align: center;">
-                        <button id='btn_edit' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='edit({{ $rekam_medis->id }})'>
-                          <i class='fa fa-edit' style='color:#3c8dbc;'></i>
-                        </button>
+                        @if (auth()->user()->id == $rekam_medis->tenaga_kesehatan_id)
+                          <button id='btn_edit' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='edit({{ $rekam_medis->id }})'>
+                            <i class='fa fa-edit' style='color:#3c8dbc;'></i>
+                          </button>
+                        @endif
                       </td>
-          
+            
                       <td style="text-align: center;">
-                        <button id='btn_hapus' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='hapus({{ $rekam_medis->id }})'>
-                          <i class='fa fa-trash' style='color:#3c8dbc;'></i>
-                        </button>
+                        @if (auth()->user()->id == $rekam_medis->tenaga_kesehatan_id)
+                          <button id='btn_hapus' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='hapus({{ $rekam_medis->id }})'>
+                            <i class='fa fa-trash' style='color:#3c8dbc;'></i>
+                          </button>
+                        @endif
                       </td>
                     @endif
                   @else
