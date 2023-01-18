@@ -125,7 +125,11 @@ class RekamMedisController extends Controller
         $filters['akhir_tanggal'] = $request->akhir_tanggal;
 
         $data['tipe_rekam_medis'] = $request->tipe_rekam_medis;
-        $data['rekam_medises'] = RekamMedis::where('visibility',1)->where('pasien_id',$pasien_id)->filter($filters)->get();
+        if($request->tipe_rekam_medis == "personal"){
+            $data['rekam_medises'] = RekamMedis::where('visibility',1)->where('pasien_id',$pasien_id)->where('tipe_rekam_medis',0)->filter($filters)->get();
+        }else{
+            $data['rekam_medises'] = RekamMedis::where('visibility',1)->where('pasien_id',$pasien_id)->where('tipe_rekam_medis',1)->filter($filters)->get();
+        }
         $data['pasien'] = User::find($pasien_id);
         $data['filters'] = $filters;
 
