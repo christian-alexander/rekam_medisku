@@ -56,7 +56,7 @@
 
       <div class="card-body pt-0">          
 
-        <form action="/rekam_medis/show_pdf" target="_blank" method="GET" style="display: inline;">
+        <form action="/rekam_medis/show_pdf" class="dont_disabled" target="_blank" method="GET" style="display: inline;">
           <input type="hidden" name="pasien_id" value="{{ $pasien_id }}">
           <input type="hidden" name="tipe_rekam_medis" value="{{ $tipe_rekam_medis }}">
           @if ($tipe_rekam_medis == "tenaga_kesehatan")
