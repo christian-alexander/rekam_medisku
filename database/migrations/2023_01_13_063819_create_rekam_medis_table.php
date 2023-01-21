@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('pasien_id');
             $table->foreignId('tenaga_kesehatan_id')->nullable();
             $table->date('tanggal');
-            $table->string('anamnesa');
+            $table->text('anamnesa');
             $table->text('diagnosis');
             $table->text('terapi');
             $table->integer('tipe_rekam_medis')->default(0); //0 = personal, 1 = tenaga kesehatan

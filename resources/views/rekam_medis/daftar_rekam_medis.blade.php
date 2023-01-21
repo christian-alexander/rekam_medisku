@@ -123,7 +123,21 @@
                   @endif
       
                   <td style="text-align: center;">
-                    {{ $rekam_medis->anamnesa }}
+                    <span id='anamnesa-bacasedikit-{{ $rekam_medis->id }}' style="display: block;">
+                      {{ Str::limit($rekam_medis->anamnesa,100) }}
+                      @if (strlen($rekam_medis->anamnesa) > 100)
+                        <button style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='anamnesa_baca_selengkapnya({{ $rekam_medis->id }})'>
+                          Baca Selengkapnya...
+                        </button>
+                      @endif
+                    </span>
+                    
+                    <span id='anamnesa-bacalengkap-{{ $rekam_medis->id }}' style="display: none;">
+                      {{ $rekam_medis->anamnesa }}
+                      <button style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='anamnesa_baca_lebih_sedikit({{ $rekam_medis->id }})'>
+                        Baca Lebih Sedikit...
+                      </button>
+                    </span>
                   </td>
       
                   <td>
@@ -269,7 +283,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="/rekam_medis" method='POST' id='form_tambah' onsubmit="return cek_panjang_diagnosis_dan_terapi('tambah')" class='dont_disabled'>
+        <form action="/rekam_medis" method='POST' id='form_tambah' onsubmit="return cek_panjang_teks('tambah')" class='dont_disabled'>
           @csrf
 
           <input type="hidden" name="pasien_id" value="{{ $pasien_id }}">
@@ -282,9 +296,9 @@
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Anamnesa / Keluhan</label>
+            <label class="form-label">Anamnesa</label>
             <div class="position-relative">
-              <input type="text" class="form-control" name="anamnesa" required>
+              <textarea class="form-control" name="anamnesa" id='anamnesa_tambah' style="height:150px;" required></textarea>
             </div>
           </div>
 
@@ -321,7 +335,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="diisi_dari_js" method='POST' id='form_edit' onsubmit="return cek_panjang_diagnosis_dan_terapi('edit')" class='dont_disabled'>
+        <form action="diisi_dari_js" method='POST' id='form_edit' onsubmit="return cek_panjang_teks('edit')" class='dont_disabled'>
           @csrf
           @method('PUT')
 
@@ -333,9 +347,9 @@
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Anamnesa / Keluhan</label>
+            <label class="form-label">Anamnesa</label>
             <div class="position-relative">
-              <input type="text" class="form-control" name="anamnesa" id='anamnesa_edit' required>
+              <textarea class="form-control" name="anamnesa" id='anamnesa_edit' style="height:150px;" required></textarea>
             </div>
           </div>
 
@@ -422,6 +436,16 @@
     $('#modal_hapus').modal('show');
   }
 
+  function anamnesa_baca_selengkapnya(id){
+    $('#anamnesa-bacalengkap-'+id).css('display','block');
+    $('#anamnesa-bacasedikit-'+id).css('display','none');
+  }
+
+  function anamnesa_baca_lebih_sedikit(id){
+    $('#anamnesa-bacalengkap-'+id).css('display','none');
+    $('#anamnesa-bacasedikit-'+id).css('display','block');
+  }
+
   function diagnosis_baca_selengkapnya(id){
     $('#diagnosis-bacalengkap-'+id).css('display','block');
     $('#diagnosis-bacasedikit-'+id).css('display','none');
@@ -442,17 +466,24 @@
     $('#terapi-bacasedikit-'+id).css('display','block');
   }
 
-  function cek_panjang_diagnosis_dan_terapi(tipe){
-    if($('#diagnosis_'+tipe).val().length > 1000){
+  function cek_panjang_teks(tipe){
+    if($('#anamnesa_'+tipe).val().length > 1000){
       iziToast.error({
-        title: "Diagnosis terlalu panjang (maks 1000 karakter)",
+        title: "Anamnesa terlalu panjang (maks 1000 karakter)",
         position: 'topCenter'
       });
 
       return false;
-    }else if($('#terapi_'+tipe).val().length > 1000){
+    }else if($('#diagnosis'+tipe).val().length > 750){
       iziToast.error({
-        title: "Terapi terlalu panjang (maks 1000 karakter)",
+        title: "Diagnosis terlalu panjang (maks 750 karakter)",
+        position: 'topCenter'
+      });
+
+      return false;
+    }else if($('#terapi_'+tipe).val().length > 750){
+      iziToast.error({
+        title: "Terapi terlalu panjang (maks 750 karakter)",
         position: 'topCenter'
       });
 
