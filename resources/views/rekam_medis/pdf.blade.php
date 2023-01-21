@@ -8,7 +8,7 @@
     @page { margin: 0cm; }
 
     #tabel {
-      width: 18cm;
+      width: 26cm;
       border: 2px solid black;
       border-collapse: collapse;
       text-align: center;
@@ -25,8 +25,8 @@
     body{
       padding:0.5cm;
       background-color: rgb(255, 254, 150);
-      width:20cm;
-      height:32cm;
+      width:29cm;
+      height:20cm;
       font-family:Arial, Helvetica, sans-serif;
     }
   </style>
@@ -64,13 +64,13 @@
         <th style='width:3cm;'>Tanggal</th>
         @if ($tipe_rekam_medis == 'tenaga_kesehatan')        
           <th style='width:3cm;'>Tenaga Kesehatan</th>
-          <th style='width:3cm;'>Anamnesa</th>
-          <th style='width:4.5cm;'>Diagnosis</th>
-          <th style='width:4.5cm;'>Terapi</th>
-        @else
-          <th style='width:3cm;'>Anamnesa</th>
+          <th style='width:8cm;'>Anamnesa</th>
           <th style='width:6cm;'>Diagnosis</th>
           <th style='width:6cm;'>Terapi</th>
+        @else
+          <th style='width:10cm;'>Anamnesa</th>
+          <th style='width:7cm;'>Diagnosis</th>
+          <th style='width:7cm;'>Terapi</th>
         @endif
       </tr>
     </thead>
@@ -86,7 +86,7 @@
             @if ($tipe_rekam_medis == "tenaga_kesehatan")
               <td>{{ $rekam_medis->tenaga_kesehatan->nama }}</td>
             @endif
-            <td>{{ $rekam_medis->anamnesa }}</td>
+            <td style="text-align:justify;">{{ $rekam_medis->anamnesa }}</td>
             <td style="text-align:justify;">{{ $rekam_medis->diagnosis }}</td>
             <td style="text-align:justify;">{{ $rekam_medis->terapi }}</td>
           </tr>

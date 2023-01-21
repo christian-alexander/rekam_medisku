@@ -137,7 +137,7 @@ class RekamMedisController extends Controller
 
         $pdf = Pdf::loadView('rekam_medis.pdf', $data);
         
-        $pdf->setPaper('A4', 'portrait');
+        $pdf->setPaper('A4', 'landscape');
 
         return $pdf->stream();
     }
