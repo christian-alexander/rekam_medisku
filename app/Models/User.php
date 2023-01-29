@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Hubungan;
+use App\Models\RekamMedis;
+use App\Models\SuratIjinPraktek;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\FaskesHasTenagaKesehatan;
@@ -64,5 +66,9 @@ class User extends Authenticatable
 
     public function rekam_medis_pasien_list(){
         return $this->hasMany(RekamMedis::class,'pasien_id');
+    }
+
+    public function surat_ijin_praktek_list(){
+        return $this->hasMany(SuratIjinPraktek::class,'tenaga_kesehatan_id');
     }
 }

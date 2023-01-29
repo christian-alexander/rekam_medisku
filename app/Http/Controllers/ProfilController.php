@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Faskes;
 use Illuminate\Http\Request;
+use App\Models\SuratIjinPraktek;
 use App\Http\Controllers\Controller;
 use App\Models\FaskesHasTenagaKesehatan;
 
@@ -19,6 +20,7 @@ class ProfilController extends Controller
             }
 
             $data['faskes_has_tenaga_kesehatans'] = FaskesHasTenagaKesehatan::where('tenaga_kesehatan_id',auth()->user()->id)->get();
+            $data['surat_ijin_prakteks'] = SuratIjinPraktek::where('tenaga_kesehatan_id',auth()->user()->id)->get();
 
             return view("profil.index",$data);
         }else{   

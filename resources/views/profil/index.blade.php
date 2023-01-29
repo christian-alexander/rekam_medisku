@@ -82,6 +82,7 @@
 
     {{-- if dokter --}}
     @if (auth()->user()->hasRole('tenaga_kesehatan'))
+      @include('profil.surat_ijin_praktek')
       @include('profil.faskes_profil')
     @endif
   </div>

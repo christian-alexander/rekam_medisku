@@ -11,6 +11,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\SuratIjinPraktekController;
 use App\Http\Controllers\FaskesHasTenagaKesehatanController;
 
 /*
@@ -71,6 +72,9 @@ Route::resource('/faskes',FaskesController::class)->middleware('auth');
 
 
 // TENAGA KESEHATAN ONLY
+// surat ijin praktek, di profil
+Route::resource('/surat_ijin_praktek',SuratIjinPraktekController::class)->middleware('auth');
+
 // faskes has tenaga kesehatan, di profil
 Route::get('/faskes_has_tenaga_kesehatan/get_data/{id}',[FaskesHasTenagaKesehatanController::class,'get_data'])->middleware('auth');
 Route::resource('/faskes_has_tenaga_kesehatan',FaskesHasTenagaKesehatanController::class)->middleware('auth');
