@@ -10,7 +10,7 @@
           @foreach ($surat_ijin_prakteks as $surat_ijin_praktek)
             <ol style='list-style:none;padding-left:0;'>
               <span>
-                <a href="storage/{{ $surat_ijin_praktek->file_path }}" target="_blank">{{ $surat_ijin_praktek->original_name }}</a>
+                <a href="/storage/{{ $surat_ijin_praktek->file_path }}" target="_blank">{{ $surat_ijin_praktek->original_name }}</a>
                 <button style='background-color:rgba(0,0,0,0);border: 0px solid black;color:inherit;' onclick="konfirm_hapus_surat_ijin_praktek('{{ $surat_ijin_praktek->id }}')"> 
                   <i class='fa fa-trash'></i>
                 </button>

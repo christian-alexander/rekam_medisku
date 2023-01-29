@@ -15,6 +15,7 @@
                 <th style='width:20px;'>No</th>
                 <th style='text-align:center;'>Foto</th>
                 <th style='text-align:center;'>Nama</th>
+                <th style='text-align:center;'>Surat Ijin Praktek</th>
                 <th style='text-align:center;'>Fasilitas Kesehatan</th>
                 <th style='text-align:center;'>Putuskan Hubungan</th>
               </tr>
@@ -39,6 +40,17 @@
                     {{ $tenaga_kesehatan_saya->no_hp }}
                   </td>
       
+                  <td style='text-align:center;'>
+                    @if (count($tenaga_kesehatan_saya->surat_ijin_praktek_list) > 0)
+                        @foreach ($tenaga_kesehatan_saya->surat_ijin_praktek_list as $surat_ijin_praktek)
+                          <a href="/storage/{{ $surat_ijin_praktek->file_path }}" target="_blank">{{ $surat_ijin_praktek->original_name }}</a>
+                          <hr>
+                        @endforeach
+                    @else 
+                      Belum ada surat ditambahkan
+                    @endif
+                  </td>
+
                   <td style="text-align: center;">
                     <button id='btn_show_faskes' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='show_faskes({{ $tenaga_kesehatan_saya->id }})'>
                       <i class='fa fa-file' style='color:#3c8dbc;'></i>

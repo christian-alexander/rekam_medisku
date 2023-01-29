@@ -15,15 +15,19 @@
                 <th style='width:20px;'>No</th>
                 <th style='text-align:center;'>Foto</th>
                 <th style='text-align:center;'>Nama</th>
+                <th style='text-align:center;'>Surat Ijin Praktek</th>
                 <th style='text-align:center;'>Fasilitas Kesehatan</th>
                 <th style='text-align:center;'>Ajukan Penghubungan</th>
               </tr>
             </thead>
             <tbody>
+              @php
+                $i = 1;
+              @endphp
               @foreach ($calon_tenaga_kesehatans as $calon_tenaga_kesehatan)
                 
                 <tr>
-                  <td style='text-align:right'>{{ $loop->iteration }}</td>
+                  <td style='text-align:right'>{{ $i }}</td>
                   
                   <td>
                     <div style='display:flex;'>
@@ -37,6 +41,17 @@
                     {{ $calon_tenaga_kesehatan->nama }}
                     <hr>
                     {{ $calon_tenaga_kesehatan->no_hp }}
+                  </td>
+
+                  <td style='text-align:center;'>
+                    @if (count($calon_tenaga_kesehatan->surat_ijin_praktek_list) > 0)
+                        @foreach ($calon_tenaga_kesehatan->surat_ijin_praktek_list as $surat_ijin_praktek)
+                          <a href="/storage/{{ $surat_ijin_praktek->file_path }}" target="_blank">{{ $surat_ijin_praktek->original_name }}</a>
+                          <hr>
+                        @endforeach
+                    @else 
+                      Belum ada surat ditambahkan
+                    @endif
                   </td>
       
                   <td style="text-align: center;">
@@ -53,12 +68,16 @@
       
                 </tr>
 
+                @php
+                  $i++;
+                @endphp
+
               @endforeach
 
               @foreach ($calon_tenaga_kesehatans_tunggu_respon as $calon_tenaga_kesehatan)
                 
                 <tr>
-                  <td style='text-align:right'>{{ $loop->iteration }}</td>
+                  <td style='text-align:right'>{{ $i }}</td>
                   
                   <td>
                     <div style='display:flex;'>
@@ -67,11 +86,23 @@
                       </div>
                     </div>
                   </td>
-      
+                  
+
                   <td style="text-align: center;">
                     {{ $calon_tenaga_kesehatan->nama }}
                     <hr>
                     {{ $calon_tenaga_kesehatan->no_hp }}
+                  </td>
+
+                  <td style='text-align:center;'>
+                    @if (count($calon_tenaga_kesehatan->surat_ijin_praktek_list) > 0)
+                        @foreach ($calon_tenaga_kesehatan->surat_ijin_praktek_list as $surat_ijin_praktek)
+                          <a href="/storage/{{ $surat_ijin_praktek->file_path }}" target="_blank">{{ $surat_ijin_praktek->original_name }}</a>
+                          <hr>
+                        @endforeach
+                    @else 
+                      Belum ada surat ditambahkan
+                    @endif
                   </td>
       
                   <td style="text-align: center;">
@@ -85,6 +116,11 @@
                   </td>
       
                 </tr>
+
+                
+                @php
+                  $i++;
+                @endphp
 
               @endforeach
 
