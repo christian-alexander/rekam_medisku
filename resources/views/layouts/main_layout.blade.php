@@ -55,6 +55,9 @@
     {{-- select2 --}}
     <link href="/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
 
+    {{-- summernote --}}
+    <link href="/plugins/summernote/summernote-lite.css" rel="stylesheet" type="text/css" />
+
     {{-- css sendiri --}}
     <link rel="stylesheet" href="{{ asset('/css/css_sendiri.css') }}">
 
@@ -184,6 +187,9 @@
     {{-- select2 --}}
     <script src="/plugins/select2/select2.full.min.js"></script>
 
+    {{-- summernote --}}
+    <script src="/plugins/summernote/summernote-lite.js"></script>
+
     {{-- datatable initiate --}}
     <script>
       $(document).ready(function(){
@@ -207,6 +213,24 @@
           $element.detach();
           $(this).append($element);
           $(this).trigger("change");
+        });
+      })
+    </script>
+
+    {{-- summernote initialize --}}
+    <script>
+      $(document).ready(function(){
+        $('.summernote').summernote({
+          height:200,
+          toolbar: [
+            // [groupName, [list of button]]
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']]
+          ]
         });
       })
     </script>

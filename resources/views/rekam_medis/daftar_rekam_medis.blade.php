@@ -88,9 +88,7 @@
                 @if ($tipe_rekam_medis == "tenaga_kesehatan")
                   <th style='text-align:center;'>Tenaga Kesehatan</th>
                 @endif
-                <th style='text-align:center;'>Anamnesa</th>
-                <th style='text-align:center;'>Diagnosis</th>
-                <th style='text-align:center;'>Terapi</th>
+                <th style='text-align:center;'>Detail</th>
                 @if ($tipe_rekam_medis == "tenaga_kesehatan")
                   @if (auth()->user()->hasRole('tenaga_kesehatan'))
                     <th style='text-align:center;'>Edit</th>
@@ -123,57 +121,9 @@
                   @endif
       
                   <td style="text-align: center;">
-                    <span id='anamnesa-bacasedikit-{{ $rekam_medis->id }}' style="display: block;">
-                      {{ Str::limit($rekam_medis->anamnesa,100) }}
-                      @if (strlen($rekam_medis->anamnesa) > 100)
-                        <button style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='anamnesa_baca_selengkapnya({{ $rekam_medis->id }})'>
-                          Baca Selengkapnya...
-                        </button>
-                      @endif
-                    </span>
-                    
-                    <span id='anamnesa-bacalengkap-{{ $rekam_medis->id }}' style="display: none;">
-                      {{ $rekam_medis->anamnesa }}
-                      <button style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='anamnesa_baca_lebih_sedikit({{ $rekam_medis->id }})'>
-                        Baca Lebih Sedikit...
-                      </button>
-                    </span>
-                  </td>
-      
-                  <td>
-                    <span id='diagnosis-bacasedikit-{{ $rekam_medis->id }}' style="display: block;">
-                      {{ Str::limit($rekam_medis->diagnosis,100) }}
-                      @if (strlen($rekam_medis->diagnosis) > 100)
-                        <button style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='diagnosis_baca_selengkapnya({{ $rekam_medis->id }})'>
-                          Baca Selengkapnya...
-                        </button>
-                      @endif
-                    </span>
-                    
-                    <span id='diagnosis-bacalengkap-{{ $rekam_medis->id }}' style="display: none;">
-                      {{ $rekam_medis->diagnosis }}
-                      <button style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='diagnosis_baca_lebih_sedikit({{ $rekam_medis->id }})'>
-                        Baca Lebih Sedikit...
-                      </button>
-                    </span>
-                  </td>
-      
-                  <td>
-                    <span id='terapi-bacasedikit-{{ $rekam_medis->id }}' style="display: block;">
-                      {{ Str::limit($rekam_medis->terapi,100) }}
-                      @if (strlen($rekam_medis->terapi) > 100)
-                        <button style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='terapi_baca_selengkapnya({{ $rekam_medis->id }})'>
-                          Baca Selengkapnya...
-                        </button>
-                      @endif
-                    </span>
-                    
-                    <span id='terapi-bacalengkap-{{ $rekam_medis->id }}' style="display: none;">
-                      {{ $rekam_medis->terapi }}
-                      <button style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='terapi_baca_lebih_sedikit({{ $rekam_medis->id }})'>
-                        Baca Lebih Sedikit...
-                      </button>
-                    </span>
+                    <a href="/rekam_medis/{{ $rekam_medis->id }}">
+                      <i class='fa fa-file' style='color:#3c8dbc;'></i>
+                    </a>
                   </td>
 
                   @if ($tipe_rekam_medis == "tenaga_kesehatan")

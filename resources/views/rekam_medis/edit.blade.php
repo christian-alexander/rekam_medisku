@@ -30,21 +30,21 @@
         <div class="mb-3">
           <label class="form-label">Anamnesa</label>
           <div class="position-relative">
-            <textarea class="form-control" name="anamnesa" id='anamnesa_edit' style="height:150px;" required>{{ $rekam_medis->anamnesa }}</textarea>
+            <textarea class="form-control summernote" name="anamnesa" id='anamnesa_edit' style="height:150px;" required>{{ $rekam_medis->anamnesa }}</textarea>
           </div>
         </div>
 
         <div class="mb-3">
           <label class="form-label">Diagnosis</label>
           <div class="position-relative">
-            <textarea class="form-control" name="diagnosis" id="diagnosis_edit" style="height:150px;" required>{{ $rekam_medis->diagnosis }}</textarea>
+            <textarea class="form-control summernote" name="diagnosis" id="diagnosis_edit" style="height:150px;" required>{{ $rekam_medis->diagnosis }}</textarea>
           </div>
         </div>
 
         <div class="mb-3">
           <label class="form-label">Terapi</label>
           <div class="position-relative">
-            <textarea class="form-control" name="terapi" id="terapi_edit" style="height:150px;" required>{{ $rekam_medis->terapi }}</textarea>
+            <textarea class="form-control summernote" name="terapi" id="terapi_edit" style="height:150px;" required>{{ $rekam_medis->terapi }}</textarea>
           </div>
         </div>
 

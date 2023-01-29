@@ -29,21 +29,21 @@
         <div class="mb-3">
           <label class="form-label">Anamnesa</label>
           <div class="position-relative">
-            <textarea class="form-control" name="anamnesa" id='anamnesa_tambah' style="height:150px;" required></textarea>
+            <textarea class="form-control summernote" name="anamnesa" id='anamnesa_tambah' style="height:150px;" required></textarea>
           </div>
         </div>
 
         <div class="mb-3">
           <label class="form-label">Diagnosis</label>
           <div class="position-relative">
-            <textarea class="form-control" name="diagnosis" id="diagnosis_tambah" style="height:150px;" required></textarea>
+            <textarea class="form-control summernote" name="diagnosis" id="diagnosis_tambah" style="height:150px;" required></textarea>
           </div>
         </div>
 
         <div class="mb-3">
           <label class="form-label">Terapi</label>
           <div class="position-relative">
-            <textarea class="form-control" name="terapi" id="terapi_tambah" style="height:150px;" required></textarea>
+            <textarea class="form-control summernote" name="terapi" id="terapi_tambah" style="height:150px;" required></textarea>
           </div>
         </div>
 

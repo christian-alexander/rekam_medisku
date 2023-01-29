@@ -80,7 +80,15 @@ class RekamMedisController extends Controller
      */
     public function show($id)
     {
-        //
+        if(auth()->user()->hasRole('pasien')){
+            $data['tipe_rekam_medis'] = "personal";
+        }else{
+            $data['tipe_rekam_medis'] = "tenaga_kesehatan";
+        }
+
+        $data['rekam_medis'] = RekamMedis::find($id);
+
+        return view('rekam_medis.detail',$data);
     }
 
     /**
