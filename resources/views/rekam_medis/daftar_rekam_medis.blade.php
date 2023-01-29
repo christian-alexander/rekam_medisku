@@ -70,11 +70,11 @@
 
         @if ($tipe_rekam_medis == "tenaga_kesehatan")
           @if (auth()->user()->hasRole('tenaga_kesehatan'))
-            <button onclick="tambah()" class='btn btn-success' style='margin-bottom:20px;'>Tambah</button>                  
+            <a href="/rekam_medis/create?pasien_id={{ $pasien_id }}" class='btn btn-success' style='margin-bottom:20px;'>Tambah</a>                  
           @endif
         @else
           @if (auth()->user()->hasRole('pasien'))
-            <button onclick="tambah()" class='btn btn-success' style='margin-bottom:20px;'>Tambah</button>                  
+            <a href="/rekam_medis/create" class='btn btn-success' style='margin-bottom:20px;'>Tambah</a>                  
           @endif
         @endif
 
@@ -180,9 +180,9 @@
                     @if (auth()->user()->hasRole('tenaga_kesehatan'))
                       <td style="text-align: center;">
                         @if (auth()->user()->id == $rekam_medis->tenaga_kesehatan_id)
-                          <button id='btn_edit' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='edit({{ $rekam_medis->id }})'>
+                          <a href="/rekam_medis/{{ $rekam_medis->id }}/edit?pasien_id={{ $pasien_id }}">
                             <i class='fa fa-edit' style='color:#3c8dbc;'></i>
-                          </button>
+                          </a>
                         @endif
                       </td>
             
@@ -197,9 +197,9 @@
                   @else
                     @if (auth()->user()->hasRole('pasien'))
                       <td style="text-align: center;">
-                        <button id='btn_edit' style='border:0;background-color:rgba(0,0,0,0);visibility:visible;' onclick='edit({{ $rekam_medis->id }})'>
+                        <a href="/rekam_medis/{{ $rekam_medis->id }}/edit">
                           <i class='fa fa-edit' style='color:#3c8dbc;'></i>
-                        </button>
+                        </a>
                       </td>
           
                       <td style="text-align: center;">
@@ -274,111 +274,6 @@
   </div>
 </div>
 
-{{-- modal tambah --}}
-<div class="modal" id='modal_tambah'>
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Tambah Data</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form action="/rekam_medis" method='POST' id='form_tambah' onsubmit="return cek_panjang_teks('tambah')" class='dont_disabled'>
-          @csrf
-
-          <input type="hidden" name="pasien_id" value="{{ $pasien_id }}">
-
-          <div class="mb-3">
-            <label class="form-label">Tanggal</label>
-            <div class="position-relative">
-              <input type="date" class="form-control" name="tanggal" required>
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Anamnesa</label>
-            <div class="position-relative">
-              <textarea class="form-control" name="anamnesa" id='anamnesa_tambah' style="height:150px;" required></textarea>
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Diagnosis</label>
-            <div class="position-relative">
-              <textarea class="form-control" name="diagnosis" id="diagnosis_tambah" style="height:150px;" required></textarea>
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Terapi</label>
-            <div class="position-relative">
-              <textarea class="form-control" name="terapi" id="terapi_tambah" style="height:150px;" required></textarea>
-            </div>
-          </div>
-
-          <div class="form-group" style='text-align:center;'>
-            <button type='submit' class="btn btn-success">Tambah</button>
-          </div>
-
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-{{-- modal edit --}}
-<div class="modal" id='modal_edit'>
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Edit Data</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form action="diisi_dari_js" method='POST' id='form_edit' onsubmit="return cek_panjang_teks('edit')" class='dont_disabled'>
-          @csrf
-          @method('PUT')
-
-          <div class="mb-3">
-            <label class="form-label">Tanggal</label>
-            <div class="position-relative">
-              <input type="date" class="form-control" name="tanggal" id="tanggal_edit" required>
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Anamnesa</label>
-            <div class="position-relative">
-              <textarea class="form-control" name="anamnesa" id='anamnesa_edit' style="height:150px;" required></textarea>
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Diagnosis</label>
-            <div class="position-relative">
-              <textarea class="form-control" name="diagnosis" id='diagnosis_edit' style="height:150px;" required></textarea>
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Terapi (Penanganan)</label>
-            <div class="position-relative">
-              <textarea class="form-control" name="terapi" id='terapi_edit' style="height:150px;" required></textarea>
-            </div>
-          </div>
-
-          <div class="form-group" style='text-align:center;'>
-            <button type='submit' class="btn btn-primary">Edit</button>
-          </div>
-
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
 {{-- modal hapus --}}
 <div class="modal" id='modal_hapus'>
   <div class="modal-dialog">
@@ -406,29 +301,8 @@
 </div>
 
 <script>
-  function tambah(){
-    $('#modal_tambah').modal('show');
-  }
-  
   function filter(){
     $('#modal_filter').modal('show');
-  }
-
-  function edit(id){
-    $.ajax({
-      url: "/rekam_medis/get_data/"+id
-    })
-    .done(function( data ){
-      const rekam_medis = JSON.parse(data);
-
-      $('#tanggal_edit').val(rekam_medis.tanggal);
-      $('#anamnesa_edit').val(rekam_medis.anamnesa);
-      $('#diagnosis_edit').val(rekam_medis.diagnosis);
-      $('#terapi_edit').val(rekam_medis.terapi);
-    
-      $('#form_edit').attr('action','/rekam_medis/'+id);
-      $('#modal_edit').modal('show');
-    });
   }
 
   function hapus(id){
@@ -464,33 +338,6 @@
   function terapi_baca_lebih_sedikit(id){
     $('#terapi-bacalengkap-'+id).css('display','none');
     $('#terapi-bacasedikit-'+id).css('display','block');
-  }
-
-  function cek_panjang_teks(tipe){
-    if($('#anamnesa_'+tipe).val().length > 1000){
-      iziToast.error({
-        title: "Anamnesa terlalu panjang (maks 1000 karakter)",
-        position: 'topCenter'
-      });
-
-      return false;
-    }else if($('#diagnosis'+tipe).val().length > 750){
-      iziToast.error({
-        title: "Diagnosis terlalu panjang (maks 750 karakter)",
-        position: 'topCenter'
-      });
-
-      return false;
-    }else if($('#terapi_'+tipe).val().length > 750){
-      iziToast.error({
-        title: "Terapi terlalu panjang (maks 750 karakter)",
-        position: 'topCenter'
-      });
-
-      return false;
-    }else{
-      return true;
-    }
   }
 
 </script>

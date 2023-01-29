@@ -27,9 +27,17 @@ class RekamMedisController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        if(auth()->user()->hasRole('pasien')){
+            $data['pasien_id'] = auth()->user()->id;
+            $data['tipe_rekam_medis'] = "personal";
+        }else{
+            $data['pasien_id'] = $request->pasien_id;
+            $data['tipe_rekam_medis'] = "tenaga_kesehatan";
+        }
+
+        return view('rekam_medis.create',$data);
     }
 
     /**
@@ -57,7 +65,11 @@ class RekamMedisController extends Controller
 
         RekamMedis::create($validated_data);
 
-        return redirect()->back()->with('success','Berhasil ditambah');
+        if(auth()->user()->hasRole('tenaga_kesehatan')){
+            return redirect()->to("/rekam_medis/daftar_rekam_medis/tenaga_kesehatan/$request->pasien_id")->with('success','Berhasil ditambah');
+        }else{
+            return redirect()->to("/rekam_medis/daftar_rekam_medis/personal/".auth()->user()->id)->with('success','Berhasil ditambah');            
+        }
     }
 
     /**
@@ -77,9 +89,19 @@ class RekamMedisController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        if(auth()->user()->hasRole('pasien')){
+            $data['pasien_id'] = auth()->user()->id;
+            $data['tipe_rekam_medis'] = "personal";
+        }else{
+            $data['pasien_id'] = $request->pasien_id;
+            $data['tipe_rekam_medis'] = "tenaga_kesehatan";
+        }
+
+        $data['rekam_medis'] = RekamMedis::find($id);
+
+        return view('rekam_medis.edit',$data);
     }
 
     /**
@@ -100,7 +122,11 @@ class RekamMedisController extends Controller
 
         RekamMedis::where('id',$id)->update($validated_data);
 
-        return redirect()->back()->with('success','Berhasil diedit');
+        if(auth()->user()->hasRole('tenaga_kesehatan')){
+            return redirect()->to("/rekam_medis/daftar_rekam_medis/tenaga_kesehatan/$request->pasien_id")->with('success','Berhasil diedit');
+        }else{
+            return redirect()->to("/rekam_medis/daftar_rekam_medis/personal/".auth()->user()->id)->with('success','Berhasil diedit');            
+        }
     }
 
     /**
