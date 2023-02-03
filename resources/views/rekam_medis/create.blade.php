@@ -14,7 +14,7 @@
     <hr class="my-0">
     <div class="card-body pb-2">
 
-      <form action="/rekam_medis" method='POST' id='form_tambah' onsubmit="return cek_panjang_teks('tambah')" class='dont_disabled'>
+      <form action="/rekam_medis" method='POST' id='form_tambah' onsubmit="return cek_panjang_teks('tambah')" class='dont_disabled' enctype="multipart/form-data">
         @csrf
 
         <input type="hidden" name="pasien_id" value="{{ $pasien_id }}">
@@ -47,6 +47,12 @@
           </div>
         </div>
 
+        <div class="mb-3">
+          <label class='form-label'> Tambah Lampiran (Gambar / Audio / Video / PDF)</label>
+          <input type="file" name="lampiran[]" class='form-control' multiple accept="image/*,audio/*,image/*,.pdf">
+        </div>
+
+        
         <div class="form-group" style='text-align:center;'>
           <button type='submit' class="btn btn-success">Tambah</button>
         </div>

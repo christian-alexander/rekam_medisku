@@ -85,6 +85,7 @@
               <tr>
                 <th style='width:20px;'>No</th>
                 <th style='text-align:center;'>Tanggal</th>
+                <th style='text-align:center;'>Anamnesa</th>
                 @if ($tipe_rekam_medis == "tenaga_kesehatan")
                   <th style='text-align:center;'>Tenaga Kesehatan</th>
                 @endif
@@ -110,6 +111,20 @@
                   
                   <td style="text-align:center;">
                     {{ Carbon::parse($rekam_medis->tanggal)->format('Y-m-d') }}
+                  </td>
+
+                  <td style='text-align:justify'>
+                    <div id="anamnesa-bacasedikit-{{ $rekam_medis->id }}">
+                      {!! Str::limit(strip_tags($rekam_medis->anamnesa), 100) !!}
+                      @if (strlen(strip_tags($rekam_medis->anamnesa)) > 100)   
+                        <button style='background-color:rgba(0,0,0,0);border:0;' onclick="anamnesa_baca_selengkapnya({{ $rekam_medis->id }})">Baca Selengkapnya..</button>
+                      @endif
+                    </div>
+                    <div id="anamnesa-bacalengkap-{{ $rekam_medis->id }}" style='display:none;'>
+                      {!! strip_tags($rekam_medis->anamnesa) !!}
+                      <button style='background-color:rgba(0,0,0,0);border:0;' onclick="anamnesa_baca_lebih_sedikit({{ $rekam_medis->id }})">Baca Lebih Sedikit..</button>
+                    </div>
+                  
                   </td>
 
                   @if ($tipe_rekam_medis == "tenaga_kesehatan")

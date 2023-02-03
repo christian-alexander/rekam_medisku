@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\User;
 use Illuminate\Support\Carbon;
-use App\Models\AttachmentRekamMedis;
+use App\Models\LampiranRekamMedis;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -46,6 +46,6 @@ class RekamMedis extends Model
     }
 
     public function attachment_rekam_medis_list(){
-        return $this->belongsTo(AttachmentRekamMedis::class);
+        return $this->belongsTo(LampiranRekamMedis::class);
     }
 }

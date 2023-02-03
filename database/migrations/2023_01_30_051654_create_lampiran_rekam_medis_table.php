@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('attachment_rekam_medis', function (Blueprint $table) {
+        Schema::create('lampiran_rekam_medis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('rekam_medis_id');
             $table->string("original_name");

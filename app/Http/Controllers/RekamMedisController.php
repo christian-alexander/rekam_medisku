@@ -8,6 +8,7 @@ use App\Models\RekamMedis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\LampiranRekamMedis;
 use App\Http\Controllers\Controller;
 
 class RekamMedisController extends Controller
@@ -63,7 +64,22 @@ class RekamMedisController extends Controller
             $validated_data['tipe_rekam_medis'] = 0;
         }
 
-        RekamMedis::create($validated_data);
+        $created_rekam_medis = RekamMedis::create($validated_data);
+
+        
+        if($request->has('lampiran')){
+            foreach($request->lampiran as $lampiran){
+                
+                $original_name = $lampiran->getClientOriginalName();
+                $file_path = $lampiran->store('lampiran_rekam_medis');
+
+                LampiranRekamMedis::create([
+                    'rekam_medis_id' => $created_rekam_medis->id,
+                    'original_name' =>  $original_name,
+                    'file_path' => $file_path
+                ]);
+            }
+        }
 
         if(auth()->user()->hasRole('tenaga_kesehatan')){
             return redirect()->to("/rekam_medis/daftar_rekam_medis/tenaga_kesehatan/$request->pasien_id")->with('success','Berhasil ditambah');
