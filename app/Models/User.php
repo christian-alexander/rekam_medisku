@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Hubungan;
+use App\Models\KtpPasien;
 use App\Models\RekamMedis;
 use App\Models\SuratIjinPraktek;
 use Laravel\Sanctum\HasApiTokens;
@@ -70,5 +71,9 @@ class User extends Authenticatable
 
     public function surat_ijin_praktek_list(){
         return $this->hasMany(SuratIjinPraktek::class,'tenaga_kesehatan_id');
+    }
+
+    public function ktp_single_list(){
+        return $this->hasOne(KtpPasien::class,'pasien_id');
     }
 }
