@@ -12,6 +12,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\SuratIjinPraktekController;
+use App\Http\Controllers\LampiranRekamMedisController;
 use App\Http\Controllers\FaskesHasTenagaKesehatanController;
 
 /*
@@ -61,6 +62,9 @@ Route::get('/rekam_medis/daftar_rekam_medis/{tipe_rekam_medis}/{pasien_id}',[Rek
 Route::get('/rekam_medis/get_data/{id}',[RekamMedisController::class,'get_data'])->middleware('auth');
 Route::get('/rekam_medis/show_pdf',[RekamMedisController::class,'show_pdf'])->middleware('auth');
 Route::resource('/rekam_medis',RekamMedisController::class)->middleware('auth');
+
+// lampiran rekam medis
+Route::resource('/lampiran_rekam_medis',LampiranRekamMedisController::class)->middleware('auth');
 
 // ADMIN ONLY
 // user account setting

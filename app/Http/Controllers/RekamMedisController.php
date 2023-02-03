@@ -67,8 +67,8 @@ class RekamMedisController extends Controller
         $created_rekam_medis = RekamMedis::create($validated_data);
 
         
-        if($request->has('lampiran')){
-            foreach($request->lampiran as $lampiran){
+        if($request->has('lampiran_rekam_medises')){
+            foreach($request->lampiran_rekam_medises as $lampiran){
                 
                 $original_name = $lampiran->getClientOriginalName();
                 $file_path = $lampiran->store('lampiran_rekam_medis');
@@ -122,6 +122,8 @@ class RekamMedisController extends Controller
             $data['pasien_id'] = $request->pasien_id;
             $data['tipe_rekam_medis'] = "tenaga_kesehatan";
         }
+
+        $data['lampiran_rekam_medises'] = LampiranRekamMedis::where('rekam_medis_id',$id)->get();
 
         $data['rekam_medis'] = RekamMedis::find($id);
 

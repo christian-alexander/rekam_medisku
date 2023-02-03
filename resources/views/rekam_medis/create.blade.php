@@ -49,7 +49,7 @@
 
         <div class="mb-3">
           <label class='form-label'> Tambah Lampiran (Gambar / Audio / Video / PDF)</label>
-          <input type="file" name="lampiran[]" class='form-control' multiple accept="image/*,audio/*,image/*,.pdf">
+          <input type="file" name="lampiran_rekam_medises[]" class='form-control' multiple accept="image/*,audio/*,image/*,.pdf">
         </div>
 
         

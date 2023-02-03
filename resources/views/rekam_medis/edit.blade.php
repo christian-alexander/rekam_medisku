@@ -56,7 +56,12 @@
 
     </div>
   </div>
+
+  @include('rekam_medis.lampiran_rekam_medis')
+
+
 </div>
+
 
 <script>
   
