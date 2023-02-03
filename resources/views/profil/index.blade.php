@@ -85,6 +85,11 @@
       @include('profil.surat_ijin_praktek')
       @include('profil.faskes_profil')
     @endif
+
+    {{-- if pasien --}}
+    @if (auth()->user()->hasRole('pasien'))
+      @include('profil.ktp_pasien')
+    @endif
   </div>
 
 @endsection

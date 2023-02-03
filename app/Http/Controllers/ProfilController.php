@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Faskes;
+use App\Models\KtpPasien;
 use Illuminate\Http\Request;
 use App\Models\SuratIjinPraktek;
 use App\Http\Controllers\Controller;

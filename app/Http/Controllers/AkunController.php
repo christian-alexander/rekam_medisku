@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\KtpPasien;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -57,6 +58,9 @@ class AkunController extends Controller
         // beri role
         if($request->tipe_akun == 0){
             $created_user->assignRole('pasien');
+
+            KtpPasien::create(['pasien_id' => $created_user->id]);
+
         }else if($request->tipe_akun == 1 || $request->tipe_akun == 2){
             $created_user->assignRole('tenaga_kesehatan');
         }

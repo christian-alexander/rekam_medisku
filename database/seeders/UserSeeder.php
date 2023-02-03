@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\KtpPasien;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -56,5 +57,9 @@ class UserSeeder extends Seeder
         $pengobat_tradisional->assignRole('tenaga_kesehatan');
         $pasien->assignRole('pasien');
 
+        // ktp pasien
+        KtpPasien::create([
+            'pasien_id' => $pasien->id
+        ]);
     }
 }

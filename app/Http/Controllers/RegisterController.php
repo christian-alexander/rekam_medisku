@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\KtpPasien;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -23,6 +24,7 @@ class RegisterController extends Controller
 
         $created_user = User::create($validated_data);
         $created_user->assignRole('pasien');
+        KtpPasien::create(['pasien_id' => $created_user->id]);
 
         return redirect()->to('login')->with('success','Akun berhasil didaftarkan');
     }

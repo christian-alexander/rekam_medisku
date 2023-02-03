@@ -73,7 +73,7 @@ class User extends Authenticatable
         return $this->hasMany(SuratIjinPraktek::class,'tenaga_kesehatan_id');
     }
 
-    public function ktp_single_list(){
+    public function ktp_pasien_single_list(){
         return $this->hasOne(KtpPasien::class,'pasien_id');
     }
 }
