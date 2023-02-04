@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Models\Hubungan;
 use App\Models\KtpPasien;
 use App\Models\RekamMedis;
+use App\Models\AsuransiPasien;
 use App\Models\SuratIjinPraktek;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -75,5 +76,9 @@ class User extends Authenticatable
 
     public function ktp_pasien_single_list(){
         return $this->hasOne(KtpPasien::class,'pasien_id');
+    }
+
+    public function asuransi_pasien_list(){
+        return $this->hasMany(AsuransiPasien::class,'pasien_id');
     }
 }
