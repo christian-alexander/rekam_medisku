@@ -1,8 +1,10 @@
 @php
   if(auth()->user()->hasRole('pasien')){
     $ktp_pasien = auth()->user()->ktp_pasien_single_list;
+    $asuransi_pasiens = auth()->user()->asuransi_pasien_list;
   }else{
     $ktp_pasien = $pasien->ktp_pasien_single_list;
+    $asuransi_pasiens = $pasien->asuransi_pasien_list;
   }
 @endphp
 
@@ -46,7 +48,7 @@
               @endif
             </div>
             <button class='btn btn-primary' onclick="ktp_pasien()">Data KTP</button>
-            <button class='btn btn-primary'>Data Asuransi</button>
+            <button class='btn btn-primary' onclick="asuransi_pasien()">Data Asuransi</button>
           </div>
 
           <div class="col-lg-8 col-md-6 mt-3" style='border-left: 1px solid #d9dee3;'>
@@ -408,6 +410,42 @@
   </div>
 </div>
 
+{{-- modal asuransi pasien --}}
+<div class="modal" id='modal_asuransi_pasien'>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Asuransi Pasien</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped" style='table-layout:fixed;'>
+          <thead>
+            <tr>
+              <th style='width:65px;'>No</th>
+              <th>Penyedia Asuransi</th>
+              <th>Nomor Polis</th>
+              <th>No Telepon</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($asuransi_pasiens as $asuransi_pasien)
+              <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $asuransi_pasien->penyedia }}</td>
+                <td>{{ $asuransi_pasien->nomor_polis }}</td>
+                <td>{{ $asuransi_pasien->no_telepon }}</td>
+                <td>{{ $asuransi_pasien->email }}</td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script>
   function filter(){
@@ -421,6 +459,10 @@
 
   function ktp_pasien(){
     $('#modal_ktp_pasien').modal('show');
+  }
+
+  function asuransi_pasien(){
+    $('#modal_asuransi_pasien').modal('show');
   }
 
   function anamnesa_baca_selengkapnya(id){
