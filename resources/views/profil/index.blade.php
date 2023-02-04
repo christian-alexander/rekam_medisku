@@ -89,6 +89,7 @@
     {{-- if pasien --}}
     @if (auth()->user()->hasRole('pasien'))
       @include('profil.ktp_pasien')
+      @include('profil.asuransi_pasien')
     @endif
   </div>
 

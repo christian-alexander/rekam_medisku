@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pasien_id');
             $table->string('nomor_polis');
-            $table->string('penyedia_asuransi');
+            $table->string('penyedia');
+            $table->string('no_telepon');
+            $table->string('email');
             $table->timestamps();
         });
     }

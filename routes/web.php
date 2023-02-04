@@ -11,6 +11,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KtpPasienController;
 use App\Http\Controllers\RekamMedisController;
+use App\Http\Controllers\AsuransiPasienController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\SuratIjinPraktekController;
 use App\Http\Controllers\LampiranRekamMedisController;
@@ -59,6 +60,9 @@ Route::post('/profil/update_foto_profil',[ProfilController::class,'update_foto_p
 Route::post('/profil/update_profil',[ProfilController::class,'update_profil'])->middleware('auth');
 // ktp pasien
 Route::resource('/ktp_pasien',KtpPasienController::class)->middleware('auth');
+// asuransi pasien
+Route::get('/asuransi_pasien/get_data/{id}',[AsuransiPasienController::class,'get_data'])->middleware('auth');
+Route::resource('/asuransi_pasien',AsuransiPasienController::class)->middleware('auth');
 
 
 // rekam medis pasien
