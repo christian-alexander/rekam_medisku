@@ -1,3 +1,11 @@
+@php
+  if(auth()->user()->hasRole('pasien')){
+    $ktp_pasien = auth()->user()->ktp_pasien_single_list;
+  }else{
+    $ktp_pasien = $pasien->ktp_pasien_single_list;
+  }
+@endphp
+
 @extends('layouts.main_layout')
 
 @section('container')
@@ -17,24 +25,28 @@
       <hr class="my-0">
       <div class="card-body pb-2">
         <div class="row">
-          <div class="col-lg-4 col-md-6 d-flex align-items-start align-items-sm-center gap-4">
-            @if (auth()->user()->hasRole('pasien'))  
-              <img src="{{ (auth()->user()->foto_profil == 'assets/img/avatars/user.png')? asset(auth()->user()->foto_profil) : asset('storage/'.auth()->user()->foto_profil) }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
-              <div class="button-wrapper">
-                <h5>{{ auth()->user()->nama }}</h5>
-                <p class="text-muted mb-0">{{ (auth()->user()->jenis_kelamin == 1)? 'Laki laki' : 'Perempuan' }}</p>                  
-                <p class="text-muted mb-0">{{ Carbon::parse(auth()->user()->tanggal_lahir)->format('d M Y') }} ( {{ str_replace("yang lalu","",Carbon::parse(auth()->user()->tanggal_lahir)->diffForHumans()) }})</p>                  
-                <p class="text-muted mb-0">{{ auth()->user()->no_hp }}</p>                 
-              </div>
-            @else
-              <img src="{{ ($pasien->foto_profil == 'assets/img/avatars/user.png')? asset($pasien->foto_profil) : asset('storage/'.$pasien->foto_profil) }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
-              <div class="button-wrapper">
-                <h5>{{ $pasien->nama }}</h5>
-                <p class="text-muted mb-0">{{ ($pasien->jenis_kelamin == 1)? 'Laki laki' : 'Perempuan' }}</p>                  
-                <p class="text-muted mb-0">{{ Carbon::parse($pasien->tanggal_lahir)->format('d M Y') }} ( {{ str_replace("yang lalu","",Carbon::parse($pasien->tanggal_lahir)->diffForHumans()) }})</p>                  
-                <p class="text-muted mb-0">{{ $pasien->no_hp }}</p>                  
-              </div>
-            @endif
+          <div class="col-lg-4 col-md-6">
+            <div class="d-flex align-items-start align-items-sm-center gap-4">
+              @if (auth()->user()->hasRole('pasien'))  
+                <img src="{{ (auth()->user()->foto_profil == 'assets/img/avatars/user.png')? asset(auth()->user()->foto_profil) : asset('storage/'.auth()->user()->foto_profil) }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
+                <div class="button-wrapper">
+                  <h5>{{ auth()->user()->nama }}</h5>
+                  <p class="text-muted mb-0">{{ (auth()->user()->jenis_kelamin == 1)? 'Laki laki' : 'Perempuan' }}</p>                  
+                  <p class="text-muted mb-0">{{ Carbon::parse(auth()->user()->tanggal_lahir)->format('d M Y') }} ( {{ str_replace("yang lalu","",Carbon::parse(auth()->user()->tanggal_lahir)->diffForHumans()) }})</p>                  
+                  <p class="text-muted mb-0">{{ auth()->user()->no_hp }}</p>                 
+                </div>
+              @else
+                <img src="{{ ($pasien->foto_profil == 'assets/img/avatars/user.png')? asset($pasien->foto_profil) : asset('storage/'.$pasien->foto_profil) }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
+                <div class="button-wrapper">
+                  <h5>{{ $pasien->nama }}</h5>
+                  <p class="text-muted mb-0">{{ ($pasien->jenis_kelamin == 1)? 'Laki laki' : 'Perempuan' }}</p>                  
+                  <p class="text-muted mb-0">{{ Carbon::parse($pasien->tanggal_lahir)->format('d M Y') }} ( {{ str_replace("yang lalu","",Carbon::parse($pasien->tanggal_lahir)->diffForHumans()) }})</p>                  
+                  <p class="text-muted mb-0">{{ $pasien->no_hp }}</p>                  
+                </div>
+              @endif
+            </div>
+            <button class='btn btn-primary' onclick="ktp_pasien()">Data KTP</button>
+            <button class='btn btn-primary'>Data Asuransi</button>
           </div>
 
           <div class="col-lg-8 col-md-6 mt-3" style='border-left: 1px solid #d9dee3;'>
@@ -265,6 +277,138 @@
   </div>
 </div>
 
+{{-- modal ktp pasien --}}
+<div class="modal" id='modal_ktp_pasien'>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">KTP Pasien</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table>
+
+          <tr>
+            <td>NIK</td>
+            <td style='padding:0px 20px;'>:</td>
+            <td>{{ $ktp_pasien->nik }}</td>
+          </tr>
+
+          <tr>
+            <td>Nama Lengkap</td>
+            <td style='padding:0px 20px;'>:</td>
+            <td>{{ $ktp_pasien->nama }}</td>
+          </tr>
+
+          <tr>
+            <td>Tempat Lahir</td>
+            <td style='padding:0px 20px;'>:</td>
+            <td>{{ $ktp_pasien->tempat_lahir }}</td>
+          </tr>
+
+          <tr>
+            <td>Tanggal Lahir</td>
+            <td style='padding:0px 20px;'>:</td>
+            <td>{{ Carbon::parse($ktp_pasien->tanggal_lahir)->translatedFormat('d F Y') }}</td>
+          </tr>
+
+          <tr>
+            <td>Jenis Kelamin</td>
+            <td style='padding:0px 20px;'>:</td>
+            <td>
+              @if($ktp_pasien->jenis_kelamin == 1)
+                Laki Laki
+              @elseif($ktp_pasien->jenis_kelamin == 2)
+                Perempuan
+              @endif
+            </td>
+          </tr>
+
+          <tr>
+            <td>Agama</td>
+            <td style='padding:0px 20px;'>:</td>
+            <td>
+              @if($ktp_pasien->agama == 1)
+                Islam
+              @elseif($ktp_pasien->agama == 2)
+                Kristen
+              @elseif($ktp_pasien->agama == 3)
+                Katolik
+              @elseif($ktp_pasien->agama == 4)
+                Buddha
+              @elseif($ktp_pasien->agama == 5)
+                Hindu
+              @elseif($ktp_pasien->agama == 6)
+                Kong Hu Cu
+              @endif
+            </td>
+          </tr>
+
+          <tr>
+            <td>Status Perkawinan</td>
+            <td style='padding:0px 20px;'>:</td>
+            <td>
+              @if($ktp_pasien->status_perkawinan == 1)
+                Belum Kawin
+              @elseif($ktp_pasien->status_perkawinan == 2)
+                Kawin
+              @elseif($ktp_pasien->status_perkawinan == 3)
+                Cerai Hidup
+              @elseif($ktp_pasien->status_perkawinan == 4)
+                Cerai Mati
+              @endif
+            </td>
+          </tr>
+
+          <tr>
+            <td>Golongan Darah</td>
+            <td style='padding:0px 20px;'>:</td>
+            <td>
+              @if($ktp_pasien->agama == 0)
+                Tidak Tahu
+              @elseif($ktp_pasien->agama == 1)
+                A
+              @elseif($ktp_pasien->agama == 2)
+                B
+              @elseif($ktp_pasien->agama == 3)
+                AB
+              @elseif($ktp_pasien->agama == 4)
+                O
+              @endif
+            </td>
+          </tr>
+
+          <tr>
+            <td>Alamat</td>
+            <td style='padding:0px 20px;'>:</td>
+            <td>{{ $ktp_pasien->alamat }}</td>
+          </tr>
+
+          <tr>
+            <td>Pekerjaan</td>
+            <td style='padding:0px 20px;'>:</td>
+            <td>{{ $ktp_pasien->pekerjaan }}</td>
+          </tr>
+
+          <tr>
+            <td>Kewarganegaraan</td>
+            <td style='padding:0px 20px;'>:</td>
+            <td>
+              @if($ktp_pasien->kewarganegaraan == 1)
+                Warga Negara Indonesia
+              @elseif($ktp_pasien->kewarganegaraan == 2)
+                Warga Negara Asing
+              @endif
+            </td>
+          </tr>
+
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <script>
   function filter(){
     $('#modal_filter').modal('show');
@@ -273,6 +417,10 @@
   function hapus(id){
     $('#form_hapus').attr('action','/rekam_medis/'+id);
     $('#modal_hapus').modal('show');
+  }
+
+  function ktp_pasien(){
+    $('#modal_ktp_pasien').modal('show');
   }
 
   function anamnesa_baca_selengkapnya(id){

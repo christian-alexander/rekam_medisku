@@ -92,8 +92,8 @@
         <div class="form-group col-md-6">
           <label class='form-label'> Kewarganegaraan*</label>
           <select name="kewarganegaraan" class='form-control' required>
-            <option value="1" {{ ($ktp_pasien->kewarganegaraan == 1)? 'selected' : '' }}>WNI</option>
-            <option value="2" {{ ($ktp_pasien->kewarganegaraan == 2)? 'selected' : '' }}>NON WNI</option>
+            <option value="1" {{ ($ktp_pasien->kewarganegaraan == 1)? 'selected' : '' }}>Warga Negara Indonesia</option>
+            <option value="2" {{ ($ktp_pasien->kewarganegaraan == 2)? 'selected' : '' }}>Warga Negara Asing</option>
           </select>
         </div>
 
