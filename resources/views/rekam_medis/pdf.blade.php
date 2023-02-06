@@ -77,7 +77,7 @@
     <tbody>
       @if (count($rekam_medises) == 0)
         <tr>
-          <td colspan="{{ ($tipe_rekam_medis == "personal")? '3' : '4' }}">Belum ada data</td>
+          <td colspan="{{ ($tipe_rekam_medis == "personal")? '4' : '5' }}">Belum ada data</td>
         </tr>
       @else
         @foreach ($rekam_medises as $rekam_medis)          
