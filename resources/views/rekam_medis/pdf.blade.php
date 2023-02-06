@@ -86,9 +86,9 @@
             @if ($tipe_rekam_medis == "tenaga_kesehatan")
               <td>{{ $rekam_medis->tenaga_kesehatan->nama }}</td>
             @endif
-            <td style="text-align:justify;">{{ $rekam_medis->anamnesa }}</td>
-            <td style="text-align:justify;">{{ $rekam_medis->diagnosis }}</td>
-            <td style="text-align:justify;">{{ $rekam_medis->terapi }}</td>
+            <td style="text-align:justify;">{!! $rekam_medis->anamnesa !!}</td>
+            <td style="text-align:justify;">{!! $rekam_medis->diagnosis !!}</td>
+            <td style="text-align:justify;">{!! $rekam_medis->terapi !!}</td>
           </tr>
         @endforeach
       @endif
