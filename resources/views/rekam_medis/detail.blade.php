@@ -42,6 +42,28 @@
         </div>
       </div>
 
+      <div class="mb-3">    
+        <label class='form-label'> Daftar Lampiran</label>   
+        <div style='margin-bottom:30px;'>                           
+          @if (count($lampiran_rekam_medises) > 0)
+            <ul style='padding-left:0;'>
+              @foreach ($lampiran_rekam_medises as $lampiran_rekam_medis)
+                <ol style='list-style:none;padding-left:0;'>
+                  <span>
+                    <a href="/storage/{{ $lampiran_rekam_medis->file_path }}" target="_blank">{{ $lampiran_rekam_medis->original_name }}</a>
+                    <button style='background-color:rgba(0,0,0,0);border: 0px solid black;color:inherit;' onclick="konfirm_hapus_lampiran_rekam_medis('{{ $lampiran_rekam_medis->id }}')"> 
+                      <i class='fa fa-trash'></i>
+                    </button>
+                  </span>
+                </ol>
+              @endforeach
+            </ul>
+          @else 
+            <label class='form-label help-block' > Belum ada lampiran ditambahkan  </label>
+          @endif
+        </div>  
+      </div>
+      
     </div>
   </div>
 </div>
