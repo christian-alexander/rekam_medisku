@@ -10,7 +10,7 @@
     <div class="navbar-nav align-items-center">
       <div class="nav-item d-flex align-items-center">
         <i class="fs-4 lh-0"></i>
-        Hai, {{ auth()->user()->nama }} bro
+        Hai, {{ auth()->user()->nama }}
       </div>
     </div>
     <!-- /Search -->

@@ -9,7 +9,7 @@
         <i class='fa fa-arrow-left pe-3'></i>
       </a>
 
-      Detail Rekam Medis {{ ($tipe_rekam_medis == "tenaga_kesehatan")? 'dari Tenaga Kesehatan' : 'Personal' }} 
+      Detail Rekam Medis 
     </h5>
     <hr class="my-0">
     <div class="card-body pb-2">
