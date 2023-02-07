@@ -134,7 +134,8 @@ class DataSampleSeeder extends Seeder
             ]);
             // hubungan dgn dokter
             $exc = [];
-            for($i = 0 ; $i < 3 ; $i++){
+            $i = 1;
+            while(TRUE){
                 $rand_id = rand(2,6);
                 if( ! in_array($rand_id,$exc) ){
                     Hubungan::create([
@@ -154,11 +155,16 @@ class DataSampleSeeder extends Seeder
                         'diagnosis' => $rekam_medis[1],
                         'terapi' => $rekam_medis[2],
                     ]);
+                    $i++;
+                    if($i > 3){
+                        break;
+                    }
                 }
             }
             // hubungan dgn pengobat trad
             $exc = [];
-            for($i = 0 ; $i < 3 ; $i++){
+            $i = 1;
+            while(TRUE){
                 $rand_id = rand(7,11);
                 if( ! in_array($rand_id,$exc) ){
                     Hubungan::create([
@@ -177,7 +183,10 @@ class DataSampleSeeder extends Seeder
                         'diagnosis' => $rekam_medis[1],
                         'terapi' => $rekam_medis[2],
                     ]);
-        
+                    $i++;
+                    if($i > 3){
+                        break;
+                    }
                 }
             }
             // rekam medis dukun
